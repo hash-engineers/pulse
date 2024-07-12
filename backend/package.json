@@ -13,6 +13,9 @@
   ],
   "author": "Hash Enginners",
   "license": "ISC",
+  "lint-staged": {
+    "src/**/*.ts": "yarn lint-prettier"
+  },
   "dependencies": {
     "@prisma/client": "^5.16.2",
     "@types/bcrypt": "^5.0.2",
