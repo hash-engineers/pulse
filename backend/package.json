@@ -1,0 +1,16 @@
+{
+  "name": "pulse-backend",
+  "version": "1.0.0",
+  "description": "Pulse backend server.",
+  "main": "src/index.ts",
+  "scripts": {},
+  "keywords": [
+    "Pulse",
+    "Website",
+    "Active",
+    "Uptime",
+    "Downtime"
+  ],
+  "author": "Hash Enginners",
+  "license": "ISC"
+}
