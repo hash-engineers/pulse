@@ -1,6 +1,6 @@
 import app from './app';
-import { Server } from 'http';
 import env from './env';
+import { Server } from 'http';
 
 let server: Server;
 
