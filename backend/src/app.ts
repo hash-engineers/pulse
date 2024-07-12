@@ -1,0 +1,31 @@
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import express, { Application, NextFunction, Request, Response } from 'express';
+
+const app: Application = express();
+
+/*================ MIDDLEWARES ================*/
+app.use(cors());
+
+/*================ PARSERS ================*/
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/*================ TEST ROUTE ================*/
+app.get('/test', (_: Request, res: Response) => {
+  res.json('Pulse Server On Fire 🔥 💧 🔥');
+});
+
+/*================ HANDLE NOT FOUND ================*/
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    success: false,
+    message: 'not found!',
+    errorMessages: [{ path: req.originalUrl, message: 'api not found!' }],
+  });
+
+  next();
+});
+
+export default app;
