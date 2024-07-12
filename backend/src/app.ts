@@ -1,6 +1,7 @@
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import express, { Application, NextFunction, Request, Response } from 'express';
+import globalErrorHandler from './app/middlewares/global-error-handler';
 
 const app: Application = express();
 
@@ -11,6 +12,9 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+/*================ GLOBAL ERROR HANDLER ================*/
+app.use(globalErrorHandler);
 
 /*================ TEST ROUTE ================*/
 app.get('/test', (_: Request, res: Response) => {
