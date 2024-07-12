@@ -5,6 +5,7 @@ import { expand } from 'dotenv-expand';
 const EnvSchema = z.object({
   NODE_ENV: z.string().default('development'),
   PORT: z.coerce.number().default(5000),
+  BCRYPT_SALT_ROUND: z.coerce.number(),
 });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;
