@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Kanit as Font } from 'next/font/google';
@@ -18,7 +19,14 @@ type Props = Readonly<{ children: React.ReactNode }>;
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body
+        className={cn(
+          'min-h-screen bg-background antialiased max-w-[1444px] font-sans mx-auto container',
+          font.variable
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
