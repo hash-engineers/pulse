@@ -19,7 +19,7 @@
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 347, 77%, 50%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 262.1 83.3% 57.8%;
@@ -42,7 +42,7 @@
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 210 20% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 347, 77%, 50%;
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
@@ -56,4 +56,37 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ================ MY STYLES ================ */
+h1 {
+  @apply scroll-m-20 text-4xl font-medium;
+}
+
+h2 {
+  @apply scroll-m-20 text-3xl font-medium;
+}
+
+h3 {
+  @apply scroll-m-20 text-2xl font-medium;
+}
+
+h4 {
+  @apply scroll-m-20 text-xl font-medium;
+}
+
+h5 {
+  @apply scroll-m-20 text-lg font-medium;
+}
+
+h6 {
+  @apply scroll-m-20 text-sm font-medium;
+}
+
+p {
+  @apply leading-7 [&:not(:first-child)]:mt-4;
+}
+
+small {
+  @apply text-sm font-medium leading-none;
 }
