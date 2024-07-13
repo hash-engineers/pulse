@@ -2,6 +2,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Kanit as Font } from 'next/font/google';
+import { Navbar } from '@/components/layout/navbar';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const font = Font({
@@ -32,7 +33,11 @@ export default function RootLayout({ children }: Props) {
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          {children}
+          <header>
+            <Navbar />
+          </header>
+          <main>{children}</main>
+          <footer>Footer</footer>
         </ThemeProvider>
       </body>
     </html>

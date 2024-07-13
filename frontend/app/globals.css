@@ -88,5 +88,5 @@ p {
 }
 
 small {
-  @apply text-sm font-medium leading-none;
+  @apply text-xs font-medium leading-none;
 }
