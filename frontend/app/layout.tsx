@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Kanit as Font } from 'next/font/google';
 import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const font = Font({
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: Props) {
             <Navbar />
           </header>
           <main>{children}</main>
-          <footer>Footer</footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

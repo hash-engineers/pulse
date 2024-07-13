@@ -31,7 +31,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 export function AuthOrUser() {
-  const user = false;
+  const user = true;
 
   return (
     <div>
