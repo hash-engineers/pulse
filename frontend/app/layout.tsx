@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
 import './globals.css';
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Kanit as Font } from 'next/font/google';
 

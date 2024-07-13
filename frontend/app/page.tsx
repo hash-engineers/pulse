@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>Home, page, new and old time</div>;
+  return <div className="text-primary">Home, page, new and old time</div>;
 }
