@@ -2,7 +2,7 @@ import { UptimeBlinking } from '@/components/uptime-blinking';
 
 export function Status() {
   return (
-    <div className="flex items-center justify-start gap-x-2 p-2">
+    <div className="flex items-center justify-start gap-x-2 p-2 pl-0">
       <UptimeBlinking />
 
       <div>

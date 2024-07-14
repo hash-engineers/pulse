@@ -1,4 +1,4 @@
-import { FooterItem, FooterSocialIcon } from '@/types/footer';
+import { FooterItem, FooterSocialIcon } from '@/types/layout';
 
 const SOLUTIONS_ITEMS: FooterItem[] = [
   { label: 'Monitoring', href: '/monitoring' },

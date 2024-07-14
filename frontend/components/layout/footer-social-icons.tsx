@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FooterSocialIcon } from '@/types/footer';
+import { FooterSocialIcon } from '@/types/layout';
 import { FOOTER_SOCIAL_ICONS } from '@/lib/footer';
 
 export function FooterSocialIcons() {

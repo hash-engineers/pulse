@@ -1,5 +1,4 @@
-import { SidebarItem } from '@/types/sidebar';
-
+import { SidebarItem } from '@/types/layout';
 import {
   Globe,
   SquareActivity,

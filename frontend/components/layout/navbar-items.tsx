@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { NavbarItem } from '@/types/layout';
 import { NAVBAR_ITEMS } from '@/lib/navbar';
 import { usePathname } from 'next/navigation';
 
@@ -17,7 +18,7 @@ export function NavbarItems({ className, linkClassName }: Props) {
         className
       )}
     >
-      {NAVBAR_ITEMS.map(({ label, href }) => (
+      {NAVBAR_ITEMS.map(({ label, href }: NavbarItem) => (
         <Link
           key={label}
           href={href}

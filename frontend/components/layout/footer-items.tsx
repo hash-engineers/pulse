@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FooterItem } from '@/types/footer';
+import { FooterItem } from '@/types/layout';
 
 type Props = { heading: string; items: FooterItem[] };
 

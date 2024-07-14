@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { SidebarItem } from '@/types/sidebar';
+import { SidebarItem } from '@/types/layout';
 import { SIDEBAR_ITEMS } from '@/lib/sidebar';
 import { usePathname } from 'next/navigation';
 
