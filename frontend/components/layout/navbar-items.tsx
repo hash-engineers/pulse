@@ -5,11 +5,18 @@ import { cn } from '@/lib/utils';
 import { NAVBAR_ITEMS } from '@/lib/navbar';
 import { usePathname } from 'next/navigation';
 
-export function NavbarItems() {
+type Props = { className?: string; linkClassName?: string };
+
+export function NavbarItems({ className, linkClassName }: Props) {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center justify-center gap-x-4 text-muted-foreground h-full">
+    <div
+      className={cn(
+        'items-center justify-center gap-x-4 text-muted-foreground',
+        className
+      )}
+    >
       {NAVBAR_ITEMS.map(({ label, href }) => (
         <Link
           key={label}
@@ -18,7 +25,8 @@ export function NavbarItems() {
             'hover:text-primary-foreground ease-in-out transition duration-300 py-2',
             {
               'text-primary-foreground': pathname.includes(href),
-            }
+            },
+            linkClassName
           )}
         >
           {label}

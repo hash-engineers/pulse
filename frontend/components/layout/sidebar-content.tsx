@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import { SidebarItem } from '@/types/sidebar';
 import { SIDEBAR_ITEMS } from '@/lib/sidebar';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
 
 export function SidebarContent() {
   const pathname = usePathname();
