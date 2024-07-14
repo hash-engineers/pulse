@@ -1,3 +1,9 @@
+import { Status } from './status';
+
 export default function Monitors() {
-  return <div>Monitors</div>;
+  return (
+    <div>
+      <Status />
+    </div>
+  );
 }
