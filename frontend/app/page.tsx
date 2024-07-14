@@ -1,3 +1,5 @@
-export default function Home() {
-  return <div className="text-primary">Home, page, new and old time</div>;
+import { redirect } from 'next/navigation';
+
+export default function RootHome() {
+  return redirect('/home');
 }

@@ -2,8 +2,6 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Kanit as Font } from 'next/font/google';
-import { Navbar } from '@/components/layout/navbar';
-import { Footer } from '@/components/layout/footer';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const font = Font({
@@ -24,7 +22,7 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background antialiased max-w-[1444px] font-sans mx-auto container',
+          'min-h-screen bg-background antialiased max-w-[1444px] font-sans mx-auto container overflow-x-hidden overflow-y-scroll',
           font.variable
         )}
       >
@@ -34,11 +32,7 @@ export default function RootLayout({ children }: Props) {
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <header>
-            <Navbar />
-          </header>
-          <main>{children}</main>
-          <Footer />
+          {children}
         </ThemeProvider>
       </body>
     </html>

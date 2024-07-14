@@ -1,13 +1,13 @@
+import Link from 'next/link';
 import { Branding } from './branding';
 import { FooterItems } from './footer-items';
+import { FooterSocialIcons } from './footer-social-icons';
 import {
   COMMUNITY_ITEMS,
   COMPANY_ITEMS,
   RESOURCES_ITEMS,
   SOLUTIONS_ITEMS,
 } from '@/lib/footer';
-import { FooterSocialIcons } from './footer-social-icons';
-import Link from 'next/link';
 
 export function Footer() {
   return (
@@ -56,8 +56,6 @@ export function Footer() {
           </Link>
         </div>
       </div>
-
-      <div className="h-[1px] bg-muted mt-8" />
     </footer>
   );
 }
