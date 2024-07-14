@@ -3,7 +3,7 @@ import { Pause, Send, Settings, ShieldAlert } from 'lucide-react';
 
 export function Actions() {
   return (
-    <div className="text-muted-foreground flex items-center justify-start gap-x-2">
+    <div className="text-muted-foreground flex items-center justify-start gap-2 flex-wrap">
       <Button
         variant="ghost"
         size="sm"

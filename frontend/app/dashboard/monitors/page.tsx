@@ -1,6 +1,7 @@
 import { Status } from './_status';
 import { Actions } from './_actions';
 import { KeyInfos } from './_key-infos';
+import { DataTable } from './_data-table';
 
 export default function Monitors() {
   return (
@@ -8,6 +9,7 @@ export default function Monitors() {
       <Status />
       <Actions />
       <KeyInfos />
+      <DataTable />
     </div>
   );
 }
