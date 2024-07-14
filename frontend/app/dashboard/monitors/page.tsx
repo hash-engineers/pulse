@@ -1,4 +1,4 @@
-import { Status } from './status';
+import { Status } from './_status';
 
 export default function Monitors() {
   return (

@@ -84,7 +84,7 @@ h6 {
 }
 
 p {
-  @apply leading-7 [&:not(:first-child)]:mt-2;
+  @apply leading-4 [&:not(:first-child)]:mt-2;
 }
 
 small {
