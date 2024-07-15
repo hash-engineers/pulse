@@ -1,16 +1,16 @@
 'use client';
 
-import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { Div } from '@/lib/motion';
+import { forwardRef, InputHTMLAttributes, useState } from 'react';
 import { useMotionTemplate, useMotionValue, motion } from 'framer-motion';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     const radius = 100;
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState<boolean>(false);
 
     let mouseX = useMotionValue(0);
     let mouseY = useMotionValue(0);
@@ -21,8 +21,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       mouseX.set(clientX - left);
       mouseY.set(clientY - top);
     }
+
     return (
-      <motion.div
+      <Div
         style={{
           background: useMotionTemplate`
         radial-gradient(
@@ -40,8 +41,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           className={cn(
-            `flex h-10 w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm  file:border-0 file:bg-transparent 
-          file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600 
+            `flex h-10 w-full border-none bg-gray-50 dark:bg-zinc-800 text-muted-foreground shadow-input rounded-md px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600 
           focus-visible:outline-none focus-visible:ring-[2px]  focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600
            disabled:cursor-not-allowed disabled:opacity-50
            dark:shadow-[0px_0px_1px_1px_var(--neutral-700)]
@@ -52,7 +52,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-      </motion.div>
+      </Div>
     );
   }
 );
