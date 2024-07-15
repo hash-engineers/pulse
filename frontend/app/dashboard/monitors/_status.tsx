@@ -1,4 +1,4 @@
-import { UptimeBlinking } from '@/components/uptime-blinking';
+import { UptimeBlinking } from '@/components/blinks/uptime-blinking';
 
 export function Status() {
   return (
