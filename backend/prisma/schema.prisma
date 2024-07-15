@@ -7,8 +7,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Test {
-  id String @id @default(uuid())
+enum ERole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
 
-  name String?
+model User {
+  id String @id @default(cuid())
+
+  name     String
+  email    String
+  role     ERole  @default(USER)
+  password String
+
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Organization {
+  id String @id @default(cuid())
+
+  name    String
+  members User[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Monitor   Monitor[]
+
+  @@map("organizations")
+}
+
+model Monitor {
+  id String @id @default(cuid())
+
+  status Int
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  incidents Incident[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("monitors")
+}
+
+model Incident {
+  id String @id @default(cuid())
+
+  status Int
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  resolvedAt DateTime
+  Monitor    Monitor? @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+  monitorId  String?
+
+  @@map("incidents")
 }

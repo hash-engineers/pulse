@@ -84,9 +84,9 @@ h6 {
 }
 
 p {
-  @apply leading-7 [&:not(:first-child)]:mt-4;
+  @apply leading-4 [&:not(:first-child)]:mt-2;
 }
 
 small {
-  @apply text-sm font-medium leading-none;
+  @apply text-xs font-medium leading-none;
 }

@@ -22,7 +22,7 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background antialiased max-w-[1444px] font-sans mx-auto container',
+          'min-h-screen bg-background antialiased max-w-[1444px] font-sans mx-auto container overflow-x-hidden overflow-y-scroll',
           font.variable
         )}
       >
