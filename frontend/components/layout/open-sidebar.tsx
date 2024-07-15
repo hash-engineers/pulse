@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
 export default function OpenSidebar() {
   return (
     <Sheet>
-      <SheetTrigger className="lg:hidden flex items-center gap-x-2 text-muted-foreground">
+      <SheetTrigger className="lg:hidden flex items-center gap-x-2 text-muted-foreground mb-4">
         <Menu className="size-4" /> <span>Menu</span>
       </SheetTrigger>
       <SheetContent side="left" className="w-full sm:w-[300px] lg:hidden">

@@ -5,7 +5,7 @@ import { DataTable } from './_data-table';
 
 export default function Monitor() {
   return (
-    <div className="p-2 space-y-4">
+    <div className="space-y-4">
       <Status />
       <Actions />
       <KeyInfos />

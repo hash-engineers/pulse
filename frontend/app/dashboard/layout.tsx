@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }: Props) {
     <div className="relative h-screen">
       <Sidebar />
 
-      <div className="border absolute left-0 lg:left-[210px] top-0 w-full lg:w-[calc(100vw-210px)] h-full">
+      <div className="border absolute left-0 lg:left-[210px] top-0 w-full lg:w-[calc(100vw-210px)] h-full pl-4">
         <OpenSidebar />
         {children}
       </div>
