@@ -10,6 +10,13 @@ const EnvSchema = z.object({
   JWT_EXPIRES_IN: z.string(),
   JWT_REFRESH_SECRET: z.string(),
   JWT_REFRESH_EXPIRES_IN: z.string(),
+  USER_EMAIL: z.string(),
+  USER_PASS: z.string(),
+  BASE_URL: z.string(),
+  DEFAULT_APP_REDIRECT_URL: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  REDIS_URI: z.string(),
 });
 
 export type EnvSchema = z.infer<typeof EnvSchema>;

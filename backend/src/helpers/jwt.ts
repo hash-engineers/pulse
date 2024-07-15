@@ -1,5 +1,6 @@
 import env from '../env';
 import { JwtPayload, Secret, sign, verify } from 'jsonwebtoken';
+import ApiError from '../errors/api-error';
 
 const createToken = (
   payload: Record<string, unknown>,
@@ -17,7 +18,11 @@ const createToken = (
 };
 
 const verifyToken = (token: string, secret: Secret): JwtPayload => {
-  return verify(token, secret) as JwtPayload;
+  try {
+    return verify(token, secret) as JwtPayload;
+  } catch (error) {
+    throw new ApiError(403, 'Invalid token');
+  }
 };
 
 export { createToken, verifyToken };

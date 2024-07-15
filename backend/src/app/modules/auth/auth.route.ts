@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import { AuthController } from './auth.controller';
-import { AuthValidation } from './auth.validation';
-import validateZodRequest from '../../middlewares/validate-zod-request';
 
 const router = Router();
 
-router.post(
-  '/sign-up',
-  validateZodRequest(AuthValidation.signUp),
-  AuthController.signUp,
-);
+router.post('/sign-up', AuthController.signUp);
+
+router.post('/sign-in', AuthController.signUp);
+
+router.get('/google', AuthController.google);
+
+router.get('/google/callback', AuthController.googleCallback);
 
 export const AuthRoutes = router;

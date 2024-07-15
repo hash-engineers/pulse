@@ -7,8 +7,8 @@ class QueryBuilder<T> {
   private model: any;
   private searchQuery: Record<string, unknown>;
   private filters: any;
-  private sortBy: string;
-  private sortOrder: Prisma.SortOrder;
+  private sortBy!: string;
+  private sortOrder!: Prisma.SortOrder;
   private page: number;
   private limit: number;
   private selectedFields: any;
