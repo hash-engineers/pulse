@@ -5,8 +5,8 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { Div } from '@/lib/motion';
 import { products } from '@/lib/home';
-import { useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { FlipWords } from '@/components/ui/flip-words';
+import { useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 
 type ProductCardProps = {
   product: {
@@ -22,13 +22,13 @@ const words2 = ['uptime', 'downtime', 'relax'];
 
 function Header() {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:pb-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-4xl md:text-7xl font-bold dark:text-white">
+    <div className="max-w-7xl relative mx-auto py-20 md:pb-20 px-4 w-full left-0 top-0">
+      <h1 className="md:text-7xl">
         <FlipWords words={words1} />{' '}
         <FlipWords words={words2} spanClassName="text-primary" /> <br />{' '}
         &quot;Never miss a beat&quot;
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p className="text-balance text-2xl">
         Ensure your website is always online with real-time monitoring and
         instant alerts.
       </p>
