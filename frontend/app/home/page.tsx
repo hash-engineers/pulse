@@ -1,3 +1,9 @@
+import { Hero } from './_hero';
+
 export default function Home() {
-  return <div>Home 2</div>;
+  return (
+    <div>
+      <Hero />
+    </div>
+  );
 }
