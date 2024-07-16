@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ReactNode } from 'react';
 import { Input } from '../ui/input';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from '@/enums/form';
@@ -14,39 +14,49 @@ type CustomFormInputProps = {
   fieldType: FormFieldType;
   control: Control<any>;
   name: string;
+  type?:
+    | 'button'
+    | 'checkbox'
+    | 'color'
+    | 'date'
+    | 'datetime-local'
+    | 'email'
+    | 'file'
+    | 'hidden'
+    | 'image'
+    | 'month'
+    | 'number'
+    | 'password'
+    | 'radio'
+    | 'reset'
+    | 'range'
+    | 'search'
+    | 'submit'
+    | 'tel'
+    | 'text'
+    | 'text'
+    | 'url'
+    | 'week';
   label?: string;
   placeholder?: string;
-  iconSrc?: string;
-  iconAlt?: string;
   disabled?: boolean;
-  dateFormat?: string;
-  showTimeSelect?: boolean;
-  children?: React.ReactNode;
-  renderSkeleton?: (field: any) => React.ReactNode;
+  children?: ReactNode;
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, iconSrc, iconAlt, placeholder },
+  props: { fieldType, placeholder, type },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
         <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          {iconSrc && (
-            <Image
-              src={iconSrc}
-              alt={iconAlt ?? 'icon'}
-              height={24}
-              width={24}
-              className="mt-2"
-            />
-          )}
           <FormControl>
             <Input
               placeholder={placeholder}
+              type={type}
               {...field}
               className="shad-input border-0"
             />
@@ -59,7 +69,7 @@ function RenderField({
   }
 }
 
-export function CustomFormInput(props: CustomFormInputProps) {
+export function CustomFormField(props: CustomFormInputProps) {
   const { control, fieldType, name, label } = props;
 
   return (

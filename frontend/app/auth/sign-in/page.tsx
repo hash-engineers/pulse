@@ -3,18 +3,12 @@
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { formSchema } from '@/schemas/auth';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
+import { CustomFormField } from '@/components/form/custom-form-field';
+import { FormFieldType } from '@/enums/form';
+import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
+import { User } from 'lucide-react';
 
 export default function InputForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -28,40 +22,31 @@ export default function InputForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 flex-1">
+        <section className="mb-12 space-y-4">
+          <h1 className="header">Hi there 👋🏻</h1>
+          <p className="text-dark-700">Schedule your first appointment.</p>
+        </section>
+
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          type="email"
+          label="Email"
+          placeholder="example@gmail.com"
         />
-        <FormField
+
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
           control={form.control}
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          type="password"
+          label="Your Password"
+          placeholder="••••••••"
         />
-        <Button type="submit">Submit</Button>
+
+        <BottomGradientButton>Get Started</BottomGradientButton>
       </form>
     </Form>
   );
