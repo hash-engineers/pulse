@@ -63,7 +63,7 @@ const items = [
 
 export function Info() {
   return (
-    <BentoGrid className="max-w-4xl mx-auto">
+    <BentoGrid className="">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
