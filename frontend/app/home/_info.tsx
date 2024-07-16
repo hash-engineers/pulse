@@ -8,6 +8,7 @@ import {
   IconSignature,
   IconTableColumn,
 } from '@tabler/icons-react';
+import { World } from './_world';
 
 function Skeleton() {
   return (
@@ -38,7 +39,7 @@ const items = [
     title: 'The Power of Communication',
     description:
       'Understand the impact of effective communication in our lives.',
-    header: <Skeleton />,
+    header: <World />,
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
   {
