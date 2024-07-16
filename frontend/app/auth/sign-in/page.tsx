@@ -8,7 +8,6 @@ import { Form } from '@/components/ui/form';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { FormFieldType } from '@/enums/form';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
-import { User } from 'lucide-react';
 
 export default function InputForm() {
   const form = useForm<z.infer<typeof formSchema>>({

@@ -2,9 +2,9 @@
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/a-label';
-import { Input } from '@/components/ui/a-input';
 import { IconBrandGoogle } from '@tabler/icons-react';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
+import { Input } from '@/components/ui/input';
 
 type LabelInputContainerProps = {
   children: React.ReactNode;
