@@ -39,7 +39,7 @@ const items = [
     title: 'The Power of Communication',
     description:
       'Understand the impact of effective communication in our lives.',
-    header: <World />,
+    header: <Skeleton />,
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
   {
