@@ -33,7 +33,7 @@ export default function SignUp() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="my-8 space-y-2"
+            className="mt-8 space-y-2"
           >
             <CustomFormField
               fieldType={FormFieldType.INPUT}
