@@ -1,14 +1,9 @@
 import { ReactNode } from 'react';
+import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from '@/enums/form';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '../ui/form';
+import { FormControl, FormField, FormItem, FormMessage } from '../ui/form';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
@@ -41,6 +36,7 @@ type CustomFormInputProps = {
   placeholder?: string;
   disabled?: boolean;
   children?: ReactNode;
+  required?: boolean;
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
@@ -52,16 +48,9 @@ function RenderField({
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          <FormControl>
-            <Input
-              placeholder={placeholder}
-              type={type}
-              {...field}
-              className="shad-input border-0"
-            />
-          </FormControl>
-        </div>
+        <FormControl>
+          <Input placeholder={placeholder} type={type} {...field} />
+        </FormControl>
       );
 
     default:
@@ -70,21 +59,20 @@ function RenderField({
 }
 
 export function CustomFormField(props: CustomFormInputProps) {
-  const { control, fieldType, name, label } = props;
+  const { control, name, label, required } = props;
 
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex-1">
-          {fieldType !== FormFieldType.CHECKBOX && label && (
-            <FormLabel>{label}</FormLabel>
-          )}
-
+        <FormItem>
+          <Label htmlFor={name}>
+            {label}
+            {required && ' *'}
+          </Label>
           <RenderField field={field} props={props} />
-
-          <FormMessage className="shad-error" />
+          <FormMessage />
         </FormItem>
       )}
     />
