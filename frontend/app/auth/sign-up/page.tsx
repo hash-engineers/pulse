@@ -1,13 +1,14 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { FormEvent, ReactNode } from 'react';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/a-label';
 import { IconBrandGoogle } from '@tabler/icons-react';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
-import { Input } from '@/components/ui/input';
 
 type LabelInputContainerProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 
@@ -23,7 +24,7 @@ function LabelInputContainer({
 }
 
 export default function SignUp() {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     console.log('Form submitted');
