@@ -18,11 +18,11 @@ model User {
 
   name     String
   email    String
-  role     ERole  @default(USER)
+  role     ERole? @default(USER)
   password String
 
-  organizationId String?
-  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  companyName String
+  company     Company @relation(fields: [companyName], references: [name], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -30,28 +30,26 @@ model User {
   @@map("users")
 }
 
-model Organization {
-  id String @id @default(cuid())
+model Company {
+  name String @unique
 
-  name    String
-  members User[]
+  members  User[]
+  monitors Monitor[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Monitor   Monitor[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@map("organizations")
+  @@map("companies")
 }
 
 model Monitor {
-  id String @id @default(cuid())
-
-  status Int
-
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  url      String @unique
+  status   Int
+  downtime Float
 
   incidents Incident[]
+
+  company Company @relation(fields: [url], references: [name], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,11 +62,12 @@ model Incident {
 
   status Int
 
+  monitorId String
+  Monitor   Monitor @relation(fields: [monitorId], references: [url], onDelete: Cascade)
+
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   resolvedAt DateTime
-  Monitor    Monitor? @relation(fields: [monitorId], references: [id], onDelete: Cascade)
-  monitorId  String?
 
   @@map("incidents")
 }
