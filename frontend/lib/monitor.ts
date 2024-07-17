@@ -138,4 +138,6 @@ const whenToAlert = [
   "Host doesn't respond to ping",
 ];
 
-export { data, columns, monitors, whenToAlert };
+const checkBoxFields = ['Call', 'Send sms', 'Send e-mail', 'Push notification'];
+
+export { data, columns, monitors, whenToAlert, checkBoxFields };

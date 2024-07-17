@@ -9,7 +9,7 @@ import { signInFormSchema } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
-import { whenToAlert } from '@/lib/monitor';
+import { checkBoxFields, whenToAlert } from '@/lib/monitor';
 
 export function MainForm() {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -44,7 +44,6 @@ export function MainForm() {
               required
               placeholder="Ex. https://xyz.com"
             />
-
             <CustomFormField
               fieldType={FormFieldType.SELECT}
               control={form.control}
@@ -52,6 +51,13 @@ export function MainForm() {
               label="Alert us when"
               required
               whenToAlert={whenToAlert}
+            />
+            <CustomFormField
+              fieldType={FormFieldType.CHECKBOX}
+              control={form.control}
+              name="whatActionWillTaken"
+              label="When there's a new incident"
+              checkBoxFields={checkBoxFields}
             />
 
             <BottomGradientButton>Create</BottomGradientButton>

@@ -3,7 +3,13 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from '@/enums/form';
-import { FormControl, FormField, FormItem, FormMessage } from '../ui/form';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '../ui/form';
 import {
   Select,
   SelectContent,
@@ -11,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { Checkbox } from '../ui/checkbox';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
@@ -45,13 +52,14 @@ type CustomFormInputProps = {
   children?: ReactNode;
   required?: boolean;
   whenToAlert?: string[];
+  checkBoxFields?: string[];
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, placeholder, type, whenToAlert },
+  props: { fieldType, placeholder, type, whenToAlert, checkBoxFields },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -77,6 +85,27 @@ function RenderField({
             ))}
           </SelectContent>
         </Select>
+      );
+
+    case FormFieldType.CHECKBOX:
+      return (
+        <div className="flex items-center gap-4 justify-start flex-wrap">
+          {checkBoxFields &&
+            checkBoxFields.map(checkBoxField => (
+              <div key={checkBoxField} className="flex items-center gap-x-2">
+                <FormControl>
+                  <Checkbox
+                    name={checkBoxField}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel className="cursor-pointer text-muted-foreground checked:text-primary-foreground">
+                  {checkBoxField}
+                </FormLabel>
+              </div>
+            ))}
+        </div>
       );
 
     default:
