@@ -138,6 +138,12 @@ const whenToAlert = [
   "Host doesn't respond to ping",
 ];
 
-const checkBoxFields = ['Call', 'Send sms', 'Send e-mail', 'Push notification'];
+const whenDoesNotAcknowledge = [
+  'Do nothing',
+  'Immediately alert all other team members',
+  'Within 3 minutes, alert all other team members',
+  'Within 5 minutes, alert all other team members',
+  'Within 10 minutes, alert all other team members',
+];
 
-export { data, columns, monitors, whenToAlert, checkBoxFields };
+export { data, columns, monitors, whenToAlert, whenDoesNotAcknowledge };

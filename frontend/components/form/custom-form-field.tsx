@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import { Checkbox } from '../ui/checkbox';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from '@/enums/form';
 import {
@@ -17,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { Checkbox } from '../ui/checkbox';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
@@ -52,14 +52,13 @@ type CustomFormInputProps = {
   children?: ReactNode;
   required?: boolean;
   whenToAlert?: string[];
-  checkBoxFields?: string[];
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, placeholder, type, whenToAlert, checkBoxFields },
+  props: { fieldType, placeholder, type, whenToAlert, label },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -89,22 +88,13 @@ function RenderField({
 
     case FormFieldType.CHECKBOX:
       return (
-        <div className="flex items-center gap-4 justify-start flex-wrap">
-          {checkBoxFields &&
-            checkBoxFields.map(checkBoxField => (
-              <div key={checkBoxField} className="flex items-center gap-x-2">
-                <FormControl>
-                  <Checkbox
-                    name={checkBoxField}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel className="cursor-pointer text-muted-foreground checked:text-primary-foreground">
-                  {checkBoxField}
-                </FormLabel>
-              </div>
-            ))}
+        <div className="flex items-center gap-x-2">
+          <FormControl>
+            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+          </FormControl>
+          <FormLabel className="cursor-pointer text-muted-foreground checked:text-primary-foreground mt-1">
+            {label}
+          </FormLabel>
         </div>
       );
 
@@ -114,7 +104,7 @@ function RenderField({
 }
 
 export function CustomFormField(props: CustomFormInputProps) {
-  const { control, name, label, required } = props;
+  const { control, name, label, required, fieldType } = props;
 
   return (
     <FormField
@@ -122,10 +112,12 @@ export function CustomFormField(props: CustomFormInputProps) {
       name={name}
       render={({ field }) => (
         <FormItem>
-          <Label htmlFor={name}>
-            {label}
-            {required && ' *'}
-          </Label>
+          {fieldType !== FormFieldType.CHECKBOX && (
+            <Label htmlFor={name}>
+              {label}
+              {required && ' *'}
+            </Label>
+          )}
           <RenderField field={field} props={props} />
           <FormMessage />
         </FormItem>
