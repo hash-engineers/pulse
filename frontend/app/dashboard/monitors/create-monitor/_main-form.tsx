@@ -9,6 +9,7 @@ import { signInFormSchema } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
+import { whenToAlert } from '@/lib/monitor';
 
 export function MainForm() {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -37,60 +38,23 @@ export function MainForm() {
             <CustomFormField
               fieldType={FormFieldType.INPUT}
               control={form.control}
-              name="name"
-              type="text"
-              label="Your name"
+              name="url"
+              type="url"
+              label="URL to monitor"
               required
-              placeholder="Ex. Mehedi Hasan"
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="email"
-              type="email"
-              label="Email"
-              required
-              placeholder="Ex. example@gmail.com"
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="company"
-              type="text"
-              label="Company name"
-              required
-              placeholder="Xyz Inc."
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="size"
-              type="text"
-              label="Company size"
-              required
-              placeholder="Ex. 1 - 5"
-            />
-            <CustomFormField
-              fieldType={FormFieldType.INPUT}
-              control={form.control}
-              name="password"
-              type="password"
-              label="Your Password"
-              required
-              placeholder="••••••••"
+              placeholder="Ex. https://xyz.com"
             />
 
-            <BottomGradientButton>Sign Up &rarr;</BottomGradientButton>
+            <CustomFormField
+              fieldType={FormFieldType.SELECT}
+              control={form.control}
+              name="whenToAlert"
+              label="Alert us when"
+              required
+              whenToAlert={whenToAlert}
+            />
 
-            <p className="text-muted-foreground text-right">
-              Have an account!{' '}
-              <Link
-                href="/auth/sign-in"
-                className="transition duration-300 hover:underline ease-in-out hover:text-primary"
-              >
-                Sing In
-              </Link>
-            </p>
+            <BottomGradientButton>Create</BottomGradientButton>
           </form>
         </Form>
       </div>

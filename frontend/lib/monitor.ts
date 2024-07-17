@@ -130,4 +130,12 @@ const monitors: Props[] = [
   },
 ];
 
-export { data, columns, monitors };
+const whenToAlert = [
+  'URL becomes unavailable',
+  "URL doesn't contain keyword",
+  'URL contains a keyword',
+  'URL returns HTTP status other than',
+  "Host doesn't respond to ping",
+];
+
+export { data, columns, monitors, whenToAlert };

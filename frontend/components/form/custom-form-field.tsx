@@ -4,6 +4,13 @@ import { Input } from '../ui/input';
 import { Control } from 'react-hook-form';
 import { FormFieldType } from '@/enums/form';
 import { FormControl, FormField, FormItem, FormMessage } from '../ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
@@ -37,13 +44,14 @@ type CustomFormInputProps = {
   disabled?: boolean;
   children?: ReactNode;
   required?: boolean;
+  whenToAlert?: string[];
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, placeholder, type },
+  props: { fieldType, placeholder, type, whenToAlert },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -51,6 +59,24 @@ function RenderField({
         <FormControl>
           <Input placeholder={placeholder} type={type} {...field} />
         </FormControl>
+      );
+
+    case FormFieldType.SELECT:
+      return (
+        <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <FormControl>
+            <SelectTrigger>
+              <SelectValue placeholder="Select when to alert" />
+            </SelectTrigger>
+          </FormControl>
+          <SelectContent>
+            {whenToAlert?.map(item => (
+              <SelectItem key={item} value={item}>
+                {item}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       );
 
     default:
