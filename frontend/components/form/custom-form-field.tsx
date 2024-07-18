@@ -52,19 +52,25 @@ type CustomFormInputProps = {
   children?: ReactNode;
   required?: boolean;
   whenToAlert?: string[];
+  readOnly?: boolean;
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, placeholder, type, whenToAlert, label },
+  props: { fieldType, placeholder, type, whenToAlert, label, readOnly },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
       return (
         <FormControl>
-          <Input placeholder={placeholder} type={type} {...field} />
+          <Input
+            placeholder={placeholder}
+            type={type}
+            {...field}
+            readOnly={readOnly}
+          />
         </FormControl>
       );
 
