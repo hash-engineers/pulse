@@ -8,7 +8,7 @@ const createCompanySchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
     .email({ message: 'Provide the valid email' }),
-  company: z
+  companyName: z
     .string({ required_error: 'Company name is required' })
     .min(2, { message: 'Company name should be at least 2 charactor' }),
   size: z
