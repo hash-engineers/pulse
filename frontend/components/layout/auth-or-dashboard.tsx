@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
+import { LoginLink } from '@kinde-oss/kinde-auth-nextjs/components';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 type Props = { className?: string };
 
-export function AuthOrDashboard({ className }: Props) {
-  const user = true; // LATTER: IT WILL COME FROM DB
+export async function AuthOrDashboard({ className }: Props) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
 
   return (
     <div className={cn('hidden md:block', className)}>
@@ -14,7 +17,9 @@ export function AuthOrDashboard({ className }: Props) {
           <Link href="/dashboard/monitors">Dashboard</Link>
         </Button>
       ) : (
-        <Button size="sm">Sign In</Button>
+        <Button asChild size="sm">
+          <LoginLink>Sign In</LoginLink>
+        </Button>
       )}
     </div>
   );
