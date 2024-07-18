@@ -13,13 +13,25 @@ enum ERole {
   SUPER_ADMIN
 }
 
+enum ECompanySize {
+  JUST__ME
+  ONE__TO__FIVE
+  SIX__TO__TEN
+  ELEVEN__TO__TWENTY
+  TWENTY_ONE__TO__FIFTY
+  FIFTY_ONE__TO__HUNDRED
+  ONE_HUNDRED_ONE__TO__FIVE_HUNDRED
+  FIVE_HUNDRED_ONE__TO__ONE_THOUSAND
+  ONE_THOUSAND_ONE__TO__TWO_THOUSAND
+  TWO_THOUSAN_PLUS
+}
+
 model User {
   id String @id @default(cuid())
 
-  name     String
-  email    String
-  role     ERole? @default(USER)
-  password String
+  name  String
+  email String @unique
+  role  ERole? @default(USER)
 
   companyName String
   company     Company @relation(fields: [companyName], references: [name], onDelete: Cascade)
@@ -31,7 +43,8 @@ model User {
 }
 
 model Company {
-  name String @unique
+  name String       @unique
+  size ECompanySize
 
   members  User[]
   monitors Monitor[]

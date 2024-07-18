@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import { CompanyRoutes } from './modules/company/company.route';
 
 const router = Router();
 
-// [{ path: '/auth', route: AuthRoutes }].map(({ path, route }) =>
-//   router.use(path, route),
-// );
+[{ path: '/company', route: CompanyRoutes }].map(({ path, route }) =>
+  router.use(path, route),
+);
 
 export const routes = router;
