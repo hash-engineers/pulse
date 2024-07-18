@@ -1,6 +1,7 @@
 # FRONTEND
 /frontend/node_modules
 /frontend/.next
+/frontend/.env
 
 # BACKEND
 /backend/node_modules
