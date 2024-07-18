@@ -1,3 +1,16 @@
-import { CompanySize } from '@/types/dashboard';
+import { SelectItem } from '@/types/common';
 
-const companySized: CompanySize[] = [{ label: ' ', value: '' }];
+const companySize: SelectItem[] = [
+  { label: 'Just me', value: 'JUST__ME' },
+  { label: '1 - 5', value: 'ONE__TO__FIVE' },
+  { label: '6 - 10', value: 'SIX__TO__TEN' },
+  { label: '11 - 20', value: 'ELEVEN__TO__TWENTY' },
+  { label: '21 - 50', value: 'TWENTYONE__TO__FIFTY' },
+  { label: '51 - 100', value: 'FIFTYONE__TO__HUNDRED' },
+  { label: '101 - 500', value: 'ONE_HUNDRED_ONE__TO__FIVE_HUNDRED' },
+  { label: '501 - 1000', value: 'FIVE_HUNDRED_ONE__TO__THOUSAND' },
+  { label: '1001 - 2000', value: 'ONE_THOUSAND__TO__TWO_THOUSAND' },
+  { label: '2000+', value: 'TWO_THOUSAN_PLUS' },
+];
+
+export { companySize };

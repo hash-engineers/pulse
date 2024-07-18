@@ -16,12 +16,12 @@ export function MainForm() {
     resolver: zodResolver(createMonitorSchema),
     defaultValues: {
       url: '',
-      whenToAlert: whenToAlert[0],
+      whenToAlert: whenToAlert[0].label,
       call: false,
       sendSMS: false,
       sendEmail: true,
       pushNotification: false,
-      whenDoesNotAcknowledge: whenDoesNotAcknowledge[2],
+      whenDoesNotAcknowledge: whenDoesNotAcknowledge[2].label,
     },
   });
 
@@ -51,7 +51,8 @@ export function MainForm() {
             name="whenToAlert"
             label="Alert us when"
             required
-            whenToAlert={whenToAlert}
+            selectPlaceholder="Select when to alert"
+            items={whenToAlert}
           />
           <div>
             <Label>When there&apos;s a new inciden</Label>
@@ -88,7 +89,7 @@ export function MainForm() {
             name="whenDoesNotAcknowledge"
             label="If the on-call person doesn't acknowledge the incident"
             required
-            whenToAlert={whenDoesNotAcknowledge}
+            items={whenDoesNotAcknowledge}
           />
 
           <BottomGradientButton>Create</BottomGradientButton>

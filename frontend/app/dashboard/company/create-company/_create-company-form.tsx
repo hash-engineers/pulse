@@ -2,28 +2,28 @@
 
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { companySize } from '@/lib/company';
 import { Form } from '@/components/ui/form';
 import { FormFieldType } from '@/enums/form';
-import { signInFormSchema } from '@/schemas/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createCompanySchema } from '@/schemas/company';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
 type Props = { name?: string | null; email?: string | null };
 
 export function CreateCompanyForm({ name, email }: Props) {
-  const form = useForm<z.infer<typeof signInFormSchema>>({
-    resolver: zodResolver(signInFormSchema),
+  const form = useForm<z.infer<typeof createCompanySchema>>({
+    resolver: zodResolver(createCompanySchema),
     defaultValues: {
       name: name ?? '',
       email: email ?? '',
       company: '',
-      size: '',
-      password: '',
+      size: companySize[0].label,
     },
   });
 
-  function onSubmit(data: z.infer<typeof signInFormSchema>) {
+  function onSubmit(data: z.infer<typeof createCompanySchema>) {
     console.log(data);
   }
 
@@ -60,13 +60,13 @@ export function CreateCompanyForm({ name, email }: Props) {
           placeholder="Xyz Inc."
         />
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
+          fieldType={FormFieldType.SELECT}
           control={form.control}
           name="size"
-          type="text"
           label="Company size"
           required
-          placeholder="Ex. 1 - 5"
+          selectPlaceholder="Select the compnay size"
+          items={companySize}
         />
 
         <BottomGradientButton>Create</BottomGradientButton>

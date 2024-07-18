@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { SelectItem as SelectItemType } from '@/types/common';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
@@ -51,15 +52,24 @@ type CustomFormInputProps = {
   disabled?: boolean;
   children?: ReactNode;
   required?: boolean;
-  whenToAlert?: string[];
+  items?: SelectItemType[];
   readOnly?: boolean;
+  selectPlaceholder?: string;
 };
 
 type RenderFieldProps = { field: any; props: CustomFormInputProps };
 
 function RenderField({
   field,
-  props: { fieldType, placeholder, type, whenToAlert, label, readOnly },
+  props: {
+    fieldType,
+    placeholder,
+    type,
+    items,
+    label,
+    readOnly,
+    selectPlaceholder,
+  },
 }: RenderFieldProps) {
   switch (fieldType) {
     case FormFieldType.INPUT:
@@ -79,13 +89,13 @@ function RenderField({
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <FormControl>
             <SelectTrigger>
-              <SelectValue placeholder="Select when to alert" />
+              <SelectValue placeholder={selectPlaceholder} />
             </SelectTrigger>
           </FormControl>
           <SelectContent>
-            {whenToAlert?.map(item => (
-              <SelectItem key={item} value={item}>
-                {item}
+            {items?.map(({ label, value }) => (
+              <SelectItem key={value} value={value}>
+                {label}
               </SelectItem>
             ))}
           </SelectContent>
