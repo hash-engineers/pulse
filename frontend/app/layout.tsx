@@ -1,6 +1,7 @@
 import './globals.css';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
+import { Toaster } from '@/components/ui/sonner';
 import { Kanit as Font } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: Props) {
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,7 @@
 'use client';
 
 import axios from 'axios';
+import { toast } from 'sonner';
 import { useState } from 'react';
 import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
@@ -13,6 +14,7 @@ import { CreateCompanyFormData } from '@/types/company';
 import { createCompanySchema } from '@/schemas/company';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   name?: string | null;
@@ -43,8 +45,12 @@ export function CreateCompanyForm({ name, email }: Props) {
       if (res) {
         push('/dashboard/monitors/create-monitor');
         form.reset();
+
+        toast.success('Your company created');
       }
     } catch (error) {
+      toast.error('Something went wrong');
+
       console.log('The Error From Create Company Form Submit', error);
     } finally {
       setLoading(false);
