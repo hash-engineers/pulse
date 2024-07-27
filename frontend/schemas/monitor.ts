@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 const createMonitorSchema = z.object({
   url: z
     .string({ required_error: 'Url is required' })
@@ -6,10 +7,10 @@ const createMonitorSchema = z.object({
   whenToAlert: z.string({
     required_error: "Select when you'll notify",
   }),
-  call: z.boolean().optional(),
-  sendSMS: z.boolean().optional(),
-  sendEmail: z.boolean().optional().default(true),
-  pushNotification: z.boolean().optional(),
+  call: z.boolean().default(false).optional(),
+  sendSMS: z.boolean().default(false).optional(),
+  sendEmail: z.boolean().default(true).optional(),
+  pushNotification: z.boolean().default(false).optional(),
   nextAction: z.string({
     required_error: 'Select what will be the next action',
   }),
