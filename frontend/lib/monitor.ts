@@ -131,41 +131,4 @@ const monitors: Props[] = [
   },
 ];
 
-const whenToAlert: SelectItem[] = [
-  { label: 'URL becomes unavailabel', value: 'URL becomes unavailabel' },
-  {
-    label: "URL doesn't contain keyword",
-    value: "URL doesn't contain keyword",
-  },
-  { label: 'URL contains a keyword', value: 'URL contains a keyword' },
-  {
-    label: 'URL returns HTTP status other than',
-    value: 'URL returns HTTP status other than',
-  },
-  {
-    label: "Host doesn't respond to ping",
-    value: "Host doesn't respond to ping",
-  },
-];
-
-const whenDoesNotAcknowledge: SelectItem[] = [
-  { label: 'Do nothing', value: 'Do nothing' },
-  {
-    label: 'Immediately alert all other team members',
-    value: 'Immediately alert all other team members',
-  },
-  {
-    label: 'Within 3 minutes, alert all other team members',
-    value: 'ithin 3 minutes, alert all other team members',
-  },
-  {
-    label: 'Within 5 minutes, alert all other team members',
-    value: 'ithin 5 minutes, alert all other team members',
-  },
-  {
-    label: 'Within 10 minutes, alert all other team members',
-    value: 'ithin 10 minutes, alert all other team members',
-  },
-];
-
-export { data, columns, monitors, whenToAlert, whenDoesNotAcknowledge };
+export { data, columns, monitors };

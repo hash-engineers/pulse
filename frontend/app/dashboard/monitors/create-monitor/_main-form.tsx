@@ -7,8 +7,8 @@ import { FormFieldType } from '@/enums/form';
 import { Label } from '@/components/ui/label';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createMonitorSchema } from '@/schemas/monitor';
-import { whenDoesNotAcknowledge, whenToAlert } from '@/lib/monitor';
 import { CustomFormField } from '@/components/form/custom-form-field';
+import { whenToAlert, nextActions } from '@/lib/array-of-enums/monitor';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
 export function MainForm() {
@@ -16,12 +16,12 @@ export function MainForm() {
     resolver: zodResolver(createMonitorSchema),
     defaultValues: {
       url: '',
-      whenToAlert: whenToAlert[0].label,
+      whenToAlert: whenToAlert[0],
       call: false,
       sendSMS: false,
       sendEmail: true,
       pushNotification: false,
-      whenDoesNotAcknowledge: whenDoesNotAcknowledge[2].label,
+      whenDoesNotAcknowledge: nextActions[2],
     },
   });
 
@@ -55,7 +55,7 @@ export function MainForm() {
             items={whenToAlert}
           />
           <div>
-            <Label>When there&apos;s a new inciden</Label>
+            <Label>When there&apos;s a new incident *</Label>
             <div className="flex items-center justify-start flex-wrap gap-x-4">
               <CustomFormField
                 fieldType={FormFieldType.CHECKBOX}
@@ -89,7 +89,7 @@ export function MainForm() {
             name="whenDoesNotAcknowledge"
             label="If the on-call person doesn't acknowledge the incident"
             required
-            items={whenDoesNotAcknowledge}
+            items={nextActions}
           />
 
           <BottomGradientButton>Create</BottomGradientButton>

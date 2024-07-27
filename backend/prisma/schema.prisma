@@ -26,6 +26,22 @@ enum ECompanySize {
   TWO_THOUSAN_PLUS
 }
 
+enum EWhenToAlert {
+  URL_BECOMES_UNAVAILABLE
+  URL_DOES_NOT_CONTAIN_KEYWORD
+  URL_CONTAINS_A_KEYWORD
+  URL_RETURNS_HTTP_STATUS_OTHER_THAN
+  HOST_DOES_NOT_RESPOND_TO_PING
+}
+
+enum ENextAction {
+  DO_NOTHING
+  IMMEDIATELY_ALERT_ALL_OTHER_TEAM_MEMBER
+  WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS
+  WITHIN_5_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS
+  WITHIN_10_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS
+}
+
 model User {
   id String @id @default(cuid())
 
@@ -56,9 +72,12 @@ model Company {
 }
 
 model Monitor {
-  url      String @unique
-  status   Int
-  downtime Float
+  url                  String       @unique
+  status               Int          @default(200)
+  downtime             Float        @default(0)
+  whenToAlert          EWhenToAlert @default(URL_BECOMES_UNAVAILABLE)
+  actionsAfterIncident String[]
+  nextAction           ENextAction  @default(WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS)
 
   incidents Incident[]
 

@@ -52,7 +52,7 @@ type CustomFormInputProps = {
   disabled?: boolean;
   children?: ReactNode;
   required?: boolean;
-  items?: SelectItemType[];
+  items?: string[];
   readOnly?: boolean;
   selectPlaceholder?: string;
 };
@@ -93,9 +93,12 @@ function RenderField({
             </SelectTrigger>
           </FormControl>
           <SelectContent>
-            {items?.map(({ label, value }) => (
-              <SelectItem key={value} value={value}>
-                {label}
+            {items?.map((item: string) => (
+              <SelectItem key={item} value={item}>
+                {item
+                  .replaceAll('_', ' ')
+                  .toLowerCase()
+                  .replace('minutes', 'minutes,')}
               </SelectItem>
             ))}
           </SelectContent>
