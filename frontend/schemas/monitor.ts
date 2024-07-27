@@ -10,8 +10,8 @@ const createMonitorSchema = z.object({
   sendSMS: z.boolean().optional(),
   sendEmail: z.boolean().optional().default(true),
   pushNotification: z.boolean().optional(),
-  whenDoesNotAcknowledge: z.string({
-    required_error: 'Select wtat will be next action',
+  nextAction: z.string({
+    required_error: 'Select what will be the next action',
   }),
 });
 

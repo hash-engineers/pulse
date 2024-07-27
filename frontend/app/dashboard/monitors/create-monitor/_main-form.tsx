@@ -20,7 +20,7 @@ export function MainForm() {
       sendSMS: false,
       sendEmail: true,
       pushNotification: false,
-      whenDoesNotAcknowledge: nextActions[2],
+      nextAction: nextActions[2],
     },
   });
 

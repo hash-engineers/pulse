@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { SelectItem as SelectItemType } from '@/types/common';
 
 type CustomFormInputProps = {
   fieldType: FormFieldType;
