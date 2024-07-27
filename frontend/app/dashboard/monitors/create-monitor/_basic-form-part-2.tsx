@@ -1,5 +1,5 @@
 import { Control } from 'react-hook-form';
-import { FormFieldType } from '@/enums/form';
+import { EFormField } from '@/enums/form';
 import { Label } from '@/components/ui/label';
 import { nextActions } from '@/lib/array-of-enums/monitor';
 import { CustomFormField } from '@/components/form/custom-form-field';
@@ -24,25 +24,25 @@ export function BasicFormPart2({ control }: Props) {
           <Label>When there&apos;s a new incident *</Label>
           <div className="flex items-center justify-start flex-wrap gap-x-4">
             <CustomFormField
-              fieldType={FormFieldType.CHECKBOX}
+              fieldType={EFormField.CHECKBOX}
               control={control}
               name="call"
               label="Call"
             />
             <CustomFormField
-              fieldType={FormFieldType.CHECKBOX}
+              fieldType={EFormField.CHECKBOX}
               control={control}
               name="sendSMS"
               label="Send sms"
             />
             <CustomFormField
-              fieldType={FormFieldType.CHECKBOX}
+              fieldType={EFormField.CHECKBOX}
               control={control}
               name="sendEmail"
               label="Send e-mail"
             />
             <CustomFormField
-              fieldType={FormFieldType.CHECKBOX}
+              fieldType={EFormField.CHECKBOX}
               control={control}
               name="pushNotification"
               label="Push notification"
@@ -50,7 +50,7 @@ export function BasicFormPart2({ control }: Props) {
           </div>
         </div>
         <CustomFormField
-          fieldType={FormFieldType.SELECT}
+          fieldType={EFormField.SELECT}
           control={control}
           name="whenDoesNotAcknowledge"
           label="If the on-call person doesn't acknowledge the incident"

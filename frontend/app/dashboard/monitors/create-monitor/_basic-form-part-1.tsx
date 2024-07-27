@@ -1,5 +1,5 @@
 import { Control } from 'react-hook-form';
-import { FormFieldType } from '@/enums/form';
+import { EFormField } from '@/enums/form';
 import { whenToAlert } from '@/lib/array-of-enums/monitor';
 import { CustomFormField } from '@/components/form/custom-form-field';
 
@@ -18,7 +18,7 @@ export function BasicFormPart1({ control }: Props) {
 
       <div className="col-span-2 space-y-6 sm:max-lg:mt-4">
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
+          fieldType={EFormField.INPUT}
           control={control}
           name="url"
           type="url"
@@ -27,7 +27,7 @@ export function BasicFormPart1({ control }: Props) {
           placeholder="Ex. https://xyz.com"
         />
         <CustomFormField
-          fieldType={FormFieldType.SELECT}
+          fieldType={EFormField.SELECT}
           control={control}
           name="whenToAlert"
           label="Alert us when"

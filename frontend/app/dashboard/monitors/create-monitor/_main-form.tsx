@@ -1,8 +1,13 @@
 'use client';
 
 import { z } from 'zod';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useState } from 'react';
+import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicFormPart1 } from './_basic-form-part-1';
 import { BasicFormPart2 } from './_basic-form-part-2';
@@ -11,6 +16,8 @@ import { whenToAlert, nextActions } from '@/lib/array-of-enums/monitor';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
 export function MainForm() {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof createMonitorSchema>>({
     resolver: zodResolver(createMonitorSchema),
     defaultValues: {
@@ -24,8 +31,31 @@ export function MainForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof createMonitorSchema>) {
-    console.log(data);
+  const { push } = useRouter();
+
+  async function onSubmit(data: z.infer<typeof createMonitorSchema>) {
+    try {
+      setLoading(true);
+
+      const reqData = { ...data, companyName: '' };
+
+      const res = await axios.post(`${api}/monitor/create-monitor`, reqData, {
+        headers,
+      });
+
+      if (res) {
+        push('/dashboard/monitors');
+        form.reset();
+        toast.success('Monitor created');
+      }
+
+      console.log(res, 'THE RESPONSE OF MONITOR CREATETINOG');
+    } catch (error) {
+      toast.error('Something went wrong');
+      console.error('The Error From Create Monitor Form Submit', error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -39,7 +69,7 @@ export function MainForm() {
 
           <BasicFormPart2 control={form.control} />
 
-          <BottomGradientButton className="tracking-widest">
+          <BottomGradientButton disabled={loading} loading={loading}>
             Create
           </BottomGradientButton>
         </form>

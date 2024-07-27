@@ -60,7 +60,7 @@ model User {
 
 model Company {
   name String       @unique
-  size ECompanySize
+  size ECompanySize @default(JUST__ME)
 
   members  User[]
   monitors Monitor[]
@@ -84,7 +84,8 @@ model Monitor {
 
   incidents Incident[]
 
-  company Company @relation(fields: [url], references: [name], onDelete: Cascade)
+  companyName String
+  company     Company @relation(fields: [companyName], references: [name], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

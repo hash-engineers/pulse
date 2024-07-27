@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ECompanySize } from '@/enums/company';
 
 const createCompanySchema = z.object({
   name: z
@@ -12,8 +13,10 @@ const createCompanySchema = z.object({
     .string({ required_error: 'Company name is required' })
     .min(2, { message: 'Company name should be at least 2 charactor' }),
   size: z
-    .string({ required_error: 'Company size is required' })
-    .min(1, { message: 'Company size should be at least 1' }),
+    .enum([...(Object.values(ECompanySize) as [string, ...string[]])], {
+      required_error: 'Company size is required',
+    })
+    .default(ECompanySize.JUST__ME),
 });
 
 export { createCompanySchema };

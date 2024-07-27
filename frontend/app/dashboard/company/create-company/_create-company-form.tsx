@@ -7,7 +7,7 @@ import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
-import { FormFieldType } from '@/enums/form';
+import { EFormField } from '@/enums/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createCompanySchema } from '@/schemas/company';
 import { CreateCompanyFormData } from '@/types/company';
@@ -44,13 +44,11 @@ export function CreateCompanyForm({ name, email }: Props) {
       if (res) {
         push('/dashboard/monitors/create-monitor');
         form.reset();
-
         toast.success('Your company created');
       }
     } catch (error) {
       toast.error('Something went wrong');
-
-      console.log('The Error From Create Company Form Submit', error);
+      console.error('The Error From Create Company Form Submit', error);
     } finally {
       setLoading(false);
     }
@@ -60,7 +58,7 @@ export function CreateCompanyForm({ name, email }: Props) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 space-y-2">
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
+          fieldType={EFormField.INPUT}
           control={form.control}
           name="name"
           type="text"
@@ -70,7 +68,7 @@ export function CreateCompanyForm({ name, email }: Props) {
           placeholder="Ex. Mehedi Hasan"
         />
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
+          fieldType={EFormField.INPUT}
           control={form.control}
           name="email"
           type="email"
@@ -80,7 +78,7 @@ export function CreateCompanyForm({ name, email }: Props) {
           placeholder="Ex. example@gmail.com"
         />
         <CustomFormField
-          fieldType={FormFieldType.INPUT}
+          fieldType={EFormField.INPUT}
           control={form.control}
           name="companyName"
           type="text"
@@ -89,7 +87,7 @@ export function CreateCompanyForm({ name, email }: Props) {
           placeholder="Xyz Inc."
         />
         <CustomFormField
-          fieldType={FormFieldType.SELECT}
+          fieldType={EFormField.SELECT}
           control={form.control}
           name="size"
           label="Company size"

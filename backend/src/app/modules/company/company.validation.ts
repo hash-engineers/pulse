@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ECompanySize } from '@prisma/client';
 
 const createCompanySchema = z.object({
   body: z.object({
@@ -10,7 +11,11 @@ const createCompanySchema = z.object({
     companyName: z
       .string({ required_error: 'Company name is required' })
       .min(2, { message: 'Company name should be at least 2 charactor' }),
-    size: z.string({ required_error: 'Company size is required' }),
+    size: z
+      .enum([...Object.values(ECompanySize)] as [string, ...string[]], {
+        required_error: 'Company size is required',
+      })
+      .default(ECompanySize.JUST__ME),
   }),
 });
 

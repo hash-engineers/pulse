@@ -3,7 +3,7 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Checkbox } from '../ui/checkbox';
 import { Control } from 'react-hook-form';
-import { FormFieldType } from '@/enums/form';
+import { EFormField } from '@/enums/form';
 import {
   FormControl,
   FormField,
@@ -20,7 +20,7 @@ import {
 } from '../ui/select';
 
 type CustomFormInputProps = {
-  fieldType: FormFieldType;
+  fieldType: EFormField;
   control: Control<any>;
   name: string;
   type?:
@@ -71,7 +71,7 @@ function RenderField({
   },
 }: RenderFieldProps) {
   switch (fieldType) {
-    case FormFieldType.INPUT:
+    case EFormField.INPUT:
       return (
         <FormControl>
           <Input
@@ -83,7 +83,7 @@ function RenderField({
         </FormControl>
       );
 
-    case FormFieldType.SELECT:
+    case EFormField.SELECT:
       return (
         <Select onValueChange={field.onChange} defaultValue={field.value}>
           <FormControl>
@@ -104,7 +104,7 @@ function RenderField({
         </Select>
       );
 
-    case FormFieldType.CHECKBOX:
+    case EFormField.CHECKBOX:
       return (
         <div className="flex items-center gap-x-2">
           <FormControl>
@@ -130,7 +130,7 @@ export function CustomFormField(props: CustomFormInputProps) {
       name={name}
       render={({ field }) => (
         <FormItem>
-          {fieldType !== FormFieldType.CHECKBOX && (
+          {fieldType !== EFormField.CHECKBOX && (
             <Label htmlFor={name}>
               {label}
               {required && ' *'}

@@ -1,4 +1,4 @@
-export enum FormFieldType {
+export enum EFormField {
   INPUT = 'input',
   TEXTAREA = 'textarea',
   PHONE_INPUT = 'phoneInput',
