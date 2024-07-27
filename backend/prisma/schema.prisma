@@ -74,7 +74,7 @@ model Company {
 model Monitor {
   url              String       @unique
   status           Int          @default(200)
-  downtime         Float        @default(0)
+  downtime         Float        @default(0.00)
   call             Boolean      @default(false)
   sendSMS          Boolean      @default(false)
   sendEmail        Boolean      @default(true)
