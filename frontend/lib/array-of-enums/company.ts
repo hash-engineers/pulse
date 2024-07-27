@@ -1,0 +1,14 @@
+const companySize = [
+  'JUST__ME',
+  'ONE__TO__FIVE',
+  'SIX__TO__TEN',
+  'ELEVEN__TO__TWENTY',
+  'TWENTY_ONE__TO__FIFTY',
+  'FIFTY_ONE__TO__HUNDRED',
+  'ONE_HUNDRED_ONE__TO__FIVE_HUNDRED',
+  'FIVE_HUNDRED_ONE__TO__ONE_THOUSAND',
+  'ONE_THOUSAND_ONE__TO__TWO_THOUSAND',
+  'TWO_THOUSAN_PLUS',
+];
+
+export { companySize };

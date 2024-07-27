@@ -6,15 +6,14 @@ import { useState } from 'react';
 import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { companySize } from '@/lib/company';
 import { Form } from '@/components/ui/form';
 import { FormFieldType } from '@/enums/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateCompanyFormData } from '@/types/company';
 import { createCompanySchema } from '@/schemas/company';
+import { CreateCompanyFormData } from '@/types/company';
+import { companySize } from '@/lib/array-of-enums/company';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
-import { Button } from '@/components/ui/button';
 
 type Props = {
   name?: string | null;
@@ -29,7 +28,7 @@ export function CreateCompanyForm({ name, email }: Props) {
       name: name ?? '',
       email: email ?? '',
       companyName: '',
-      size: companySize[0].label,
+      size: companySize[0],
     },
   });
   const { push } = useRouter();
