@@ -22,6 +22,7 @@ const createCompany = async (data: CreateCompanyRequest) => {
     if (!isUserExist) {
       await tx.user.create({
         data: {
+          id: data.id,
           name: data.name,
           email: data.email,
           companyName: createdCompany.name,

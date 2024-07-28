@@ -1,6 +1,6 @@
 import { Company, User } from '@prisma/client';
 
 type CreateCompanyRequest = { companyName: string } & Company &
-  Pick<User, 'name' | 'email'>;
+  Pick<User, 'id' | 'name' | 'email'>;
 
 export { CreateCompanyRequest };

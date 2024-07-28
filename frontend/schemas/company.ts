@@ -2,6 +2,9 @@ import { z } from 'zod';
 import { ECompanySize } from '@/enums/company';
 
 const createCompanySchema = z.object({
+  id: z
+    .string({ required_error: 'Id is requried' })
+    .min(1, { message: 'Id should be at least one charactor' }),
   name: z
     .string({ required_error: 'Name is required' })
     .min(2, { message: 'Name should be at least 2 charactor' })

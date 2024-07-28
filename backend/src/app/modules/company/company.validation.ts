@@ -3,6 +3,7 @@ import { ECompanySize } from '@prisma/client';
 
 const createCompanySchema = z.object({
   body: z.object({
+    id: z.string({ required_error: 'User id is required' }),
     name: z
       .string({ required_error: 'Name is required' })
       .min(2, { message: 'Name should be at least 2 charactor' })

@@ -1,7 +1,7 @@
 import { CreateCompanyForm } from './_create-company-form';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default async function SignUp() {
+export default async function CreateCompany() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -13,6 +13,7 @@ export default async function SignUp() {
           It is required to handle all monitors and team members.
         </p>
         <CreateCompanyForm
+          id={user!.id}
           name={user?.given_name + ' ' + user?.family_name}
           email={user?.email}
         />

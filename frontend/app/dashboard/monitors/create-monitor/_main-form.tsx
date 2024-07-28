@@ -15,12 +15,15 @@ import { createMonitorSchema } from '@/schemas/monitor';
 import { whenToAlert, nextActions } from '@/lib/array-of-enums/monitor';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
-export function MainForm() {
+type Props = { userId: string };
+
+export function MainForm({ userId }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof createMonitorSchema>>({
     resolver: zodResolver(createMonitorSchema),
     defaultValues: {
+      userId,
       url: '',
       whenToAlert: whenToAlert[0],
       call: false,
@@ -37,9 +40,7 @@ export function MainForm() {
     try {
       setLoading(true);
 
-      const reqData = { ...data, companyName: '' };
-
-      const res = await axios.post(`${api}/monitor/create-monitor`, reqData, {
+      const res = await axios.post(`${api}/monitor/create-monitor`, data, {
         headers,
       });
 

@@ -16,21 +16,25 @@ import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
 type Props = {
+  id: string;
   name?: string | null;
   email?: string | null;
 };
 
-export function CreateCompanyForm({ name, email }: Props) {
+export function CreateCompanyForm({ id, name, email }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
+
   const form = useForm<CreateCompanyFormData>({
     resolver: zodResolver(createCompanySchema),
     defaultValues: {
+      id,
       name: name ?? '',
       email: email ?? '',
       companyName: '',
       size: companySize[0],
     },
   });
+
   const { push } = useRouter();
 
   async function onSubmit(data: CreateCompanyFormData) {
