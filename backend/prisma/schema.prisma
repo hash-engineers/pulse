@@ -72,6 +72,8 @@ model Company {
 }
 
 model Monitor {
+  id String @id @default(cuid())
+
   url              String       @unique
   status           Int          @default(200)
   downtime         Float        @default(0.00)

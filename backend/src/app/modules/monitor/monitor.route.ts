@@ -5,10 +5,13 @@ import validateZodRequest from '../../middlewares/validate-zod-request';
 
 const router = Router();
 
-router.post(
-  '/create-monitor',
-  validateZodRequest(MonitorValidation.createMonitorSchema),
-  MonitorController.createMonitor,
-);
+router
+  .post(
+    '/',
+    validateZodRequest(MonitorValidation.createMonitorSchema),
+    MonitorController.createMonitor,
+  )
+  .get('/', MonitorController.getAllMonitors)
+  .get('/:id', MonitorController.getMonitorById);
 
 export const MonitorRoutes = router;

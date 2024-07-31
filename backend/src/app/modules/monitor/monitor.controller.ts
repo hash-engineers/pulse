@@ -15,4 +15,30 @@ const createMonitor = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const MonitorController = { createMonitor };
+const getMonitorById = catchAsync(async (req: Request, res: Response) => {
+  const data = await MonitorService.getMonitorById(req.params.id);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Monitor retrieved',
+    data,
+  });
+});
+
+const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
+  const data = await MonitorService.getAllMonitors();
+
+  sendResponse<Monitor[]>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'All monitor retrieved',
+    data,
+  });
+});
+
+export const MonitorController = {
+  createMonitor,
+  getMonitorById,
+  getAllMonitors,
+};

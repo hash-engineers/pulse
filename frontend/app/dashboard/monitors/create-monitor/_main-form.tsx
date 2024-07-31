@@ -40,7 +40,7 @@ export function MainForm({ userId }: Props) {
     try {
       setLoading(true);
 
-      const res = await axios.post(`${api}/monitor/create-monitor`, data, {
+      const res = await axios.post(`${api}/monitor`, data, {
         headers,
       });
 

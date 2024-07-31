@@ -6,7 +6,7 @@ import validateZodRequest from '../../middlewares/validate-zod-request';
 const router = Router();
 
 router.post(
-  '/create-company',
+  '/',
   validateZodRequest(CompanyValidation.createCompanySchema),
   CompanyController.createCompany,
 );
