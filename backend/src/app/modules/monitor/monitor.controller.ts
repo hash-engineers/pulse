@@ -1,8 +1,11 @@
+import pick from '../../../shared/pick';
 import { Monitor } from '@prisma/client';
 import { Request, Response } from 'express';
 import { MonitorService } from './monitor.service';
 import catchAsync from '../../../shared/catch-async';
+import paginationFields from '../../../lib/pagination';
 import sendResponse from '../../../shared/send-response';
+import { monitorFilterableFields } from './monitor.constant';
 
 const createMonitor = catchAsync(async (req: Request, res: Response) => {
   const data = await MonitorService.createMonitor(req.body);
@@ -27,12 +30,20 @@ const getMonitorById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.getAllMonitors(req.body.userId);
+  const filters = pick(req.query, monitorFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
+
+  const { meta, data } = await MonitorService.getAllMonitors(
+    filters,
+    paginationOptions,
+    req.body.userId,
+  );
 
   sendResponse<Monitor[]>(res, {
     statusCode: 200,
     success: true,
     message: 'All monitors retrieved',
+    meta,
     data,
   });
 });
