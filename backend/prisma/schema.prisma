@@ -75,6 +75,7 @@ model Monitor {
   id String @id @default(cuid())
 
   url              String       @unique
+  name             String?      @unique
   status           Int          @default(200)
   downtime         Float        @default(0.00)
   call             Boolean      @default(false)
@@ -89,8 +90,9 @@ model Monitor {
   companyName String
   company     Company @relation(fields: [companyName], references: [name], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  checkedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("monitors")
 }
