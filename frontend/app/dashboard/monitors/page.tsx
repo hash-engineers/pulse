@@ -8,7 +8,7 @@ export default async function Monitors() {
 
   return (
     <section className="space-y-4">
-      <h3>Hey Mehedi, Here is your monitors stutas!</h3>
+      <h3>Hey Mehedi, Here is your monitors status!</h3>
       <SearchAndCreateMonitor />
 
       <AllMonitors userId={user?.id} />

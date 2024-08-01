@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Props } from '@/app/dashboard/monitors/_monitor-key-info.';
 
 type Payment = {
   id: string;
@@ -92,42 +91,4 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-const monitors: Props[] = [
-  {
-    name: '',
-    url: 'website.com',
-    status: 'Up',
-    checkingTime: '3m',
-    checkedAt: '2d 19h 5m',
-  },
-  {
-    name: '',
-    url: 'websit5e.com',
-    status: 'Down',
-    checkingTime: '3m',
-    checkedAt: '2d 19h 5m',
-  },
-  {
-    name: '',
-    url: 'Google',
-    status: 'Pending',
-    checkingTime: '3m',
-    checkedAt: '2d 19h 5m',
-  },
-  {
-    name: '',
-    url: 'website7.com',
-    status: 'Paused',
-    checkingTime: '3m',
-    checkedAt: '2d 19h 5m',
-  },
-  {
-    name: 'New Website',
-    url: 'website3.com',
-    status: 'Up',
-    checkingTime: '3m',
-    checkedAt: '2d 19h 5m',
-  },
-];
-
-export { data, columns, monitors };
+export { data, columns };

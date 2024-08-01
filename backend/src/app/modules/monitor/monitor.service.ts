@@ -3,13 +3,27 @@ import ApiError from '../../../errors/api-error';
 import { CreateMonitorRequest } from './monitor.type';
 
 const createMonitor = async ({ userId, ...data }: CreateMonitorRequest) => {
-  const isExist = await prisma.monitor.findUnique({ where: { url: data.url } });
+  const isUrlExist = await prisma.monitor.findUnique({
+    where: { url: data.url },
+  });
 
-  if (isExist) throw new ApiError(409, 'Monitor already exists with this url');
+  if (isUrlExist)
+    throw new ApiError(409, 'Monitor already exists with this url');
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
-  data.companyName = user!.companyName;
+  if (!user) throw new ApiError(404, 'User not fond');
+
+  if (data.name) {
+    const isNameExist = await prisma.monitor.findFirst({
+      where: { companyName: user.companyName, name: data.name },
+    });
+
+    if (isNameExist)
+      throw new ApiError(409, 'Monitor already exists with this name');
+  }
+
+  data.companyName = user.companyName;
 
   const monitor = await prisma.monitor.create({ data });
 

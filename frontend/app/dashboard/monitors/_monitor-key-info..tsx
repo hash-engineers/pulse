@@ -1,20 +1,23 @@
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import { Focus } from 'lucide-react';
+import { EMonitorStatus } from '@/enums/monitor';
+import { cn, formatCheckedAt } from '@/lib/utils';
 import { UptimeBlinking } from '@/components/blinks/uptime-blinking';
 import { PausedBlinking } from '@/components/blinks/paused-blinking';
-import { PendingBlinking } from '@/components/blinks/pending-blinks';
+import { PendingBlinking } from '@/components/blinks/pending-blinking';
 import { DowntimeBlinking } from '@/components/blinks/downtime-blinking';
 
-export type Props = {
+type Props = {
+  id: string;
   name?: string;
   url: string;
-  status: 'Up' | 'Down' | 'Paused' | 'Pending';
+  status: EMonitorStatus;
   checkingTime: string;
   checkedAt: string;
 };
 
 export function MonitorKeyInfo({
+  id,
   name,
   url,
   status,
@@ -23,34 +26,35 @@ export function MonitorKeyInfo({
 }: Props) {
   return (
     <Link
-      href={`/dashboard/monitors/${url}`}
+      href={`/dashboard/monitors/${id}`}
       className="flex items-center justify-between p-2 rounded-md hover:bg-muted-foreground/20 transition duration-300 ease-in-out w-full"
     >
       <div className="flex items-center justify-start gap-x-4">
-        {status === 'Up' ? (
+        {status === 'UP' ? (
           <UptimeBlinking />
-        ) : status === 'Down' ? (
+        ) : status === 'DOWN' ? (
           <DowntimeBlinking />
-        ) : status === 'Paused' ? (
+        ) : status === 'PAUSED' ? (
           <PausedBlinking />
         ) : (
           <PendingBlinking />
         )}
 
-        <div>
-          <h5 className="leading-4 tracking-wide">{name || url}</h5>
+        <div className="max-sm:max-w-48 sm:max-lg:max-w-xs xl:max-w-2xl">
+          <h5 className="leading-4 tracking-wide truncate">{name || url}</h5>
           <p className="tracking-widest">
             <span
               className={cn({
-                'text-green-600': status === 'Up',
-                'text-red-600': status === 'Down',
-                'text-yellow-600': status === 'Paused',
-                'text-gray-600': status === 'Pending',
+                'text-green-600': status === 'UP',
+                'text-red-600': status === 'DOWN',
+                'text-yellow-600': status === 'PAUSED',
+                'text-gray-600': status === 'PENDING',
               })}
             >
-              {status}
+              {status.charAt(0) + status.slice(1, status.length).toLowerCase()}
             </span>{' '}
-            <span className="font-extrabold">·</span> {checkedAt}
+            <span className="font-extrabold">·</span>{' '}
+            {formatCheckedAt(checkedAt)}
           </p>
         </div>
       </div>
