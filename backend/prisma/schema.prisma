@@ -75,7 +75,7 @@ model Monitor {
   id String @id @default(cuid())
 
   url              String       @unique
-  name             String?      @unique
+  name             String?
   status           Int          @default(200)
   downtime         Float        @default(0.00)
   call             Boolean      @default(false)

@@ -5,6 +5,7 @@ const createMonitorSchema = z.object({
   userId: z
     .string({ required_error: 'User id is required' })
     .min(1, { message: 'User id should be at least one charactor' }),
+  name: z.string().optional(),
   url: z
     .string({ required_error: 'Url is required' })
     .min(6, { message: 'Enter your website url' }),

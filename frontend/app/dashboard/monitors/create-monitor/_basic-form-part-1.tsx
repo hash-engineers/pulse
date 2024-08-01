@@ -20,6 +20,14 @@ export function BasicFormPart1({ control }: Props) {
         <CustomFormField
           fieldType={EFormField.INPUT}
           control={control}
+          name="name"
+          type="text"
+          label="Monitor name"
+          placeholder="Ex. XYZ Ltd."
+        />
+        <CustomFormField
+          fieldType={EFormField.INPUT}
+          control={control}
           name="url"
           type="url"
           label="URL to monitor"

@@ -24,6 +24,7 @@ export function MainForm({ userId }: Props) {
     resolver: zodResolver(createMonitorSchema),
     defaultValues: {
       userId,
+      name: '',
       url: '',
       whenToAlert: whenToAlert[0],
       call: false,
@@ -40,7 +41,7 @@ export function MainForm({ userId }: Props) {
     try {
       setLoading(true);
 
-      const res = await axios.post(`${api}/monitor`, data, {
+      const res = await axios.post(`${api}/monitors`, data, {
         headers,
       });
 
@@ -49,10 +50,10 @@ export function MainForm({ userId }: Props) {
         form.reset();
         toast.success('Monitor created');
       }
-
-      console.log(res, 'THE RESPONSE OF MONITOR CREATETINOG');
     } catch (error) {
-      toast.error('Something went wrong');
+      const err = error as any;
+
+      toast.error(err?.response?.data?.message || 'Something went wrong');
       console.error('The Error From Create Monitor Form Submit', error);
     } finally {
       setLoading(false);

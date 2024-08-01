@@ -3,6 +3,8 @@ import { ENextAction, EWhenToAlert } from '@prisma/client';
 
 const createMonitorSchema = z.object({
   body: z.object({
+    userId: z.string({ required_error: 'Usre id is required' }),
+    name: z.string().optional(),
     url: z.string({ required_error: 'Url is required' }),
     call: z.boolean().default(false).optional(),
     sendSMS: z.boolean().default(false).optional(),
