@@ -1,6 +1,5 @@
-import { Props } from '@/app/dashboard/monitors/_monitor-key-info.';
-import { SelectItem } from '@/types/common';
 import { ColumnDef } from '@tanstack/react-table';
+import { Props } from '@/app/dashboard/monitors/_monitor-key-info.';
 
 type Payment = {
   id: string;

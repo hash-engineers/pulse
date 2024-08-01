@@ -27,12 +27,12 @@ const getMonitorById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.getAllMonitors();
+  const data = await MonitorService.getAllMonitors(req.body.userId);
 
   sendResponse<Monitor[]>(res, {
     statusCode: 200,
     success: true,
-    message: 'All monitor retrieved',
+    message: 'All monitors retrieved',
     data,
   });
 });

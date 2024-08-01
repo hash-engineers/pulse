@@ -6,9 +6,9 @@ import { MonitorRoutes } from './modules/monitor/monitor.route';
 const router = Router();
 
 [
-  { path: '/user', route: UserRoutes },
-  { path: '/company', route: CompanyRoutes },
-  { path: '/monitor', route: MonitorRoutes },
+  { path: '/users', route: UserRoutes },
+  { path: '/companies', route: CompanyRoutes },
+  { path: '/monitors', route: MonitorRoutes },
 ].map(({ path, route }) => router.use(path, route));
 
 export const routes = router;

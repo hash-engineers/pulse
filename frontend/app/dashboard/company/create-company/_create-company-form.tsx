@@ -41,7 +41,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
     try {
       setLoading(true);
 
-      const res = await axios.post(`${api}/company`, data, {
+      const res = await axios.post(`${api}/companies`, data, {
         headers,
       });
 
