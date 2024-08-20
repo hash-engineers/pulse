@@ -3,16 +3,16 @@
 import { data, columns } from '@/lib/monitor';
 import {
   flexRender,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
 } from '@tanstack/react-table';
 import {
   Table,
-  TableBody,
+  TableRow,
   TableCell,
   TableHead,
+  TableBody,
   TableHeader,
-  TableRow,
 } from '@/components/ui/table';
 
 export function DataTable() {

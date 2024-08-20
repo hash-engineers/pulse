@@ -4,9 +4,9 @@ import { Monitor } from '@/types/monitor';
 import { MonitorKeyInfo } from './_monitor-key-info.';
 import {
   Accordion,
-  AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from '@/components/ui/accordion';
 
 type Props = { userId?: string };

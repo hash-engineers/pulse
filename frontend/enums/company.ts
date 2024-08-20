@@ -1,4 +1,4 @@
-export enum ECompanySize {
+enum ECompanySize {
   JUST__ME = 'JUST__ME',
   ONE__TO__FIVE = 'ONE__TO__FIVE',
   SIX__TO__TEN = 'SIX__TO__TEN',
@@ -10,3 +10,5 @@ export enum ECompanySize {
   ONE_THOUSAND_ONE__TO__TWO_THOUSAND = 'ONE_THOUSAND_ONE__TO__TWO_THOUSAND',
   TWO_THOUSAN_PLUS = 'TWO_THOUSAN_PLUS',
 }
+
+export { ECompanySize };
