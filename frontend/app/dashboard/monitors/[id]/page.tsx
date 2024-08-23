@@ -20,11 +20,11 @@ export default async function MonitorDetails({ params: { id } }: Props) {
   if (!monitor) return null;
 
   return (
-    <div className="space-y-4">
+    <section className="space-y-4 pt-12">
       <Status name={monitor.name} url={monitor.url} status={monitor.status} />
       <Actions />
       <KeyInfos incidents={monitor.incidents} />
       <DataTable />
-    </div>
+    </section>
   );
 }
