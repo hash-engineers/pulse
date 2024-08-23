@@ -1,7 +1,10 @@
+import { Company } from './company';
+import { CreatedAtAndUpdatedAt } from './common';
 import { ENextAction, EWhenToAlert, EMonitorStatus } from '@/enums/monitor';
 
 type Monitor = {
   id: string;
+
   url: string;
   name?: string;
   statusCode: number;
@@ -17,11 +20,9 @@ type Monitor = {
   incidents: [];
 
   companyName: string;
-  company: any;
+  company: Company;
 
   checkedAt?: string;
-  createdAt: string;
-  updatedAt: string;
-};
+} & CreatedAtAndUpdatedAt;
 
 export type { Monitor };
