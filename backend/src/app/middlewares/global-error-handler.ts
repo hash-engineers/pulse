@@ -6,7 +6,7 @@ import env from '../../env';
 import { ZodError } from 'zod';
 import { Prisma } from '@prisma/client';
 import ApiError from '../../errors/api-error';
-import { GenericErrorMessage } from '../../interfaces/common';
+import { GenericErrorMessage } from '../../types/common';
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import handleZodValidationError from '../../errors/handle-zod-validation-error';
 import handlePrismaClientValidationError from '../../errors/handle-prisma-client-validation-error';

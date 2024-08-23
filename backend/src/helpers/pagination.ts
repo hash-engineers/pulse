@@ -1,7 +1,7 @@
 import {
   PaginationOptions,
   PaginationOptionsResponse,
-} from '../interfaces/pagination';
+} from '../types/pagination';
 
 const calculatePagination = (
   paginationOptions: PaginationOptions,

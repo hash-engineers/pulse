@@ -1,13 +1,13 @@
 import { Response } from 'express';
-import { Meta } from '../interfaces/common';
+import { Meta } from '../types/common';
 
-interface ApiResponse<T> {
+type ApiResponse<T> = {
   statusCode: number;
   success: boolean;
   message?: string | null;
   meta?: Meta;
   data?: T | null;
-}
+};
 
 const sendResponse = <T>(
   res: Response,

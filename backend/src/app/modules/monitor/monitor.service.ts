@@ -1,25 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import axios from 'axios';
 import prisma from '../../../lib/prisma';
-import { Monitor, Prisma } from '@prisma/client';
 import ApiError from '../../../errors/api-error';
+import { userAgentHeader } from '../../../lib/headers';
+import { EStatus, Monitor, Prisma } from '@prisma/client';
 import { monitorSearchableFields } from './monitor.constant';
-import { GenericResponse } from '../../../interfaces/common';
+import { GenericResponse } from '../../../types/common';
 import calculatePagination from '../../../helpers/pagination';
-import { PaginationOptions } from '../../../interfaces/pagination';
-import { CreateMonitorRequest, MonitorFilters } from './monitor.type';
+import { PaginationOptions } from '../../../types/pagination';
+import { CreateAMonitorRequest, MonitorFilters } from './monitor.type';
 
-const createMonitor = async ({ userId, ...data }: CreateMonitorRequest) => {
+const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
+  let isUrlValid = null;
+
+  try {
+    isUrlValid = await axios.get(data.url, {
+      headers: { 'User-Agent': userAgentHeader },
+    });
+  } catch (error: any) {
+    if (error?.code === 'ENOTFOUND' || error?.code === 'ERR_BAD_RESPONSE')
+      throw new ApiError(400, 'Provide a valid url!');
+  }
+
+  if (!isUrlValid) throw new ApiError(400, 'Url is not valid!');
+
   const isUrlExist = await prisma.monitor.findUnique({
-    where: { url: data.url },
+    where: { url: data.url, companyName: data.companyName },
   });
 
   if (isUrlExist)
-    throw new ApiError(409, 'Monitor already exists with this url');
+    throw new ApiError(409, 'Monitor already exists with this url!');
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
-  if (!user) throw new ApiError(404, 'User not fond');
+  if (!user) throw new ApiError(404, 'User not found!');
 
   if (data.name) {
     const isNameExist = await prisma.monitor.findFirst({
@@ -27,12 +42,18 @@ const createMonitor = async ({ userId, ...data }: CreateMonitorRequest) => {
     });
 
     if (isNameExist)
-      throw new ApiError(409, 'Monitor already exists with this name');
+      throw new ApiError(409, 'Monitor already exists with this name!');
   }
 
   data.companyName = user.companyName;
 
-  const monitor = await prisma.monitor.create({ data });
+  const monitor = await prisma.monitor.create({
+    data: {
+      statusCode: isUrlValid.status,
+      status: isUrlValid.statusText === 'OK' ? EStatus.UP : EStatus.PENDING,
+      ...data,
+    },
+  });
 
   return monitor;
 };
@@ -40,7 +61,7 @@ const createMonitor = async ({ userId, ...data }: CreateMonitorRequest) => {
 const getMonitorById = async (id: string) => {
   const monitor = await prisma.monitor.findUnique({ where: { id } });
 
-  if (!monitor) throw new ApiError(404, 'Monitor not found');
+  if (!monitor) throw new ApiError(404, 'Monitor not found!');
 
   return monitor;
 };
@@ -78,7 +99,7 @@ const getAllMonitors = async (
 
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
-  if (!user) throw new ApiError(404, 'User not found');
+  if (!user) throw new ApiError(404, 'User not found!');
 
   const where: Prisma.MonitorWhereInput = {
     AND: [...pipeline, { companyName: user.companyName }],
@@ -98,7 +119,7 @@ const getAllMonitors = async (
 };
 
 export const MonitorService = {
-  createMonitor,
+  createAMonitor,
   getMonitorById,
   getAllMonitors,
 };

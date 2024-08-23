@@ -7,8 +7,8 @@ import paginationFields from '../../../lib/pagination';
 import sendResponse from '../../../shared/send-response';
 import { monitorFilterableFields } from './monitor.constant';
 
-const createMonitor = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.createMonitor(req.body);
+const createAMonitor = catchAsync(async (req: Request, res: Response) => {
+  const data = await MonitorService.createAMonitor(req.body);
 
   sendResponse<Monitor>(res, {
     statusCode: 200,
@@ -21,7 +21,7 @@ const createMonitor = catchAsync(async (req: Request, res: Response) => {
 const getMonitorById = catchAsync(async (req: Request, res: Response) => {
   const data = await MonitorService.getMonitorById(req.params.id);
 
-  sendResponse(res, {
+  sendResponse<Monitor>(res, {
     statusCode: 200,
     success: true,
     message: 'Monitor retrieved',
@@ -49,7 +49,7 @@ const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const MonitorController = {
-  createMonitor,
+  createAMonitor,
   getMonitorById,
   getAllMonitors,
 };

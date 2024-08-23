@@ -1,8 +1,5 @@
 import { Prisma } from '@prisma/client';
-import {
-  GenericErrorMessage,
-  GenericErrorResponse,
-} from '../interfaces/common';
+import { GenericErrorMessage, GenericErrorResponse } from '../types/common';
 
 const handlePrismaClientKnownRequestError = (
   error: Prisma.PrismaClientKnownRequestError,

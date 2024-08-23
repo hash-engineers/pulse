@@ -1,8 +1,5 @@
 import { ZodError, ZodIssue } from 'zod';
-import {
-  GenericErrorMessage,
-  GenericErrorResponse,
-} from '../interfaces/common';
+import { GenericErrorMessage, GenericErrorResponse } from '../types/common';
 
 const handleZodValidationError = (error: ZodError): GenericErrorResponse => {
   const errors: GenericErrorMessage[] = error.issues.map((issue: ZodIssue) => ({

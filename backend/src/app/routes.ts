@@ -7,8 +7,8 @@ const router = Router();
 
 [
   { path: '/users', route: UserRoutes },
-  { path: '/companies', route: CompanyRoutes },
   { path: '/monitors', route: MonitorRoutes },
+  { path: '/companies', route: CompanyRoutes },
 ].map(({ path, route }) => router.use(path, route));
 
 export const routes = router;

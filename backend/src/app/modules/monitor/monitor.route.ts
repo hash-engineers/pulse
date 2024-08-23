@@ -6,11 +6,15 @@ import validateZodRequest from '../../middlewares/validate-zod-request';
 const router = Router();
 
 router
+
+  // WRITE
   .post(
     '/',
-    validateZodRequest(MonitorValidation.createMonitorSchema),
-    MonitorController.createMonitor,
+    validateZodRequest(MonitorValidation.createAMonitorZodSchema),
+    MonitorController.createAMonitor,
   )
+
+  // READ
   .get('/', MonitorController.getAllMonitors)
   .get('/:id', MonitorController.getMonitorById);
 

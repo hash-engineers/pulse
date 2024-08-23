@@ -1,15 +1,16 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
-
 import { Monitor } from '@prisma/client';
+import { SearchTerm } from '../../../types/common';
 
-type CreateMonitorRequest = { userId: string } & Monitor;
+type CreateAMonitorRequest = { userId: string } & Omit<
+  Monitor,
+  'statusCode' | 'status'
+>;
 
 type MonitorFilters = {
-  searchTerm?: string;
   id?: string;
   url?: string;
   name?: string;
   companyName?: string;
-};
+} & SearchTerm;
 
-export { CreateMonitorRequest, MonitorFilters };
+export { CreateAMonitorRequest, MonitorFilters };
