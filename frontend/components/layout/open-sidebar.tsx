@@ -5,7 +5,7 @@ import { Branding } from './branding';
 import { SidebarContent } from './sidebar-content';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../ui/sheet';
 
-export default function OpenSidebar() {
+export function OpenSidebar() {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden flex items-center gap-x-2 text-muted-foreground mb-4">

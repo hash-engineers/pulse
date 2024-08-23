@@ -1,9 +1,16 @@
+import { ReactNode } from 'react';
+import { redirect } from 'next/navigation';
 import { Sidebar } from '@/components/layout/sidebar';
-import OpenSidebar from '@/components/layout/open-sidebar';
+import { OpenSidebar } from '@/components/layout/open-sidebar';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-type Props = { children: React.ReactNode };
+type Props = { children: ReactNode };
 
-export default function DashboardLayout({ children }: Props) {
+export default async function DashboardLayout({ children }: Props) {
+  const { getUser } = getKindeServerSession();
+
+  if (!(await getUser())) redirect('/home');
+
   return (
     <div className="relative h-screen">
       <Sidebar />

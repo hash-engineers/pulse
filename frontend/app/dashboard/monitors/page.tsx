@@ -8,10 +8,12 @@ export default async function Monitors() {
 
   return (
     <section className="space-y-4">
-      <h3>Hey Mehedi, Here is your monitors status!</h3>
+      <h3 className="tracking-wide">
+        Hey {user!.given_name}, here is your monitors status!
+      </h3>
       <SearchAndCreateMonitor />
 
-      <AllMonitors userId={user?.id} />
+      <AllMonitors userId={user!.id} />
     </section>
   );
 }

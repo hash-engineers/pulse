@@ -25,7 +25,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     <div className="space-y-4">
       <Status name={monitor.name} url={monitor.url} status={monitor.status} />
       <Actions />
-      <KeyInfos />
+      <KeyInfos incidents={monitor.incidents} />
       <DataTable />
     </div>
   );

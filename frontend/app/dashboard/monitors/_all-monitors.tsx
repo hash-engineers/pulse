@@ -9,7 +9,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 
-type Props = { userId?: string };
+type Props = { userId: string };
 
 export async function AllMonitors({ userId }: Props) {
   let monitors: Monitor[] | null = null;
