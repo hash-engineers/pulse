@@ -17,8 +17,6 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     console.error('Error From Fetch Monitor Data ->', error);
   }
 
-  console.log(monitor);
-
   if (!monitor) return null;
 
   return (
