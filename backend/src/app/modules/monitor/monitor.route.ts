@@ -16,6 +16,6 @@ router
 
   // READ
   .get('/', MonitorController.getAllMonitors)
-  .get('/:id', MonitorController.getMonitorById);
+  .get('/:id', MonitorController.getAMonitorById);
 
 export const MonitorRoutes = router;

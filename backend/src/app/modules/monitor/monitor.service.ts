@@ -58,8 +58,11 @@ const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
   return monitor;
 };
 
-const getMonitorById = async (id: string) => {
-  const monitor = await prisma.monitor.findUnique({ where: { id } });
+const getAMonitorById = async (id: string) => {
+  const monitor = await prisma.monitor.findUnique({
+    where: { id },
+    include: { incidents: true },
+  });
 
   if (!monitor) throw new ApiError(404, 'Monitor not found!');
 
@@ -120,6 +123,6 @@ const getAllMonitors = async (
 
 export const MonitorService = {
   createAMonitor,
-  getMonitorById,
   getAllMonitors,
+  getAMonitorById,
 };

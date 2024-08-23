@@ -18,8 +18,8 @@ const createAMonitor = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getMonitorById = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.getMonitorById(req.params.id);
+const getAMonitorById = catchAsync(async (req: Request, res: Response) => {
+  const data = await MonitorService.getAMonitorById(req.params.id);
 
   sendResponse<Monitor>(res, {
     statusCode: 200,
@@ -50,6 +50,6 @@ const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
 
 export const MonitorController = {
   createAMonitor,
-  getMonitorById,
+  getAMonitorById,
   getAllMonitors,
 };
