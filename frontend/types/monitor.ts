@@ -4,6 +4,7 @@ type Monitor = {
   id: string;
   url: string;
   name?: string;
+  statusCode: number;
   status: EMonitorStatus;
   downTime: number;
   call: boolean;

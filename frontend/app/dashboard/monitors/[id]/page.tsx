@@ -4,15 +4,26 @@ import { Status } from './_status';
 import { Actions } from './_actions';
 import { KeyInfos } from './_key-infos';
 import { DataTable } from './_data-table';
+import { Monitor } from '@/types/monitor';
 
 type Props = { params: { id: string } };
 
-export default async function Monitor({ params: { id } }: Props) {
-  const monitor = await axios.get(`${api}/monitors/${id}`);
+export default async function MonitorDetails({ params: { id } }: Props) {
+  let monitor: Monitor | null = null;
+
+  try {
+    monitor = (await axios.get(`${api}/monitors/${id}`)).data.data;
+  } catch (error) {
+    console.error('Error From Fetch Monitor Data ->', error);
+  }
+
+  console.log(monitor);
+
+  if (!monitor) return null;
 
   return (
     <div className="space-y-4">
-      <Status />
+      <Status name={monitor.name} url={monitor.url} status={monitor.status} />
       <Actions />
       <KeyInfos />
       <DataTable />
