@@ -1,13 +1,12 @@
 import { Monitor } from '@/types/monitor';
-import { Incident } from '@/types/incident';
 
-function calculateUptimePercentage(monitor: Monitor): string {
+export function calculateUptimePercentage(monitor: Monitor): string {
   const createdAt = new Date(monitor.createdAt);
   const updatedAt = new Date(monitor.updatedAt);
 
   const totalTime = updatedAt.getTime() - createdAt.getTime();
 
-  const totalDowntime = monitor.incidents.reduce((acc, incident: Incident) => {
+  const totalDowntime = monitor.incidents.reduce((acc, incident) => {
     const incidentCreatedAt = new Date(incident.createdAt);
     const incidentResolvedAt = new Date(incident.resolvedAt);
     const incidentDowntime =
