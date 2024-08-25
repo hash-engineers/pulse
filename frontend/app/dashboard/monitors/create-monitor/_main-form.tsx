@@ -8,6 +8,7 @@ import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
+import { useMonitor } from '@/hooks/monitor';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicFormPart1 } from './_basic-form-part-1';
 import { BasicFormPart2 } from './_basic-form-part-2';
@@ -18,7 +19,9 @@ import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 type Props = { userId: string };
 
 export function MainForm({ userId }: Props) {
+  const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const { setMonitors } = useMonitor();
 
   const form = useForm<z.infer<typeof createMonitorSchema>>({
     resolver: zodResolver(createMonitorSchema),
@@ -35,8 +38,6 @@ export function MainForm({ userId }: Props) {
     },
   });
 
-  const { push } = useRouter();
-
   async function onSubmit(data: z.infer<typeof createMonitorSchema>) {
     try {
       setLoading(true);
@@ -46,6 +47,8 @@ export function MainForm({ userId }: Props) {
       });
 
       if (res) {
+        setMonitors(prev => [...(prev || []), res.data.data]);
+
         push('/dashboard/monitors');
         form.reset();
         toast.success('Monitor created');
@@ -54,7 +57,7 @@ export function MainForm({ userId }: Props) {
       const err = error as any;
 
       toast.error(err?.response?.data?.message || 'Something went wrong');
-      console.error('The Error From Create Monitor Form Submit', error);
+      console.error('The Error From Create Monitor Form Submit ->', error);
     } finally {
       setLoading(false);
     }
