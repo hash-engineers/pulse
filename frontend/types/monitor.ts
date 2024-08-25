@@ -1,4 +1,5 @@
 import { Company } from './company';
+import { Incident } from './incident';
 import { CreatedAtAndUpdatedAt } from './common';
 import { ENextAction, EWhenToAlert, EMonitorStatus } from '@/enums/monitor';
 
@@ -17,7 +18,7 @@ type Monitor = {
   whenToAlert: EWhenToAlert;
   nextAction: ENextAction;
 
-  incidents: [];
+  incidents: Incident[];
 
   companyName: string;
   company: Company;
