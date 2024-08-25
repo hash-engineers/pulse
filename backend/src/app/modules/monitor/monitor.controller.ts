@@ -19,7 +19,10 @@ const createAMonitor = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAMonitorById = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.getAMonitorById(req.params.id);
+  const data = await MonitorService.getAMonitorById(
+    req.params.id,
+    req.query.startDate as string,
+  );
 
   sendResponse<Monitor>(res, {
     statusCode: 200,
