@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Toaster } from '@/components/ui/sonner';
 import { Kanit as Font } from 'next/font/google';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { MonitorProvider } from '@/providers/monitor-provider';
 
 const font = Font({
   subsets: ['latin'],
@@ -33,8 +34,10 @@ export default function RootLayout({ children }: Props) {
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
+          <MonitorProvider>
+            {children}
+            <Toaster />
+          </MonitorProvider>
         </ThemeProvider>
       </body>
     </html>
