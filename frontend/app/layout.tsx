@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Toaster } from '@/components/ui/sonner';
 import { Kanit as Font } from 'next/font/google';
-import { ThemeProvider } from '@/components/providers/theme-provider';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const font = Font({
   subsets: ['latin'],
