@@ -91,4 +91,4 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export { data, columns };
+export { columns, data };

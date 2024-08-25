@@ -19,6 +19,54 @@ export default async function MonitorDetails({ params: { id } }: Props) {
 
   if (!monitor) return null;
 
+  const data = [
+    {
+      id: monitor.id,
+      downtime: 'none',
+      timePeriod: 'Today',
+      availability: '100.0000%',
+      incidents: 0,
+      longestIncident: 'none',
+      averageIncident: 'none',
+    },
+    {
+      id: monitor.id,
+      downtime: 'none',
+      timePeriod: 'Last 7 days',
+      availability: '100.0000%',
+      incidents: 0,
+      longestIncident: 'none',
+      averageIncident: 'none',
+    },
+    {
+      id: monitor.id,
+      downtime: 'none',
+      timePeriod: 'Last 30 days',
+      availability: '100.0000%',
+      incidents: 0,
+      longestIncident: 'none',
+      averageIncident: 'none',
+    },
+    {
+      id: monitor.id,
+      downtime: 'none',
+      timePeriod: 'Last 365 days',
+      availability: '100.0000%',
+      incidents: 0,
+      longestIncident: 'none',
+      averageIncident: 'none',
+    },
+    {
+      id: monitor.id,
+      downtime: 'none',
+      timePeriod: 'All Time (Last 3 days)',
+      availability: '100.0000%',
+      incidents: 0,
+      longestIncident: 'none',
+      averageIncident: 'none',
+    },
+  ];
+
   return (
     <section className="space-y-4 pt-12">
       <Status name={monitor.name} url={monitor.url} status={monitor.status} />

@@ -1,10 +1,10 @@
 'use client';
 
-import { data, columns } from '@/lib/monitor';
 import {
   flexRender,
   useReactTable,
   getCoreRowModel,
+  ColumnDef,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -14,6 +14,50 @@ import {
   TableBody,
   TableHeader,
 } from '@/components/ui/table';
+import { data } from '@/lib/monitor';
+
+type Props = {
+  id: string;
+  downtime: string;
+  timePeriod:
+    | 'Today'
+    | 'Last 7 days'
+    | 'Last 30 days'
+    | 'Last 365 days'
+    | 'All Time (Last 3 days)'
+    | 'Since 12 July 2024 untill today';
+  availability: string;
+  incidents: number;
+  longestIncident: string;
+  averageIncident: string;
+};
+
+const columns: ColumnDef<Props>[] = [
+  {
+    accessorKey: 'timePeriod',
+    header: 'Time Period',
+  },
+  {
+    accessorKey: 'availability',
+    header: 'Availability',
+  },
+  {
+    accessorKey: 'downtime',
+    header: 'Downtime',
+  },
+  {
+    accessorKey: 'incidents',
+    header: 'Incidents',
+  },
+  {
+    accessorKey: 'longestIncident',
+    header: 'Longest Incident',
+  },
+  {
+    accessorKey: 'averageIncident',
+    header: 'Average Incident',
+  },
+];
 
 export function DataTable() {
   const table = useReactTable({
