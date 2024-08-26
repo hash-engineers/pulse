@@ -2,7 +2,7 @@
 
 Pulse is a powerful and intuitive uptime monitoring tool designed to keep track of the availability of your websites and services. Monitor your endpoints, get notified of downtimes, and analyze performance—all in one place.
 
-### 🌟 Features
+### 🌟 Key Features
 
 #### **Real-time Monitoring:** Check the uptime of your websites and services.
 
