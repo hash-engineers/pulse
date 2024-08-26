@@ -26,7 +26,7 @@ const updateMonitorScheduler = () => {
     } catch (error: any) {
       console.error('The Error From Monitor Schedule Job ->', error);
 
-      if (error?.code === 'ENOTFOUND' || error?.code === 'ERR_BAD_RESPONSE') {
+      if (error) {
         await prisma.monitor.update({
           where: { id: monitors[0].id },
           data: { status: EMonitorStatus.DOWN },
