@@ -14,9 +14,8 @@ import {
   TableBody,
   TableHeader,
 } from '@/components/ui/table';
-import { data } from '@/lib/monitor';
 
-type Props = {
+type Data = {
   id: string;
   downtime: string;
   timePeriod:
@@ -32,7 +31,9 @@ type Props = {
   averageIncident: string;
 };
 
-const columns: ColumnDef<Props>[] = [
+type Props = { data: Data[] };
+
+const columns: ColumnDef<Data>[] = [
   {
     accessorKey: 'timePeriod',
     header: 'Time Period',
@@ -59,7 +60,7 @@ const columns: ColumnDef<Props>[] = [
   },
 ];
 
-export function DataTable() {
+export function DataTable({ data }: Props) {
   const table = useReactTable({
     data,
     columns,

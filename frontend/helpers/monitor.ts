@@ -1,4 +1,7 @@
 import { Monitor } from '@/types/monitor';
+import { getDate } from '@/utils/date-time/get-date';
+
+const { nowTime } = getDate();
 
 export function calculateMonitorAvailability(monitor: Monitor): string {
   const createdAt = new Date(monitor.createdAt);
@@ -6,9 +9,11 @@ export function calculateMonitorAvailability(monitor: Monitor): string {
 
   const totalTime = updatedAt.getTime() - createdAt.getTime();
 
+  if (totalTime <= 0) return '100.0000%';
+
   const totalDowntime = monitor.incidents.reduce((acc, incident) => {
     const incidentCreatedAt = new Date(incident.createdAt);
-    const incidentResolvedAt = new Date(incident.resolvedAt);
+    const incidentResolvedAt = new Date(incident?.resolvedAt || nowTime);
     const incidentDowntime =
       incidentResolvedAt.getTime() - incidentCreatedAt.getTime();
     return acc + incidentDowntime;

@@ -6,6 +6,7 @@ import { KeyInfos } from './_key-infos';
 import { DataTable } from './_data-table';
 import { Monitor } from '@/types/monitor';
 import { getDate } from '@/utils/date-time/get-date';
+import { calculateMonitorAvailability } from '@/helpers/monitor';
 
 type Props = { params: { id: string } };
 
@@ -37,49 +38,56 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     console.error('Error From Fetch Monitor Data ->', error);
   }
 
-  if (!monitor) return null;
+  if (
+    !monitor ||
+    !monitorForToday ||
+    !monitorForLast7Days ||
+    !monitorForLast30Days ||
+    !monitorForLast365Days
+  )
+    return null;
 
   const data = [
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'Today',
-      availability: '100.0000%',
-      incidents: 0,
+      timePeriod: 'Today' as 'Today',
+      availability: calculateMonitorAvailability(monitorForToday),
+      incidents: monitorForToday.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
     },
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'Last 7 days',
-      availability: '100.0000%',
-      incidents: 0,
+      timePeriod: 'Last 7 days' as 'Last 7 days',
+      availability: calculateMonitorAvailability(monitorForLast7Days),
+      incidents: monitorForLast7Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
     },
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'Last 30 days',
-      availability: '100.0000%',
-      incidents: 0,
+      timePeriod: 'Last 30 days' as 'Last 30 days',
+      availability: calculateMonitorAvailability(monitorForLast30Days),
+      incidents: monitorForLast30Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
     },
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'Last 365 days',
-      availability: '100.0000%',
-      incidents: 0,
+      timePeriod: 'Last 365 days' as 'Last 365 days',
+      availability: calculateMonitorAvailability(monitorForLast365Days),
+      incidents: monitorForLast365Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
     },
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'All Time (Last 3 days)',
+      timePeriod: 'All Time (Last 3 days)' as 'All Time (Last 3 days)',
       availability: '100.0000%',
       incidents: 0,
       longestIncident: 'none',
@@ -92,7 +100,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       <Status name={monitor.name} url={monitor.url} status={monitor.status} />
       <Actions />
       <KeyInfos incidents={monitor.incidents} />
-      <DataTable />
+      <DataTable data={data} />
     </section>
   );
 }
