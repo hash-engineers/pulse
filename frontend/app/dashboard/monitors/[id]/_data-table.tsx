@@ -1,5 +1,6 @@
 'use client';
 
+import { MonitorDetailsTableRow } from '@/types/monitor';
 import {
   flexRender,
   useReactTable,
@@ -15,25 +16,9 @@ import {
   TableHeader,
 } from '@/components/ui/table';
 
-type Data = {
-  id: string;
-  downtime: string;
-  timePeriod:
-    | 'Today'
-    | 'Last 7 days'
-    | 'Last 30 days'
-    | 'Last 365 days'
-    | 'All Time (Last 3 days)'
-    | 'Since 12 July 2024 untill today';
-  availability: string;
-  incidents: number;
-  longestIncident: string;
-  averageIncident: string;
-};
+type Props = { data: MonitorDetailsTableRow[] };
 
-type Props = { data: Data[] };
-
-const columns: ColumnDef<Data>[] = [
+const columns: ColumnDef<MonitorDetailsTableRow>[] = [
   {
     accessorKey: 'timePeriod',
     header: 'Time Period',
