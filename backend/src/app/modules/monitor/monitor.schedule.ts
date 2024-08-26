@@ -22,7 +22,7 @@ const updateMonitorScheduler = () => {
         headers: { 'User-Agent': userAgentHeader },
       });
 
-      console.log('Schedule job works!');
+      console.log('Schedule job works new~');
     } catch (error: any) {
       console.error('The Error From Monitor Schedule Job ->', error);
 
