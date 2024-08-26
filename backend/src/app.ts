@@ -1,3 +1,4 @@
+import './app/schedules';
 import cors from 'cors';
 import { routes } from './app/routes';
 import cookieParser from 'cookie-parser';
