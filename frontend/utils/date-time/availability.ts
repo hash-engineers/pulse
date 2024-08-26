@@ -1,6 +1,6 @@
 import { Monitor } from '@/types/monitor';
 
-export function calculateUptimePercentage(monitor: Monitor): string {
+export function calculateAvailability(monitor: Monitor): string {
   const createdAt = new Date(monitor.createdAt);
   const updatedAt = new Date(monitor.updatedAt);
 

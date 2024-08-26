@@ -59,11 +59,10 @@ const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
 };
 
 const getAMonitorById = async (id: string, startDateString?: string) => {
-  let startDate = null;
   let monitor: Monitor | null;
 
   if (startDateString) {
-    startDate = new Date(startDateString);
+    const startDate = new Date(startDateString);
 
     monitor = await prisma.monitor.findUnique({
       where: { id },
