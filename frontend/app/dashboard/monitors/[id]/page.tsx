@@ -99,7 +99,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     <section className="space-y-4 pt-12">
       <Status name={monitor.name} url={monitor.url} status={monitor.status} />
       <Actions />
-      <KeyInfos incidents={monitor.incidents} />
+      <KeyInfos incidents={monitor.incidents} createdAt={monitor.createdAt} />
       <DataTable data={monitorDetailsTableRowData} />
     </section>
   );
