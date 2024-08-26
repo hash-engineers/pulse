@@ -13,4 +13,9 @@ type MonitorFilters = {
   companyName?: string;
 } & SearchTerm;
 
-export { CreateAMonitorRequest, MonitorFilters };
+type UpdateAMonitorByIdRequest = Omit<
+  Monitor,
+  'id' | 'url' | 'companyName' | 'createdAt' | 'updatedAt'
+>;
+
+export { CreateAMonitorRequest, MonitorFilters, UpdateAMonitorByIdRequest };

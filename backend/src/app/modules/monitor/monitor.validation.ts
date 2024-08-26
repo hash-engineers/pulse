@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ENextAction, EWhenToAlert } from '@prisma/client';
+import { ENextAction, EWhenToAlert, EMonitorStatus } from '@prisma/client';
 
 const createAMonitorZodSchema = z.object({
   body: z.object({
@@ -24,4 +24,29 @@ const createAMonitorZodSchema = z.object({
   }),
 });
 
-export const MonitorValidation = { createAMonitorZodSchema };
+const updateAMonitorByIdZodSchema = z.object({
+  body: z.object({
+    name: z.string().optional(),
+    statusCode: z.number().positive().optional(),
+    status: z
+      .enum([...Object.values(EMonitorStatus)] as [string, ...string[]])
+      .optional(),
+    downtime: z.number().optional(),
+    call: z.boolean().optional(),
+    sendSMS: z.boolean().optional(),
+    sendEmail: z.boolean().optional(),
+    pushNotification: z.boolean().optional(),
+    whenToAlert: z
+      .enum([...Object.values(EWhenToAlert)] as [string, ...string[]])
+      .optional(),
+    nextAction: z
+      .enum([...Object.values(ENextAction)] as [string, ...string[]])
+      .optional(),
+    checkedAt: z.string().datetime().optional(),
+  }),
+});
+
+export const MonitorValidation = {
+  createAMonitorZodSchema,
+  updateAMonitorByIdZodSchema,
+};

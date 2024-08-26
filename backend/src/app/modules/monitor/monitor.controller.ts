@@ -51,8 +51,20 @@ const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateAMonitorById = catchAsync(async (req: Request, res: Response) => {
+  const data = await MonitorService.updateAMonitorById(req.params.id, req.body);
+
+  sendResponse<Monitor>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Monitor updated',
+    data,
+  });
+});
+
 export const MonitorController = {
   createAMonitor,
-  getAMonitorById,
   getAllMonitors,
+  getAMonitorById,
+  updateAMonitorById,
 };

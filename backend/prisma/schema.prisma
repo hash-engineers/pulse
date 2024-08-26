@@ -42,7 +42,7 @@ enum ENextAction {
   WITHIN_10_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS
 }
 
-enum EStatus {
+enum EMonitorStatus {
   UP
   DOWN
   PAUSED
@@ -81,17 +81,17 @@ model Company {
 model Monitor {
   id String @id @default(cuid())
 
-  url              String       @unique
+  url              String         @unique
   name             String?
-  statusCode       Int          @default(200)
-  status           EStatus      @default(PENDING)
-  downtime         Float        @default(0.00)
-  call             Boolean      @default(false)
-  sendSMS          Boolean      @default(false)
-  sendEmail        Boolean      @default(true)
-  pushNotification Boolean      @default(false)
-  whenToAlert      EWhenToAlert @default(URL_BECOMES_UNAVAILABLE)
-  nextAction       ENextAction  @default(WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS)
+  statusCode       Int            @default(200)
+  status           EMonitorStatus @default(PENDING)
+  downtime         Float          @default(0.00)
+  call             Boolean        @default(false)
+  sendSMS          Boolean        @default(false)
+  sendEmail        Boolean        @default(true)
+  pushNotification Boolean        @default(false)
+  whenToAlert      EWhenToAlert   @default(URL_BECOMES_UNAVAILABLE)
+  nextAction       ENextAction    @default(WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS)
 
   incidents Incident[]
 

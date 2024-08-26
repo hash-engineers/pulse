@@ -16,6 +16,13 @@ router
 
   // READ
   .get('/', MonitorController.getAllMonitors)
-  .get('/:id', MonitorController.getAMonitorById);
+  .get('/:id', MonitorController.getAMonitorById)
+
+  // UPDATE
+  .patch(
+    '/:id',
+    validateZodRequest(MonitorValidation.updateAMonitorByIdZodSchema),
+    MonitorController.updateAMonitorById,
+  );
 
 export const MonitorRoutes = router;

@@ -4,12 +4,16 @@ import axios from 'axios';
 import prisma from '../../../lib/prisma';
 import ApiError from '../../../errors/api-error';
 import { userAgentHeader } from '../../../lib/headers';
-import { EStatus, Monitor, Prisma } from '@prisma/client';
-import { monitorSearchableFields } from './monitor.constant';
 import { GenericResponse } from '../../../types/common';
+import { EMonitorStatus, Monitor, Prisma } from '@prisma/client';
+import { monitorSearchableFields } from './monitor.constant';
 import calculatePagination from '../../../helpers/pagination';
 import { PaginationOptions } from '../../../types/pagination';
-import { CreateAMonitorRequest, MonitorFilters } from './monitor.type';
+import {
+  MonitorFilters,
+  CreateAMonitorRequest,
+  UpdateAMonitorByIdRequest,
+} from './monitor.type';
 
 const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
   let isUrlValid = null;
@@ -50,7 +54,10 @@ const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
   const monitor = await prisma.monitor.create({
     data: {
       statusCode: isUrlValid.status,
-      status: isUrlValid.statusText === 'OK' ? EStatus.UP : EStatus.PENDING,
+      status:
+        isUrlValid.statusText === 'OK'
+          ? EMonitorStatus.UP
+          : EMonitorStatus.PENDING,
       ...data,
     },
   });
@@ -132,8 +139,22 @@ const getAllMonitors = async (
   return { meta: { total, page, limit }, data: monitors };
 };
 
+const updateAMonitorById = async (
+  id: string,
+  data: UpdateAMonitorByIdRequest,
+): Promise<Monitor> => {
+  const monitor = await prisma.monitor.update({
+    where: { id },
+    data,
+    include: { incidents: true },
+  });
+
+  return monitor;
+};
+
 export const MonitorService = {
   createAMonitor,
   getAllMonitors,
   getAMonitorById,
+  updateAMonitorById,
 };
