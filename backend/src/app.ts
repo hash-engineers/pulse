@@ -30,8 +30,8 @@ app.get('/test', (_: Request, res: Response) => {
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     success: false,
-    message: 'not found!',
-    errorMessages: [{ path: req.originalUrl, message: 'api not found!' }],
+    message: 'Not found!',
+    errorMessages: [{ path: req.originalUrl, message: 'Api not found!' }],
   });
 
   next();

@@ -12,7 +12,7 @@ const main = async () => {
   const exitHandler = () => {
     if (server) {
       server.close(() => {
-        console.log('server closed');
+        console.log('Server closed!');
       });
     }
     process.exit(1);
