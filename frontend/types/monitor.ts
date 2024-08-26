@@ -26,4 +26,20 @@ type Monitor = {
   checkedAt?: string;
 } & CreatedAtAndUpdatedAt;
 
-export type { Monitor };
+type MonitorDetailsTableRow = {
+  id: string;
+  downtime: string;
+  timePeriod:
+    | 'Today'
+    | 'Last 7 days'
+    | 'Last 30 days'
+    | 'Last 365 days'
+    | 'All Time (Last 3 days)'
+    | 'Since 12 July 2024 untill today';
+  availability: string;
+  incidents: number;
+  longestIncident: string;
+  averageIncident: string;
+};
+
+export type { Monitor, MonitorDetailsTableRow };
