@@ -7,6 +7,4 @@
 /backend/dist
 /backend/.env
 /backend/.env.local
-
-# ROOT
-/README.md
+ 
