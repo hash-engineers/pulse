@@ -26,9 +26,9 @@ export function Status({ name, url, status }: Props) {
         <p className="text-muted-foreground">
           <span
             className={cn({
-              'text-gray-600': status === EMonitorStatus.PENDING,
+              'text-gray-500': status === EMonitorStatus.PENDING,
               'text-green-600': status === EMonitorStatus.UP,
-              'text-yellow-600': status === EMonitorStatus.PENDING,
+              'text-yellow-600': status === EMonitorStatus.PAUSED,
               'text-red-600': status === EMonitorStatus.DOWN,
             })}
           >
