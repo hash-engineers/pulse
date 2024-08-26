@@ -1,70 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
+import { MonitorDetailsTableRow } from '@/types/monitor';
 
-type Payment = {
-  id: string;
-  downtime: string;
-  timePeriod:
-    | 'Today'
-    | 'Last 7 days'
-    | 'Last 30 days'
-    | 'Last 365 days'
-    | 'All Time (Last 3 days)'
-    | 'Since 12 July 2024 untill today';
-  availability: string;
-  incidents: number;
-  longestIncident: string;
-  averageIncident: string;
-};
-
-const data: Payment[] = [
-  {
-    id: 'm5gr84i9',
-    downtime: 'none',
-    timePeriod: 'Today',
-    availability: '100.0000%',
-    incidents: 0,
-    longestIncident: 'none',
-    averageIncident: 'none',
-  },
-  {
-    id: '3u1reuv4',
-    downtime: 'none',
-    timePeriod: 'Last 7 days',
-    availability: '100.0000%',
-    incidents: 0,
-    longestIncident: 'none',
-    averageIncident: 'none',
-  },
-  {
-    id: 'derv1ws0',
-    downtime: 'none',
-    timePeriod: 'Last 30 days',
-    availability: '100.0000%',
-    incidents: 0,
-    longestIncident: 'none',
-    averageIncident: 'none',
-  },
-  {
-    id: '5kma53ae',
-    downtime: 'none',
-    timePeriod: 'Last 365 days',
-    availability: '100.0000%',
-    incidents: 0,
-    longestIncident: 'none',
-    averageIncident: 'none',
-  },
-  {
-    id: 'bhqecj4p',
-    downtime: 'none',
-    timePeriod: 'All Time (Last 3 days)',
-    availability: '100.0000%',
-    incidents: 0,
-    longestIncident: 'none',
-    averageIncident: 'none',
-  },
-];
-
-const columns: ColumnDef<Payment>[] = [
+const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<MonitorDetailsTableRow>[] = [
   {
     accessorKey: 'timePeriod',
     header: 'Time Period',
@@ -91,4 +28,4 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export { columns, data };
+export { MONITOR_DETAILS_TABLE_COLUMNS };

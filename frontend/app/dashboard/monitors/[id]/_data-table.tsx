@@ -1,11 +1,11 @@
 'use client';
 
 import { MonitorDetailsTableRow } from '@/types/monitor';
+import { MONITOR_DETAILS_TABLE_COLUMNS } from '@/lib/monitor';
 import {
   flexRender,
   useReactTable,
   getCoreRowModel,
-  ColumnDef,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -18,37 +18,10 @@ import {
 
 type Props = { data: MonitorDetailsTableRow[] };
 
-const columns: ColumnDef<MonitorDetailsTableRow>[] = [
-  {
-    accessorKey: 'timePeriod',
-    header: 'Time Period',
-  },
-  {
-    accessorKey: 'availability',
-    header: 'Availability',
-  },
-  {
-    accessorKey: 'downtime',
-    header: 'Downtime',
-  },
-  {
-    accessorKey: 'incidents',
-    header: 'Incidents',
-  },
-  {
-    accessorKey: 'longestIncident',
-    header: 'Longest Incident',
-  },
-  {
-    accessorKey: 'averageIncident',
-    header: 'Average Incident',
-  },
-];
-
 export function DataTable({ data }: Props) {
   const table = useReactTable({
     data,
-    columns,
+    columns: MONITOR_DETAILS_TABLE_COLUMNS,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -89,8 +62,11 @@ export function DataTable({ data }: Props) {
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell
+                colSpan={MONITOR_DETAILS_TABLE_COLUMNS.length}
+                className="h-24 text-center"
+              >
+                Not enough data to show the table!
               </TableCell>
             </TableRow>
           )}
