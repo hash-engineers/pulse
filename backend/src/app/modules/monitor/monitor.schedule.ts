@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import axios from 'axios';
 import prisma from '../../../lib/prisma';
 import { scheduleJob } from 'node-schedule';
@@ -23,7 +21,7 @@ const updateMonitorScheduler = () => {
       if (monitorIndex >= monitors.length) {
         clearInterval(intervalId);
 
-        console.log('Finished updation all monitors');
+        console.log('Finished updation all monitors.');
 
         return;
       }
@@ -42,9 +40,9 @@ const updateMonitorScheduler = () => {
           });
         }
 
-        console.log('Schedule job working.');
-      } catch (error: any) {
-        console.error('The Error From Monitor Schedule Job ->', error);
+        console.log('Schedule job working for monitor ->', monitor.url);
+      } catch (error) {
+        console.error('Error From Update Monior Schedule ->', monitor.url);
 
         if (error) {
           await prisma.monitor.update({
