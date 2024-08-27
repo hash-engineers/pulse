@@ -7,7 +7,7 @@ import { EMonitorStatus } from '@prisma/client';
 import { userAgentHeader } from '../../../lib/headers';
 
 const updateMonitorScheduler = () => {
-  scheduleJob('*/1 * * * *', async () => {
+  scheduleJob('*/3 * * * *', async () => {
     const monitors = await prisma.monitor.findMany({
       orderBy: { createdAt: 'desc' },
     });
@@ -17,29 +17,45 @@ const updateMonitorScheduler = () => {
       return;
     }
 
-    try {
-      const url = await axios.get(monitors[0].url, {
-        headers: { 'User-Agent': userAgentHeader },
-      });
+    let monitorIndex: number = 0;
 
-      if (url.status === 200 || url.statusText === 'OK') {
-        await prisma.monitor.update({
-          where: { url: monitors[0].url },
-          data: { status: EMonitorStatus.UP, statusCode: url.status },
-        });
+    const intervalId = setInterval(async () => {
+      if (monitorIndex >= monitors.length) {
+        clearInterval(intervalId);
+
+        console.log('Finished updation all monitors');
+
+        return;
       }
 
-      console.log('Schedule job working.');
-    } catch (error: any) {
-      console.error('The Error From Monitor Schedule Job ->', error);
+      const monitor = monitors[monitorIndex];
 
-      if (error) {
-        await prisma.monitor.update({
-          where: { id: monitors[0].id },
-          data: { status: EMonitorStatus.DOWN, statusCode: 500 },
+      try {
+        const url = await axios.get(monitor.url, {
+          headers: { 'User-Agent': userAgentHeader },
         });
+
+        if (url.status === 200 || url.statusText === 'OK') {
+          await prisma.monitor.update({
+            where: { url: monitor.url },
+            data: { status: EMonitorStatus.UP, statusCode: url.status },
+          });
+        }
+
+        console.log('Schedule job working.');
+      } catch (error: any) {
+        console.error('The Error From Monitor Schedule Job ->', error);
+
+        if (error) {
+          await prisma.monitor.update({
+            where: { id: monitor.id },
+            data: { status: EMonitorStatus.DOWN, statusCode: 500 },
+          });
+        }
       }
-    }
+
+      monitorIndex += 1;
+    }, 2000);
   });
 };
 
