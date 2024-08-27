@@ -45,60 +45,51 @@ export function calculateMonitorCurrentlyUpFor(
   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
   const yearsString =
-    variant === 'short' ? 'y' : years === 1 ? 'year' : 'years';
+    variant === 'short' ? 'y' : years === 1 ? ' year' : ' years';
   const monthsString =
-    variant === 'short' ? 'm' : months === 1 ? 'month' : 'months';
-  const daysString = variant === 'short' ? 'd' : days === 1 ? 'day' : 'days';
+    variant === 'short' ? 'mo' : months === 1 ? ' month' : ' months';
+  const daysString = variant === 'short' ? 'd' : days === 1 ? ' day' : ' days';
   const hoursString =
-    variant === 'short' ? 'h' : hours === 1 ? 'hour' : 'hours';
+    variant === 'short' ? 'h' : hours === 1 ? ' hour' : ' hours';
   const minutesString =
-    variant === 'short' ? 'min' : minutes === 1 ? 'minute' : 'minutes';
+    variant === 'short' ? 'm' : minutes === 1 ? ' minute' : ' minutes';
 
   if (years > 0)
     return `${
       years +
-      ' ' +
       yearsString +
       ' ' +
       months +
-      ' ' +
       monthsString +
       ' ' +
       days +
-      ' ' +
       daysString
     }`;
   if (months > 0)
     return `${
       months +
-      ' ' +
       monthsString +
       ' ' +
       days +
-      ' ' +
       daysString +
       ' ' +
       hours +
-      ' ' +
       hoursString
     }`;
   if (days > 0)
     return `${
       days +
-      ' ' +
       daysString +
       ' ' +
       hours +
-      ' ' +
       hoursString +
       ' ' +
       minutes +
-      ' ' +
       minutesString
     }`;
   if (hours > 0)
-    return `${hours + ' ' + hoursString + ' ' + minutes + ' ' + minutesString}`;
-  if (minutes > 0) return `${minutes + ' ' + minutesString}`;
+    return `${hours + hoursString + ' ' + minutes + minutesString}`;
+  if (minutes > 0) return `${minutes + minutesString}`;
 
   return 'now';
 }
