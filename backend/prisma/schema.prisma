@@ -109,8 +109,8 @@ model Incident {
   id String @id @default(cuid())
 
   code          String
-  statusCode    Int
-  statusMessage String
+  statusCode    Int?
+  statusMessage String?
 
   monitorId String
   monitor   Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)

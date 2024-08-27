@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import axios from 'axios';
 import prisma from '../../../lib/prisma';
 import { scheduleJob } from 'node-schedule';
@@ -41,8 +43,11 @@ const updateMonitorScheduler = () => {
         }
 
         console.log('Schedule job working for monitor ->', monitor.url);
-      } catch (error) {
-        console.error('Error From Update Monior Schedule ->', error);
+      } catch (error: any) {
+        console.error(
+          'Error From Check Availability With Schedule Job ->',
+          error?.code,
+        );
 
         if (error) {
           await prisma.monitor.update({
