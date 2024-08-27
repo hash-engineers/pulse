@@ -108,14 +108,16 @@ model Monitor {
 model Incident {
   id String @id @default(cuid())
 
-  statusCode Int
+  code          String
+  statusCode    Int
+  statusMessage String
 
   monitorId String
   monitor   Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
 
-  resolvedAt DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 
   @@map("incidents")
 }
