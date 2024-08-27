@@ -49,6 +49,12 @@ enum EMonitorStatus {
   PENDING
 }
 
+enum EIncidentStatus {
+  ONGOING
+  ACKNOWLEDGED
+  RESOLVED
+}
+
 model User {
   id String @id
 
@@ -111,6 +117,7 @@ model Incident {
   code          String
   statusCode    Int?
   statusMessage String?
+  status        EIncidentStatus @default(ONGOING)
 
   monitorId String
   monitor   Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
