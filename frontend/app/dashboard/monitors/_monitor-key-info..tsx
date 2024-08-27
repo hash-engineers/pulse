@@ -1,19 +1,15 @@
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 import { Focus } from 'lucide-react';
-import { EMonitorStatus } from '@/enums/monitor';
-import { cn, formatCheckedAt } from '@/lib/utils';
+import { Monitor } from '@/types/monitor';
+import { calculateMonitorCurrentlyUpFor } from '@/helpers/monitor';
 import { UptimeBlinking } from '@/components/blinks/uptime-blinking';
 import { PausedBlinking } from '@/components/blinks/paused-blinking';
 import { PendingBlinking } from '@/components/blinks/pending-blinking';
 import { DowntimeBlinking } from '@/components/blinks/downtime-blinking';
 
-type Props = {
-  id: string;
-  name?: string;
-  url: string;
-  status: EMonitorStatus;
+type Props = Pick<Monitor, 'id' | 'name' | 'url' | 'status' | 'createdAt'> & {
   checkingTime: string;
-  checkedAt: string;
 };
 
 export function MonitorKeyInfo({
@@ -22,7 +18,7 @@ export function MonitorKeyInfo({
   url,
   status,
   checkingTime,
-  checkedAt,
+  createdAt,
 }: Props) {
   return (
     <Link
@@ -54,7 +50,7 @@ export function MonitorKeyInfo({
               {status.charAt(0) + status.slice(1, status.length).toLowerCase()}
             </span>{' '}
             <span className="font-extrabold">·</span>{' '}
-            {formatCheckedAt(checkedAt)}
+            {calculateMonitorCurrentlyUpFor(createdAt, 'short')}
           </p>
         </div>
       </div>
