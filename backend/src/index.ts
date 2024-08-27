@@ -6,7 +6,7 @@ let server: Server;
 
 const main = async () => {
   server = app.listen(env.PORT, () =>
-    console.log(`pure plus listening on http://localhost:${env.PORT}`),
+    console.log(`Pure plus listening on http://localhost:${env.PORT}`),
   );
 
   const exitHandler = () => {

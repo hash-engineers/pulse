@@ -5,7 +5,7 @@ import { EMonitorStatus } from '@prisma/client';
 import { userAgentHeader } from '../../../lib/headers';
 
 const updateMonitorScheduler = () => {
-  scheduleJob('*/3 * * * *', async () => {
+  scheduleJob('*/1 * * * *', async () => {
     const monitors = await prisma.monitor.findMany({
       orderBy: { createdAt: 'desc' },
     });
@@ -42,7 +42,7 @@ const updateMonitorScheduler = () => {
 
         console.log('Schedule job working for monitor ->', monitor.url);
       } catch (error) {
-        console.error('Error From Update Monior Schedule ->', monitor.url);
+        console.error('Error From Update Monior Schedule ->', error);
 
         if (error) {
           await prisma.monitor.update({
