@@ -1,5 +1,5 @@
-import { calculateMonitorCurrentlyUpFor } from '@/helpers/monitor';
 import { Monitor } from '@/types/monitor';
+import { calculateMonitorCurrentlyUpFor } from '@/helpers/monitor';
 
 type Props = Pick<Monitor, 'incidents' | 'createdAt'>;
 
@@ -9,7 +9,11 @@ export function KeyInfos({ incidents, createdAt }: Props) {
       <div className="border p-4 rounded-md">
         <h6>Currently up for</h6>
         <h3 className="text-foreground">
-          {calculateMonitorCurrentlyUpFor(createdAt, 'long')}
+          {calculateMonitorCurrentlyUpFor({
+            monitorCreatedAt: createdAt,
+            incidents,
+            variant: 'long',
+          })}
         </h3>
       </div>
       <div className="border p-4 rounded-md">
