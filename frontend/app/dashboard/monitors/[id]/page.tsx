@@ -4,6 +4,7 @@ import { Status } from './_status';
 import { Actions } from './_actions';
 import { KeyInfos } from './_key-infos';
 import { DataTable } from './_data-table';
+import { formatDate } from '@/helpers/date-time';
 import { getDate } from '@/utils/date-time/get-date';
 import { calculateMonitorAvailability } from '@/helpers/monitor';
 import { Monitor, MonitorDetailsTableRow } from '@/types/monitor';
@@ -47,7 +48,9 @@ export default async function MonitorDetails({ params: { id } }: Props) {
   )
     return null;
 
-  const monitorDetailsTableRowData: MonitorDetailsTableRow<>[] = [
+  const date = formatDate(monitor.createdAt);
+
+  const monitorDetailsTableRowData: MonitorDetailsTableRow<string>[] = [
     {
       id: monitor.id,
       downtime: 'none',
@@ -87,7 +90,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'Since ${T} untill today',
+      timePeriod: `Since ${date} untill today`,
       availability: calculateMonitorAvailability(monitor),
       incidents: monitor.incidents.length,
       longestIncident: 'none',

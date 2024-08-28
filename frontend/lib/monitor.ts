@@ -1,7 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { MonitorDetailsTableRow } from '@/types/monitor';
 
-const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<MonitorDetailsTableRow>[] = [
+const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<
+  MonitorDetailsTableRow<string>
+>[] = [
   {
     accessorKey: 'timePeriod',
     header: 'Time Period',

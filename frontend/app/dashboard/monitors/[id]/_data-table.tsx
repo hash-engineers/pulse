@@ -16,7 +16,7 @@ import {
   TableHeader,
 } from '@/components/ui/table';
 
-type Props = { data: MonitorDetailsTableRow[] };
+type Props = { data: MonitorDetailsTableRow<string>[] };
 
 export function DataTable({ data }: Props) {
   const table = useReactTable({
