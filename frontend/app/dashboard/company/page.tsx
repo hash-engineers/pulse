@@ -1,3 +1,3 @@
-export default function Company() {
+export default function Page() {
   return <div>Company</div>;
 }

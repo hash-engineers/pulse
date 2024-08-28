@@ -11,7 +11,7 @@ import { Monitor, MonitorDetailsTableRow } from '@/types/monitor';
 
 type Props = { params: { id: string } };
 
-export default async function MonitorDetails({ params: { id } }: Props) {
+export default async function Page({ params: { id } }: Props) {
   let monitor: Monitor | null = null;
   let monitorForToday: Monitor | null = null;
   let monitorForLast7Days: Monitor | null = null;
