@@ -132,6 +132,7 @@ const getAllMonitors = async (
     take: limit,
     orderBy:
       sortBy && sortOrder ? { [sortBy]: sortOrder } : { updatedAt: 'desc' },
+    include: { incidents: true },
   });
 
   const total = await prisma.monitor.count({ where });
