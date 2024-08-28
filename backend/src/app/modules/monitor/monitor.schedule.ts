@@ -8,7 +8,7 @@ import { IncidentService } from '../incident/incident.service';
 import { EIncidentStatus, EMonitorStatus } from '@prisma/client';
 
 const updateMonitorScheduler = () => {
-  scheduleJob('*/1 * * * *', async () => {
+  scheduleJob('*/3 * * * *', async () => {
     const monitors = await prisma.monitor.findMany();
 
     if (monitors.length === 0) {

@@ -1,5 +1,5 @@
 import cors from 'cors';
-// import './app/schedules';
+import './app/schedules';
 import { routes } from './app/routes';
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from './app/middlewares/global-error-handler';
