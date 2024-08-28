@@ -52,7 +52,7 @@ export function BasicFormPart2({ control }: Props) {
         <CustomFormField
           fieldType={EFormField.SELECT}
           control={control}
-          name="whenDoesNotAcknowledge"
+          name="nextAction"
           label="If the on-call person doesn't acknowledge the incident"
           required
           items={nextActions}
