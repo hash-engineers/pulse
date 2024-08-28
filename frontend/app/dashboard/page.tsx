@@ -1,3 +1,5 @@
+import { Spinner } from '@/components/ui/spinner';
+
 export default function Page() {
-  return <div>Dashboard</div>;
+  return <section>dashboard</section>;
 }
