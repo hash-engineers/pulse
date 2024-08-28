@@ -1,5 +1,5 @@
-import { Incident } from '@/types/incident';
 import { Monitor } from '@/types/monitor';
+import { Incident } from '@/types/incident';
 import { getDate } from '@/utils/date-time/get-date';
 
 type CalculateMonitorCurrentlyUpFor = {

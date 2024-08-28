@@ -1,15 +1,19 @@
 import { Monitor } from './monitor';
 import { CreatedAtAndUpdatedAt } from './common';
+import { EIncidentStatus } from '@/enums/incident';
 
 type Incident = {
   id: string;
 
-  statusCode: number;
+  code: string;
+  statusCode?: number;
+  statusMessage?: string;
+  status: EIncidentStatus;
 
   monitorId: string;
   monitor: Monitor;
 
-  resolvedAt: string;
+  resolvedAt?: string;
 } & CreatedAtAndUpdatedAt;
 
 export type { Incident };
