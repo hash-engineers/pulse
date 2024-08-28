@@ -38,17 +38,20 @@ export async function AllMonitors({ userId }: Props) {
         </AccordionTrigger>
         <AccordionContent className="space-y-2">
           {monitors &&
-            monitors.map(({ id, url, name, status, createdAt }: Monitor) => (
-              <MonitorKeyInfo
-                key={url}
-                id={id}
-                url={url}
-                name={name}
-                status={status}
-                createdAt={createdAt}
-                checkingTime="none"
-              />
-            ))}
+            monitors.map(
+              ({ id, url, name, status, createdAt, incidents }: Monitor) => (
+                <MonitorKeyInfo
+                  key={url}
+                  id={id}
+                  url={url}
+                  name={name}
+                  status={status}
+                  createdAt={createdAt}
+                  incidents={incidents}
+                  checkingTime="none"
+                />
+              )
+            )}
         </AccordionContent>
       </AccordionItem>
     </Accordion>

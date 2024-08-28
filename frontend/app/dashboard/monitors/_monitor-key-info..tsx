@@ -8,7 +8,10 @@ import { PausedBlinking } from '@/components/blinks/paused-blinking';
 import { PendingBlinking } from '@/components/blinks/pending-blinking';
 import { DowntimeBlinking } from '@/components/blinks/downtime-blinking';
 
-type Props = Pick<Monitor, 'id' | 'name' | 'url' | 'status' | 'createdAt'> & {
+type Props = Pick<
+  Monitor,
+  'id' | 'name' | 'url' | 'status' | 'createdAt' | 'incidents'
+> & {
   checkingTime: string;
 };
 
@@ -19,6 +22,7 @@ export function MonitorKeyInfo({
   status,
   checkingTime,
   createdAt,
+  incidents,
 }: Props) {
   return (
     <Link
@@ -50,7 +54,10 @@ export function MonitorKeyInfo({
               {status.charAt(0) + status.slice(1, status.length).toLowerCase()}
             </span>{' '}
             <span className="font-extrabold">·</span>{' '}
-            {calculateMonitorCurrentlyUpFor(createdAt, 'short')}
+            {calculateMonitorCurrentlyUpFor({
+              monitorCreatedAt: createdAt,
+              incidents,
+            })}
           </p>
         </div>
       </div>

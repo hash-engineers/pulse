@@ -1,5 +1,12 @@
+import { Incident } from '@/types/incident';
 import { Monitor } from '@/types/monitor';
 import { getDate } from '@/utils/date-time/get-date';
+
+type CalculateMonitorCurrentlyUpFor = {
+  monitorCreatedAt: string;
+  incidents: Pick<Incident, 'createdAt' | 'resolvedAt'>[];
+  variant?: 'short' | 'long';
+};
 
 const { nowTime } = getDate();
 
@@ -24,25 +31,36 @@ export function calculateMonitorAvailability(monitor: Monitor): string {
   return `${uptimePercentage.toFixed(4)}%`;
 }
 
-export function calculateMonitorCurrentlyUpFor(
-  isoDate: string,
-  variant: 'short' | 'long'
-): string {
+export function calculateMonitorCurrentlyUpFor({
+  monitorCreatedAt,
+  incidents,
+  variant = 'short',
+}: CalculateMonitorCurrentlyUpFor): string {
   const now = new Date();
-  const timestamp = new Date(isoDate);
-  const difference = now.getTime() - timestamp.getTime();
+  const monitorCreationTime = new Date(monitorCreatedAt);
 
-  const years = Math.floor(difference / (1000 * 60 * 60 * 24 * 365));
+  let uptime = now.getTime() - monitorCreationTime.getTime();
+
+  if (incidents) {
+    incidents.forEach(incident => {
+      const incidentStartTime = new Date(incident.createdAt).getTime();
+      const incidentEndTime = incident.resolvedAt
+        ? new Date(incident.resolvedAt).getTime()
+        : now.getTime();
+
+      uptime -= incidentEndTime - incidentStartTime;
+    });
+  }
+
+  const years = Math.floor(uptime / (1000 * 60 * 60 * 24 * 365));
   const months = Math.floor(
-    (difference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)
+    (uptime % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)
   );
   const days = Math.floor(
-    (difference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)
+    (uptime % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)
   );
-  const hours = Math.floor(
-    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const hours = Math.floor((uptime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((uptime % (1000 * 60 * 60)) / (1000 * 60));
 
   const yearsString =
     variant === 'short' ? 'y' : years === 1 ? ' year' : ' years';
