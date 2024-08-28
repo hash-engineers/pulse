@@ -55,7 +55,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       id: monitor.id,
       downtime: 'none',
       timePeriod: 'Today',
-      availability: calculateMonitorAvailability(monitorForToday),
+      availability: calculateMonitorAvailability(monitorForToday, startOfToday),
       incidents: monitorForToday.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
@@ -64,7 +64,10 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       id: monitor.id,
       downtime: 'none',
       timePeriod: 'Last 7 days',
-      availability: calculateMonitorAvailability(monitorForLast7Days),
+      availability: calculateMonitorAvailability(
+        monitorForLast7Days,
+        startOf7DaysAgo
+      ),
       incidents: monitorForLast7Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
@@ -73,7 +76,10 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       id: monitor.id,
       downtime: 'none',
       timePeriod: 'Last 30 days',
-      availability: calculateMonitorAvailability(monitorForLast30Days),
+      availability: calculateMonitorAvailability(
+        monitorForLast30Days,
+        startOf30DaysAgo
+      ),
       incidents: monitorForLast30Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
@@ -82,7 +88,10 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       id: monitor.id,
       downtime: 'none',
       timePeriod: 'Last 365 days',
-      availability: calculateMonitorAvailability(monitorForLast365Days),
+      availability: calculateMonitorAvailability(
+        monitorForLast365Days,
+        startOf365DaysAgo
+      ),
       incidents: monitorForLast365Days.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
@@ -91,7 +100,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
       id: monitor.id,
       downtime: 'none',
       timePeriod: `Since ${date} untill today`,
-      availability: calculateMonitorAvailability(monitor),
+      availability: calculateMonitorAvailability(monitor, monitor.createdAt),
       incidents: monitor.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',

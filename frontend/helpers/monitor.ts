@@ -1,6 +1,5 @@
 import { Monitor } from '@/types/monitor';
 import { Incident } from '@/types/incident';
-import { getDate } from '@/utils/date-time/get-date';
 
 type CalculateMonitorCurrentlyUpFor = {
   monitorCreatedAt: string;
@@ -9,10 +8,17 @@ type CalculateMonitorCurrentlyUpFor = {
 };
 
 const now = new Date();
-const { nowTime } = getDate();
 
-export function calculateMonitorAvailability(monitor: Monitor): string {
-  const createdAt = new Date(monitor.createdAt);
+export function calculateMonitorAvailability(
+  monitor: Monitor,
+  startDate: string
+): string {
+  const createdAt = new Date(
+    Math.max(
+      new Date(monitor.createdAt).getTime(),
+      new Date(startDate).getTime()
+    )
+  );
   const updatedAt = new Date(monitor.updatedAt);
 
   const totalTime = updatedAt.getTime() - createdAt.getTime();
@@ -21,10 +27,24 @@ export function calculateMonitorAvailability(monitor: Monitor): string {
 
   const totalDowntime = monitor.incidents.reduce((acc, incident) => {
     const incidentCreatedAt = new Date(incident.createdAt);
-    const incidentResolvedAt = new Date(incident?.resolvedAt || nowTime);
-    const incidentDowntime =
-      incidentResolvedAt.getTime() - incidentCreatedAt.getTime();
-    return acc + incidentDowntime;
+    const incidentResolvedAt = incident.resolvedAt
+      ? new Date(incident.resolvedAt)
+      : updatedAt;
+
+    const effectiveIncidentStart = new Date(
+      Math.max(incidentCreatedAt.getTime(), createdAt.getTime())
+    );
+    const effectiveIncidentEnd = new Date(
+      Math.min(incidentResolvedAt.getTime(), updatedAt.getTime())
+    );
+
+    if (effectiveIncidentStart < effectiveIncidentEnd) {
+      const incidentDowntime =
+        effectiveIncidentEnd.getTime() - effectiveIncidentStart.getTime();
+      return acc + incidentDowntime;
+    }
+
+    return acc;
   }, 0);
 
   const uptimePercentage = ((totalTime - totalDowntime) / totalTime) * 100;
