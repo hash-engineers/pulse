@@ -26,7 +26,7 @@ type Monitor = {
   checkedAt?: string;
 } & CreatedAtAndUpdatedAt;
 
-type MonitorDetailsTableRow = {
+type MonitorDetailsTableRow<T extends string> = {
   id: string;
   downtime: string;
   timePeriod:
@@ -34,8 +34,7 @@ type MonitorDetailsTableRow = {
     | 'Last 7 days'
     | 'Last 30 days'
     | 'Last 365 days'
-    | 'All Time (Last 3 days)'
-    | 'Since 12 July 2024 untill today';
+    | `Since ${T} untill today`;
   availability: string;
   incidents: number;
   longestIncident: string;

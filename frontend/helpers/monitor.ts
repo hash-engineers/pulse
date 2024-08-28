@@ -8,6 +8,7 @@ type CalculateMonitorCurrentlyUpFor = {
   variant?: 'short' | 'long';
 };
 
+const now = new Date();
 const { nowTime } = getDate();
 
 export function calculateMonitorAvailability(monitor: Monitor): string {
@@ -36,7 +37,6 @@ export function calculateMonitorCurrentlyUpFor({
   incidents,
   variant = 'short',
 }: CalculateMonitorCurrentlyUpFor): string {
-  const now = new Date();
   const monitorCreationTime = new Date(monitorCreatedAt);
 
   let uptime = now.getTime() - monitorCreationTime.getTime();
@@ -110,4 +110,14 @@ export function calculateMonitorCurrentlyUpFor({
   if (minutes > 0) return `${minutes + minutesString}`;
 
   return 'now';
+}
+
+export function getDays(dateString: string): string {
+  const givenDate = new Date(dateString);
+
+  const timeDifference = now.getTime() - givenDate.getTime();
+
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  return daysDifference.toString();
 }

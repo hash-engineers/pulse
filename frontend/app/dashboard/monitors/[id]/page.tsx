@@ -47,7 +47,7 @@ export default async function MonitorDetails({ params: { id } }: Props) {
   )
     return null;
 
-  const monitorDetailsTableRowData: MonitorDetailsTableRow[] = [
+  const monitorDetailsTableRowData: MonitorDetailsTableRow<>[] = [
     {
       id: monitor.id,
       downtime: 'none',
@@ -87,9 +87,9 @@ export default async function MonitorDetails({ params: { id } }: Props) {
     {
       id: monitor.id,
       downtime: 'none',
-      timePeriod: 'All Time (Last 3 days)',
-      availability: '100.0000%',
-      incidents: 0,
+      timePeriod: 'Since ${T} untill today',
+      availability: calculateMonitorAvailability(monitor),
+      incidents: monitor.incidents.length,
       longestIncident: 'none',
       averageIncident: 'none',
     },
