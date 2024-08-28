@@ -111,13 +111,3 @@ export function calculateMonitorCurrentlyUpFor({
 
   return 'now';
 }
-
-export function getDays(dateString: string): string {
-  const givenDate = new Date(dateString);
-
-  const timeDifference = now.getTime() - givenDate.getTime();
-
-  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
-  return daysDifference.toString();
-}
