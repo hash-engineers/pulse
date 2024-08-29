@@ -2,7 +2,10 @@ import { User } from '@prisma/client';
 import prisma from '../../../lib/prisma';
 import { DB } from '../../../types/prisma';
 import ApiError from '../../../errors/api-error';
+import sendMail from '../../../shared/send-mail';
 import { CreateAnUserRequest } from './user.type';
+import welcomeMail from '../../../email-templates/welcome-mail';
+import { welcomeMailSubject } from '../../../email-templates/mail-subjects';
 
 const createAnUser = async (
   db: DB,
@@ -23,6 +26,12 @@ const createAnUser = async (
   const user = await db.user.create({ data });
 
   if (!user) throw new ApiError(500, 'Failed to create user!');
+
+  sendMail({
+    to: user.email,
+    subject: welcomeMailSubject,
+    body: welcomeMail({ username: user.name }),
+  });
 
   return user;
 };

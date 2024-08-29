@@ -5,10 +5,10 @@ import prisma from '../../../lib/prisma';
 import ApiError from '../../../errors/api-error';
 import { userAgentHeader } from '../../../lib/headers';
 import { GenericResponse } from '../../../types/common';
-import { EMonitorStatus, Monitor, Prisma } from '@prisma/client';
 import { monitorSearchableFields } from './monitor.constant';
 import calculatePagination from '../../../helpers/pagination';
 import { PaginationOptions } from '../../../types/pagination';
+import { EMonitorStatus, Monitor, Prisma } from '@prisma/client';
 import {
   MonitorFilters,
   CreateAMonitorRequest,

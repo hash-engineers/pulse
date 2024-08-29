@@ -5,10 +5,10 @@ import ApiError from '../errors/api-error';
 type SendMail = {
   to: string;
   subject: string;
-  html: string;
+  body: string;
 };
 
-const sendMail = ({ to, subject, html }: SendMail) => {
+const sendMail = ({ to, subject, body }: SendMail) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 465,
@@ -24,7 +24,7 @@ const sendMail = ({ to, subject, html }: SendMail) => {
       from: env.USER_EMAIL,
       to,
       subject,
-      html,
+      html: body,
     },
     (error, res) => {
       if (error)
