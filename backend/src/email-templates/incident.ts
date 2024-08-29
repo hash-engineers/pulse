@@ -75,7 +75,12 @@ const incidentMail = ({
               <td
                 style="
                   padding: 40px 20px;
-                  background: linear-gradient(to right, #ffebee, #e0e0ff);
+                  background: linear-gradient(
+                    to bottom right,
+                    #c5fbfc5c,
+                    #c9ffd884,
+                    #f0c3ff94
+                  );
                 "
               >
                 <h2 style="color: #333333; margin: 0 0 20px; text-align: left">
@@ -93,9 +98,7 @@ const incidentMail = ({
                   We wanted to inform you that an incident has been detected on
                   one of your monitored websites:
                 </p>
-                ${
-                  monitorName &&
-                  `<p
+                <p
                   style="
                     color: #333333;
                     font-size: 16px;
@@ -106,8 +109,7 @@ const incidentMail = ({
                   "
                 >
                   Monitor name: ${monitorName}
-                </p>`
-                }
+                </p>
                 <p
                   style="
                     color: #333333;
@@ -252,7 +254,6 @@ const incidentMail = ({
     </table>
   </body>
 </html>
-  
 `;
 };
 
