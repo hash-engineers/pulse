@@ -1,16 +1,17 @@
 import env from '../env';
 import nodemailer from 'nodemailer';
+import ApiError from '../errors/api-error';
 
-type SendEmail = {
+type SendMail = {
   to: string;
   subject: string;
   html: string;
 };
 
-const sendEmail = async ({ to, subject, html }: SendEmail) => {
+const sendMail = ({ to, subject, html }: SendMail) => {
   const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
+    service: 'gmail',
+    port: 465,
     secure: env.NODE_ENV === 'production',
     auth: {
       user: env.USER_EMAIL,
@@ -18,12 +19,18 @@ const sendEmail = async ({ to, subject, html }: SendEmail) => {
     },
   });
 
-  await transporter.sendMail({
-    from: env.USER_EMAIL,
-    to,
-    subject,
-    html,
-  });
+  transporter.sendMail(
+    {
+      from: env.USER_EMAIL,
+      to,
+      subject,
+      html,
+    },
+    error => {
+      if (error)
+        throw new ApiError(500, error.message + '!' || 'Error from send mail!');
+    },
+  );
 };
 
-export default sendEmail;
+export default sendMail;
