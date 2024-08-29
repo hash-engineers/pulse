@@ -34,7 +34,7 @@ export function MainForm({ userId }: Props) {
       sendSMS: false,
       sendEmail: true,
       pushNotification: false,
-      nextAction: nextActions[1],
+      nextAction: nextActions[2],
     },
   });
 
