@@ -4,11 +4,18 @@ import { CreateCompanyRequest } from './company.type';
 
 const createCompany = async (data: CreateCompanyRequest) => {
   const isCompanyExist = await prisma.company.findUnique({
-    where: { name: data.name },
+    where: { name: data.companyName },
   });
 
   if (isCompanyExist)
-    throw new ApiError(409, 'Company already exist with this name');
+    throw new ApiError(409, 'Company already exist with this name!');
+
+  const isTheUserEngagedWithACompany = await prisma.user.findUnique({
+    where: { id: data.id },
+  });
+
+  if (isTheUserEngagedWithACompany)
+    throw new ApiError(409, "You'r already engaged with a company!");
 
   const company = await prisma.$transaction(async tx => {
     const createdCompany = await tx.company.create({
