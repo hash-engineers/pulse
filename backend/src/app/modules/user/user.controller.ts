@@ -4,8 +4,8 @@ import { UserService } from './user.service';
 import catchAsync from '../../../shared/catch-async';
 import sendResponse from '../../../shared/send-response';
 
-const getUserById = catchAsync(async (req: Request, res: Response) => {
-  const data = await UserService.getUserById(req.params.id);
+const getAnUserById = catchAsync(async (req: Request, res: Response) => {
+  const data = await UserService.getAnUserById(req.params.id);
 
   sendResponse<User>(res, {
     statusCode: 200,
@@ -15,4 +15,4 @@ const getUserById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const UserController = { getUserById };
+export const UserController = { getAnUserById };

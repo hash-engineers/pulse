@@ -20,7 +20,7 @@ const createAnUser = async (
   return user;
 };
 
-const getUserById = async (id: string): Promise<User> => {
+const getAnUserById = async (id: string): Promise<User> => {
   const user = await prisma.user.findUnique({ where: { id } });
 
   if (!user) throw new ApiError(404, 'User not found!');
@@ -28,4 +28,4 @@ const getUserById = async (id: string): Promise<User> => {
   return user;
 };
 
-export const UserService = { createAnUser, getUserById };
+export const UserService = { createAnUser, getAnUserById };

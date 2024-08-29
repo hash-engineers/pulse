@@ -6,6 +6,6 @@ const router = Router();
 router
 
   // READ
-  .get('/:id', UserController.getUserById);
+  .get('/:id', UserController.getAnUserById);
 
 export const UserRoutes = router;
