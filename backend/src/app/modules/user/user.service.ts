@@ -13,6 +13,13 @@ const createAnUser = async (
   if (isUserExist)
     throw new ApiError(409, 'User already exist with this user id!');
 
+  const isTheCompanyExist = await prisma.company.findUnique({
+    where: { name: data.companyName },
+  });
+
+  if (!isTheCompanyExist)
+    throw new ApiError(404, 'Company not found with this name!');
+
   const user = await db.user.create({ data });
 
   if (!user) throw new ApiError(500, 'Failed to create user!');
