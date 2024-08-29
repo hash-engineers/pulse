@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { api } from '@/lib/api';
 import { Monitor } from '@/types/monitor';
 import { MonitorKeyInfo } from './_monitor-key-info.';
 import {
@@ -9,23 +7,9 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 
-type Props = { userId: string };
+type Props = { monitors: Monitor[] };
 
-export async function AllMonitors({ userId }: Props) {
-  let monitors: Monitor[] | null = null;
-
-  if (userId) {
-    try {
-      const res = await axios.get(`${api}/monitors`, {
-        data: { userId },
-      });
-
-      monitors = res?.data?.data;
-    } catch (error) {
-      console.error('Error fetching monitors:', error);
-    }
-  }
-
+export async function AllMonitors({ monitors }: Props) {
   return (
     <Accordion
       type="single"
@@ -37,21 +21,20 @@ export async function AllMonitors({ userId }: Props) {
           Monitors
         </AccordionTrigger>
         <AccordionContent className="space-y-2">
-          {monitors &&
-            monitors.map(
-              ({ id, url, name, status, createdAt, incidents }: Monitor) => (
-                <MonitorKeyInfo
-                  key={url}
-                  id={id}
-                  url={url}
-                  name={name}
-                  status={status}
-                  createdAt={createdAt}
-                  incidents={incidents}
-                  checkingTime="none"
-                />
-              )
-            )}
+          {monitors.map(
+            ({ id, url, name, status, createdAt, incidents }: Monitor) => (
+              <MonitorKeyInfo
+                key={url}
+                id={id}
+                url={url}
+                name={name}
+                status={status}
+                createdAt={createdAt}
+                incidents={incidents}
+                checkingTime="none"
+              />
+            )
+          )}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
