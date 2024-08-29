@@ -1,89 +1,19 @@
-import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { Check } from 'lucide-react';
 import { PaymentLink } from './payment-link';
+import { PRICING_LIST } from '@/lib/payment';
+import { Badge } from '@/components/ui/badge';
+import { EPopularPlan } from '@/enums/payment';
+import { Pricing as PricingType } from '@/types/payment';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardFooter,
+  CardContent,
+  CardDescription,
+} from '@/components/ui/card';
 
-enum PopularPlanType {
-  NO = 0,
-  YES = 1,
-}
-
-type Pricing = {
-  title: string;
-  popular: PopularPlanType;
-  price: number;
-  description: string;
-  buttonText: string;
-  benefitList: string[];
-  href: string;
-  billing: string;
-  paymentLink?: string;
-};
-
-const pricingList: Pricing[] = [
-  {
-    title: 'Free',
-    popular: 0,
-    price: 0,
-    description:
-      'Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.',
-    buttonText: 'Get Started',
-    benefitList: [
-      '1 Team member',
-      '2 GB Storage',
-      'Upto 4 pages',
-      'Community support',
-      'lorem ipsum dolor',
-    ],
-    href: '/api/auth/login',
-    billing: '/month',
-  },
-  {
-    title: 'Premium',
-    popular: 1,
-    price: 10,
-    description:
-      'Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.',
-    buttonText: 'Buy Now',
-    benefitList: [
-      '4 Team member',
-      '4 GB Storage',
-      'Upto 6 pages',
-      'Priority support',
-      'lorem ipsum dolor',
-    ],
-    href: '/api/auth/login',
-    paymentLink: process.env.STRIPE_MONTHLY_PLAN_LINK,
-    billing: '/month',
-  },
-  {
-    title: 'Enterprise',
-    popular: 0,
-    price: 99,
-    description:
-      'Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.',
-    buttonText: 'Buy Now',
-    benefitList: [
-      '10 Team member',
-      '8 GB Storage',
-      'Upto 10 pages',
-      'Priority support',
-      'lorem ipsum dolor',
-    ],
-    href: '/api/auth/login',
-    paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK,
-    billing: '/year',
-  },
-];
-
-export const Pricing = () => {
+export function Pricing() {
   return (
     <section id="pricing" className="container py-24 sm:py-32">
       <h2 className="text-3xl md:text-4xl font-bold text-center">
@@ -99,11 +29,11 @@ export const Pricing = () => {
         reiciendis.
       </h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {pricingList.map((pricing: Pricing) => (
+        {PRICING_LIST.map((pricing: PricingType) => (
           <Card
             key={pricing.title}
             className={
-              pricing.popular === PopularPlanType.YES
+              pricing.popular === EPopularPlan.YES
                 ? 'drop-shadow-xl shadow-black/10 dark:shadow-white/10'
                 : ''
             }
@@ -111,7 +41,7 @@ export const Pricing = () => {
             <CardHeader>
               <CardTitle className="flex item-center justify-between">
                 {pricing.title}
-                {pricing.popular === PopularPlanType.YES ? (
+                {pricing.popular === EPopularPlan.YES ? (
                   <Badge variant="secondary" className="text-sm text-primary">
                     Most popular
                   </Badge>
@@ -153,4 +83,4 @@ export const Pricing = () => {
       </div>
     </section>
   );
-};
+}
