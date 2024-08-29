@@ -7,7 +7,7 @@ const welcomeMail = ({ username }: WelcomeMail): string => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Pulse</title>
+    <title>Welcome - Pulse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,7 +55,16 @@ const welcomeMail = ({ username }: WelcomeMail): string => {
             </tr>
 
             <!-- Main Content -->
-            <tr>
+            <tr
+              style="
+                background: linear-gradient(
+                  to bottom right,
+                  #c5fbfc5c,
+                  #c9ffd884,
+                  #f0c3ff94
+                );
+              "
+            >
               <td style="padding: 40px 20px">
                 <h2 style="color: #333333; margin: 0 0 20px; text-align: left">
                   Hello ${username},
