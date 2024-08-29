@@ -1,9 +1,22 @@
+import axios from 'axios';
+import { api, headers } from '@/lib/api';
+import { redirect } from 'next/navigation';
 import { CreateCompanyForm } from './_create-company-form';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 export default async function Page() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  let dbUser = null;
+
+  try {
+    dbUser = await axios.get(`${api}/users/${user!.id}`, { headers });
+  } catch (error) {
+    console.error('Error From Check Is User  ->', error);
+  }
+
+  if (dbUser) return redirect('/dashboard/monitors');
 
   return (
     <section className="flex items-center justify-center h-screen">

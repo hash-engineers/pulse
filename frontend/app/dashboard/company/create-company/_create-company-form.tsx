@@ -5,9 +5,9 @@ import { toast } from 'sonner';
 import { useState } from 'react';
 import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
+import { EFormField } from '@/enums/form';
 import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
-import { EFormField } from '@/enums/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createCompanySchema } from '@/schemas/company';
 import { CreateCompanyFormData } from '@/types/company';
@@ -50,8 +50,8 @@ export function CreateCompanyForm({ id, name, email }: Props) {
         form.reset();
         toast.success('Your company created');
       }
-    } catch (error) {
-      toast.error('Something went wrong');
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || 'Something went wrong');
       console.error('The Error From Create Company Form Submit', error);
     } finally {
       setLoading(false);
@@ -68,7 +68,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
           type="text"
           label="Your name"
           required
-          readOnly={name ? true : false}
+          readOnly={!!name}
           placeholder="Ex. Mehedi Hasan"
         />
         <CustomFormField
@@ -78,7 +78,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
           type="email"
           label="Email"
           required={email ? true : false}
-          readOnly
+          readOnly={!!email}
           placeholder="Ex. example@gmail.com"
         />
         <CustomFormField

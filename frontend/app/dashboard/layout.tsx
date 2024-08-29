@@ -9,7 +9,7 @@ type Props = { children: ReactNode };
 export default async function DashboardLayout({ children }: Props) {
   const { getUser } = getKindeServerSession();
 
-  if (!(await getUser())) redirect('/home');
+  if (!(await getUser())) redirect('/api/auth/login');
 
   return (
     <div className="relative h-screen">
