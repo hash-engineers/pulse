@@ -26,9 +26,11 @@ const sendMail = ({ to, subject, html }: SendMail) => {
       subject,
       html,
     },
-    error => {
+    (error, res) => {
       if (error)
         throw new ApiError(500, error.message + '!' || 'Error from send mail!');
+
+      if (res) console.log('Sent ->', res.accepted);
     },
   );
 };

@@ -6,10 +6,13 @@ import { scheduleJob } from 'node-schedule';
 import { userAgentHeader } from '../../../lib/headers';
 import { IncidentService } from '../incident/incident.service';
 import { EIncidentStatus, EMonitorStatus } from '@prisma/client';
+import sendMail from '../../../shared/send-mail';
 
 const updateMonitorScheduler = () => {
-  scheduleJob('*/3 * * * *', async () => {
-    const monitors = await prisma.monitor.findMany();
+  scheduleJob('*/1 * * * *', async () => {
+    const monitors = await prisma.monitor.findMany({
+      include: { company: { include: { members: true } } },
+    });
 
     if (monitors.length === 0) {
       console.log('No monitors found!');
@@ -56,6 +59,8 @@ const updateMonitorScheduler = () => {
             },
           });
 
+          console.log(monitor.url, monitor.company.members[0].email);
+
           const isTheIncidentOngoing = await tx.incident.findFirst({
             where: {
               monitorId: monitor.id,
@@ -70,6 +75,12 @@ const updateMonitorScheduler = () => {
               statusCode: error?.response?.status,
               statusMessage: error?.response?.statusText,
               monitorId: monitor.id,
+            });
+
+            sendMail({
+              to: monitor.company.members[0].email,
+              subject: 'An incident occurred to your monitor.',
+              html: `<h2>Incident occurred with status ${error.code}</h2>`,
             });
           }
         });
