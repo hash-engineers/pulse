@@ -93,6 +93,16 @@ enum EIncidentStatus {
   RESOLVED
 }
 
+enum ESubscriptionPlan {
+  FREE
+  PREMIUM
+}
+
+enum ESubscriptionPeriod {
+  MONTHLY
+  YEARLY
+}
+
 model User {
   id String @id
 
@@ -110,8 +120,11 @@ model User {
 }
 
 model Company {
-  name String       @unique
-  size ECompanySize @default(JUST__ME)
+  name       String       @unique
+  size       ECompanySize @default(JUST__ME)
+  customerId String?      @unique
+
+  subscription Subscription?
 
   members  User[]
   monitors Monitor[]
@@ -165,4 +178,21 @@ model Incident {
   updatedAt  DateTime  @updatedAt
 
   @@map("incidents")
+}
+
+model Subscription {
+  id String @id @default(cuid())
+
+  plan   ESubscriptionPlan
+  period ESubscriptionPeriod
+
+  companyName String  @unique
+  company     Company @relation(fields: [companyName], references: [name])
+
+  startDate DateTime @default(now())
+  endDate   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("subscriptions")
 }
