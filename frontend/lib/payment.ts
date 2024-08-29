@@ -16,12 +16,13 @@ const PRICING_LIST: Pricing[] = [
       'lorem ipsum dolor',
     ],
     href: '/api/auth/login',
+    paymentLink: '/dashboard/monitors',
     billing: '/month',
   },
   {
     title: 'Premium',
     popular: 1,
-    price: 10,
+    price: 29,
     description:
       'Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.',
     buttonText: 'Buy Now',
@@ -33,13 +34,13 @@ const PRICING_LIST: Pricing[] = [
       'lorem ipsum dolor',
     ],
     href: '/api/auth/login',
-    paymentLink: process.env.STRIPE_MONTHLY_PLAN_LINK,
+    paymentLink: process.env.STRIPE_MONTHLY_PLAN_LINK!,
     billing: '/month',
   },
   {
     title: 'Enterprise',
     popular: 0,
-    price: 99,
+    price: 299,
     description:
       'Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.',
     buttonText: 'Buy Now',
@@ -51,7 +52,7 @@ const PRICING_LIST: Pricing[] = [
       'lorem ipsum dolor',
     ],
     href: '/api/auth/login',
-    paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK,
+    paymentLink: process.env.STRIPE_YEARLY_PLAN_LINK!,
     billing: '/year',
   },
 ];

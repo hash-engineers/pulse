@@ -9,7 +9,7 @@ type Pricing = {
   benefitList: string[];
   href: string;
   billing: string;
-  paymentLink?: string;
+  paymentLink: string;
 };
 
 export type { Pricing };

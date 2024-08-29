@@ -1,9 +1,12 @@
+import Link from 'next/link';
 import { Check } from 'lucide-react';
-import { PaymentLink } from './payment-link';
+import { redirect } from 'next/navigation';
 import { PRICING_LIST } from '@/lib/payment';
 import { Badge } from '@/components/ui/badge';
+import { buttonVariants } from '../ui/button';
 import { EPopularPlan } from '@/enums/payment';
 import { Pricing as PricingType } from '@/types/payment';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import {
   Card,
   CardTitle,
@@ -13,7 +16,12 @@ import {
   CardDescription,
 } from '@/components/ui/card';
 
-export function Pricing() {
+export async function Pricing() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) redirect('/api/auth/login');
+
   return (
     <section id="pricing" className="container py-24 sm:py-32">
       <h2 className="text-3xl md:text-4xl font-bold text-center">
@@ -29,57 +37,66 @@ export function Pricing() {
         reiciendis.
       </h3>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {PRICING_LIST.map((pricing: PricingType) => (
-          <Card
-            key={pricing.title}
-            className={
-              pricing.popular === EPopularPlan.YES
-                ? 'drop-shadow-xl shadow-black/10 dark:shadow-white/10'
-                : ''
-            }
-          >
-            <CardHeader>
-              <CardTitle className="flex item-center justify-between">
-                {pricing.title}
-                {pricing.popular === EPopularPlan.YES ? (
-                  <Badge variant="secondary" className="text-sm text-primary">
-                    Most popular
-                  </Badge>
-                ) : null}
-              </CardTitle>
-              <div>
-                <span className="text-3xl font-bold">${pricing.price}</span>
-                <span className="text-muted-foreground">
-                  {' '}
-                  {pricing.billing}
-                </span>
-              </div>
+        {PRICING_LIST.map(
+          ({
+            title,
+            popular,
+            price,
+            billing,
+            description,
+            paymentLink,
+            buttonText,
+            benefitList,
+          }: PricingType) => (
+            <Card
+              key={title}
+              className={
+                popular === EPopularPlan.YES
+                  ? 'drop-shadow-xl shadow-black/10 dark:shadow-white/10'
+                  : ''
+              }
+            >
+              <CardHeader>
+                <CardTitle className="flex item-center justify-between">
+                  {title}
+                  {popular === EPopularPlan.YES ? (
+                    <Badge variant="secondary" className="text-sm text-primary">
+                      Most popular
+                    </Badge>
+                  ) : null}
+                </CardTitle>
+                <div>
+                  <span className="text-3xl font-bold">${price}</span>
+                  <span className="text-muted-foreground"> {billing}</span>
+                </div>
 
-              <CardDescription>{pricing.description}</CardDescription>
-            </CardHeader>
+                <CardDescription>{description}</CardDescription>
+              </CardHeader>
 
-            <CardContent>
-              <PaymentLink
-                href={pricing.href}
-                text={pricing.buttonText}
-                paymentLink={pricing.paymentLink}
-              />
-            </CardContent>
+              <CardContent>
+                <Link
+                  href={paymentLink + `?prefilled_email=${user.email}`}
+                  className={buttonVariants()}
+                >
+                  {buttonText}
+                </Link>
+              </CardContent>
 
-            <hr className="w-4/5 m-auto mb-4" />
+              <hr className="w-4/5 m-auto mb-4" />
 
-            <CardFooter className="flex">
-              <div className="space-y-4">
-                {pricing.benefitList.map((benefit: string) => (
-                  <span key={benefit} className="flex">
-                    <Check className="text-purple-500" />{' '}
-                    <h3 className="ml-2">{benefit}</h3>
-                  </span>
-                ))}
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
+              <CardFooter className="flex">
+                <div className="space-y-4">
+                  {benefitList.map((benefit: string) => (
+                    <span key={benefit} className="flex">
+                      <Check className="text-purple-500" />{' '}
+                      <h3 className="ml-2">{benefit}</h3>
+                    </span>
+                  ))}
+                </div>
+              </CardFooter>
+            </Card>
+          )
+        )}
       </div>
     </section>
   );
