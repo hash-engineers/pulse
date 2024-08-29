@@ -5,9 +5,13 @@ import validateZodRequest from '../../middlewares/validate-zod-request';
 
 const router = Router();
 
-router.post(
-  '/',
-  validateZodRequest(CompanyValidation.createCompanySchema),
-  CompanyController.createCompany,
-);
+router
+
+  // WRITE
+  .post(
+    '/',
+    validateZodRequest(CompanyValidation.createCompanySchema),
+    CompanyController.createCompany,
+  );
+
 export const CompanyRoutes = router;

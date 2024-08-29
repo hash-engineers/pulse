@@ -1,5 +1,6 @@
 import prisma from '../../../lib/prisma';
 import ApiError from '../../../errors/api-error';
+import { UserService } from '../user/user.service';
 import { CreateCompanyRequest } from './company.type';
 
 const createCompany = async (data: CreateCompanyRequest) => {
@@ -22,20 +23,12 @@ const createCompany = async (data: CreateCompanyRequest) => {
       data: { name: data.companyName, size: data.size },
     });
 
-    const isUserExist = await tx.user.findUnique({
-      where: { email: data.email },
+    await UserService.createAnUser(tx, {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      companyName: createdCompany.name,
     });
-
-    if (!isUserExist) {
-      await tx.user.create({
-        data: {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          companyName: createdCompany.name,
-        },
-      });
-    }
 
     return createdCompany;
   });
