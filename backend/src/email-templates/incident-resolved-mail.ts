@@ -197,7 +197,7 @@ const incidentResolvedMail = ({
                 <p style="margin: 0 0 10px">
                   For further support, contact us at
                   <a
-                    href="${env.USER_EMAIL}"
+                    href="mailto:${env.USER_EMAIL}"
                     style="color: #6a0dad; text-decoration: none"
                     >${env.USER_EMAIL}</a
                   >

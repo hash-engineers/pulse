@@ -1,3 +1,5 @@
+import env from '../env';
+
 type IncidentMail = {
   username: string;
   monitorName?: string;
@@ -240,9 +242,9 @@ const incidentMail = ({
                 <p style="margin: 0 0 10px">
                   For immediate assistance, contact our support team at
                   <a
-                    href="mailto:support@pulse.com"
+                    href="mailto:${env.USER_EMAIL}"
                     style="color: #6a0dad; text-decoration: none"
-                    >support@pulse.com</a
+                    >${env.USER_EMAIL}</a
                   >
                 </p>
                 <p style="margin: 0">&copy; 2024 Pulse. All rights reserved.</p>

@@ -1,3 +1,5 @@
+import env from '../env';
+
 type WelcomeMail = { username: string };
 
 const welcomeMail = ({ username }: WelcomeMail): string => {
@@ -166,9 +168,9 @@ const welcomeMail = ({ username }: WelcomeMail): string => {
                 <p style="margin: 0 0 10px">
                   Need help? Contact our support team at
                   <a
-                    href="mailto:support@pulse.com"
+                    href="mailto:${env.USER_EMAIL}"
                     style="color: #6a0dad; text-decoration: none"
-                    >support@pulse.com</a
+                    >${env.USER_EMAIL}</a
                   >
                 </p>
                 <p style="margin: 0">&copy; 2024 Pulse. All rights reserved.</p>
