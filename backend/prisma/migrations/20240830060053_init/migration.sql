@@ -89,7 +89,8 @@ CREATE TABLE "subscriptions" (
     "id" TEXT NOT NULL,
     "plan" "ESubscriptionPlan" NOT NULL,
     "period" "ESubscriptionPeriod" NOT NULL,
-    "companyName" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "companyId" TEXT NOT NULL,
     "startDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "endDate" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -111,7 +112,10 @@ CREATE UNIQUE INDEX "companies_customerId_key" ON "companies"("customerId");
 CREATE UNIQUE INDEX "monitors_url_key" ON "monitors"("url");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "subscriptions_companyName_key" ON "subscriptions"("companyName");
+CREATE UNIQUE INDEX "subscriptions_userId_key" ON "subscriptions"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "subscriptions_companyId_key" ON "subscriptions"("companyId");
 
 -- AddForeignKey
 ALTER TABLE "users" ADD CONSTRAINT "users_companyName_fkey" FOREIGN KEY ("companyName") REFERENCES "companies"("name") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -123,4 +127,7 @@ ALTER TABLE "monitors" ADD CONSTRAINT "monitors_companyName_fkey" FOREIGN KEY ("
 ALTER TABLE "incidents" ADD CONSTRAINT "incidents_monitorId_fkey" FOREIGN KEY ("monitorId") REFERENCES "monitors"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_companyName_fkey" FOREIGN KEY ("companyName") REFERENCES "companies"("name") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_companyId_fkey" FOREIGN KEY ("companyId") REFERENCES "companies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

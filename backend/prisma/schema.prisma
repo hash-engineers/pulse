@@ -110,6 +110,8 @@ model User {
   email String @unique
   role  ERole? @default(SRE)
 
+  subscription Subscription?
+
   companyName String
   company     Company @relation(fields: [companyName], references: [name], onDelete: Cascade)
 
@@ -188,8 +190,11 @@ model Subscription {
   plan   ESubscriptionPlan
   period ESubscriptionPeriod
 
-  companyName String  @unique
-  company     Company @relation(fields: [companyName], references: [name])
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  companyId String  @unique
+  company   Company @relation(fields: [companyId], references: [id])
 
   startDate DateTime @default(now())
   endDate   DateTime

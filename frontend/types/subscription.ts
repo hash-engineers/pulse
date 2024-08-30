@@ -1,3 +1,4 @@
+import { User } from './user';
 import { Company } from './company';
 import { CreatedAtAndUpdatedAt } from './common';
 import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
@@ -8,7 +9,10 @@ type Subscription = {
   plan: ESubscriptionPlan;
   period: ESubscriptionPeriod;
 
-  companyName: string;
+  userId: string;
+  user: User;
+
+  companyId: string;
   company: Company;
 
   startDate: string;
