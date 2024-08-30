@@ -1,9 +1,16 @@
-// import prisma from "../../../lib/prisma"
+import prisma from '../../../lib/prisma';
+import { Subscription } from '@prisma/client';
 
-// const createOrUpdateASubscription = async() => {
-// const subscription = await prisma.subscription.upsert({
-//       where: {user}
-// })
-// }
+const createOrUpdateASubscription = async (
+  data: Subscription,
+): Promise<Subscription> => {
+  const subscription = await prisma.subscription.upsert({
+    where: { userId: data.userId },
+    create: data,
+    update: data,
+  });
 
-// export const SubscriptionService = {createOrUpdateASubscription}
+  return subscription;
+};
+
+export const SubscriptionService = { createOrUpdateASubscription };
