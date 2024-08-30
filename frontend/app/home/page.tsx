@@ -3,7 +3,7 @@ import { Info } from './_info';
 import { Testimonials } from './_testimonials';
 import { Pricing } from '@/components/payment/pricing';
 
-export default function Page() {
+export default async function Page() {
   return (
     <div>
       <Hero />

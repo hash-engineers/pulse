@@ -15,6 +15,7 @@ router
   )
 
   // READ
+  .get('/user', UserController.getAnUserByEmail)
   .get('/:id', UserController.getAnUserById);
 
 export const UserRoutes = router;
