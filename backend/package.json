@@ -1,5 +1,5 @@
 {
-  "name": "pulse-backend",
+  "name": "webpulse-server-v1",
   "version": "1.0.0",
   "description": "Pulse backend server.",
   "main": "src/index.ts",
