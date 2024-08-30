@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { User } from '@/types/user';
 import { api, headers } from '@/lib/api';
 import { redirect } from 'next/navigation';
 import { CreateCompanyForm } from './_create-company-form';
@@ -8,15 +9,18 @@ export default async function Page() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  let dbUser = null;
+  if (!user) redirect('/api/auth/login');
+
+  let dbUser: User | null = null;
 
   try {
-    dbUser = await axios.get(`${api}/users/${user!.id}`, { headers });
+    dbUser = (await axios.get(`${api}/users/${user.id}`, { headers })).data
+      ?.data;
   } catch (error) {
     console.error('Error From Check Is User  ->', error);
   }
 
-  if (dbUser) return redirect('/dashboard/monitors');
+  if (dbUser) redirect('/dashboard/monitors');
 
   return (
     <section className="flex items-center justify-center h-screen">

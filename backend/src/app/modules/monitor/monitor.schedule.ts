@@ -3,13 +3,14 @@
 import axios from 'axios';
 import prisma from '../../../lib/prisma';
 import { scheduleJob } from 'node-schedule';
+import sendMail from '../../../shared/send-mail';
 import { userAgentHeader } from '../../../lib/headers';
 import { IncidentService } from '../incident/incident.service';
-import { EIncidentStatus, EMonitorStatus } from '@prisma/client';
-import sendMail from '../../../shared/send-mail';
+import incidentMail from '../../../email-templates/incident-mail';
+import { EIncidentStatus, EMonitorStatus, ERole } from '@prisma/client';
 
 const updateMonitorScheduler = () => {
-  scheduleJob('*/1 * * * *', async () => {
+  scheduleJob('*/3 * * * *', async () => {
     const monitors = await prisma.monitor.findMany({
       include: { company: { include: { members: true } } },
     });
@@ -77,18 +78,31 @@ const updateMonitorScheduler = () => {
               monitorId: monitor.id,
             });
 
-            sendMail({
-              to: monitor.company.members[0].email,
-              subject: 'An incident occurred to your monitor.',
-              body: `<h2>Incident occurred with status ${error.code}</h2>`,
-            });
+            const recipient = monitor.company.members.find(
+              member => member.role === ERole.SRE,
+            );
+
+            if (recipient) {
+              await sendMail({
+                to: recipient.email,
+                subject: 'An incident occurred to your monitor.',
+                body: incidentMail({
+                  username: recipient.name,
+                  monitorUrl: monitor.url,
+                  monitorName: monitor.name,
+                  incidentDetectedAt: new Date().toISOString(),
+                  incidentType: error.code,
+                  navigateUrl: `https://pulse-six-mu.vercel.app/dashboard/monitors/${monitor.id}`,
+                }),
+              });
+            }
           }
         });
       }
 
       monitorIndex += 1;
 
-      setTimeout(processNextMonitor, 500);
+      setTimeout(processNextMonitor, 1000);
     };
 
     processNextMonitor();

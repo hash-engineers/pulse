@@ -2,7 +2,7 @@ import env from '../env';
 
 type IncidentMail = {
   username: string;
-  monitorName?: string;
+  monitorName?: string | null;
   monitorUrl: string;
   incidentType: string;
   incidentDetectedAt: string;

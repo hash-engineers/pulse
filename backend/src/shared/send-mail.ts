@@ -3,12 +3,12 @@ import nodemailer from 'nodemailer';
 import ApiError from '../errors/api-error';
 
 type SendMail = {
-  to: string;
+  to: string | string[];
   subject: string;
   body: string;
 };
 
-const sendMail = ({ to, subject, body }: SendMail) => {
+const sendMail = async ({ to, subject, body }: SendMail): Promise<void> => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 465,
@@ -19,18 +19,16 @@ const sendMail = ({ to, subject, body }: SendMail) => {
     },
   });
 
-  transporter.sendMail(
+  await transporter.sendMail(
     {
       from: env.USER_EMAIL,
       to,
       subject,
       html: body,
     },
-    (error, res) => {
+    error => {
       if (error)
         throw new ApiError(500, error.message + '!' || 'Error from send mail!');
-
-      if (res) console.log('Sent ->', res.accepted);
     },
   );
 };
