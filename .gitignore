@@ -6,3 +6,4 @@
 # BACKEND
 /backend/node_modules
 /backend/.env
+/backend/vercel.json
