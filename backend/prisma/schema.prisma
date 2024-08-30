@@ -124,9 +124,10 @@ model User {
 model Company {
   id String @id @default(cuid())
 
-  name       String       @unique
-  size       ECompanySize @default(JUST__ME)
-  customerId String?      @unique
+  name       String            @unique
+  size       ECompanySize      @default(JUST__ME)
+  customerId String?           @unique
+  plan       ESubscriptionPlan @default(FREE)
 
   subscription Subscription?
 

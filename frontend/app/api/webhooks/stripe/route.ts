@@ -3,6 +3,7 @@ import stripe from '@/lib/stripe';
 import axios from 'axios';
 import { api, headers } from '@/lib/api';
 import { User } from '@/types/user';
+import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -63,11 +64,32 @@ export async function POST(req: Request) {
               } else {
                 throw new Error('Invalid price id!s');
               }
+
+              const subscriptionData = {
+                userId: user.id,
+                startDate: new Date().toISOString(),
+                endDate: endDate.toISOString(),
+                plan: ESubscriptionPlan.PREMIUM,
+                period:
+                  pirceId === process.env.STRIPE_YEARLY_PRICE_ID!
+                    ? ESubscriptionPeriod.YEARLY
+                    : ESubscriptionPeriod.MONTHLY,
+              };
+
+              await axios.post(`${api}/subscriptions`, subscriptionData);
             } else {
               // One time payment
             }
           }
         }
+        break;
+
+      default:
+        console.log(`Unhandled event type ${event.type}`);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error('Error Handling Event ->', error);
+
+    return new Response('Webhook Error ->', { status: 400 });
+  }
 }
