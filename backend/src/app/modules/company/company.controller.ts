@@ -26,4 +26,23 @@ const updateACompanyById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const CompanyController = { createCompany, updateACompanyById };
+const getACompanyByCustomerId = catchAsync(
+  async (req: Request, res: Response) => {
+    const data = await CompanyService.getACompanyByCustomerId(
+      req.query.customerId as string,
+    );
+
+    sendResponse<Company>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Company retrieved',
+      data,
+    });
+  },
+);
+
+export const CompanyController = {
+  createCompany,
+  updateACompanyById,
+  getACompanyByCustomerId,
+};

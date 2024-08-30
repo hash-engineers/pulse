@@ -50,4 +50,19 @@ const updateACompanyById = async (
   return company;
 };
 
-export const CompanyService = { createCompany, updateACompanyById };
+const getACompanyByCustomerId = async (
+  customerId: string,
+): Promise<Company> => {
+  const company = await prisma.company.findUnique({ where: { customerId } });
+
+  if (!company)
+    throw new ApiError(404, 'Company not found by this costomer id!');
+
+  return company;
+};
+
+export const CompanyService = {
+  createCompany,
+  updateACompanyById,
+  getACompanyByCustomerId,
+};

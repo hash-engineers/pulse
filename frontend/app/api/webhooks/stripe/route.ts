@@ -4,6 +4,7 @@ import axios from 'axios';
 import { api, headers } from '@/lib/api';
 import { User } from '@/types/user';
 import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
+import { Company } from '@/types/company';
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -83,6 +84,33 @@ export async function POST(req: Request) {
           }
         }
         break;
+
+      case 'customer.subscription.deleted': {
+        const subscription = await stripe.subscriptions.retrieve(
+          (event.data.object as Stripe.Subscription).id
+        );
+
+        const company: Company | null = (
+          await axios.get(
+            `${api}/companies?customerId=${subscription.customer}`
+          )
+        ).data?.data;
+
+        if (company && company.id) {
+          await axios.patch(`${api}/companies/${company.id}`, {
+            plan: ESubscriptionPlan.FREE,
+          });
+        } else {
+          console.error(
+            'Company not found for the subscription deleted event!'
+          );
+          throw new Error(
+            'Company not found for the subscription deleted event!'
+          );
+        }
+
+        break;
+      }
 
       default:
         console.log(`Unhandled event type ${event.type}`);

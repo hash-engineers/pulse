@@ -14,6 +14,9 @@ router
     CompanyController.createCompany,
   )
 
+  // READ
+  .get('/', CompanyController.getACompanyByCustomerId)
+
   // UPDATE
   .patch('/:id', CompanyController.updateACompanyById);
 

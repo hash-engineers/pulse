@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
+import { LoginLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { LoginLink, LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
 type Props = { className?: string };
 
@@ -17,8 +17,14 @@ export async function AuthOrDashboard({ className }: Props) {
           <Button size="sm" variant="secondary">
             <Link href="/dashboard/monitors">Dashboard</Link>
           </Button>
-          <Button size="sm" variant="destructive">
-            <LogoutLink>Logout</LogoutLink>
+          <Button size="sm" variant="outline">
+            <Link
+              rel="noreferrer noopener"
+              target="_blank"
+              href={process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL!}
+            >
+              Billing Portal
+            </Link>
           </Button>
         </div>
       ) : (
