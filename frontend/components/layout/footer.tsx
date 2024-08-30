@@ -43,13 +43,13 @@ export function Footer() {
 
         <div className="flex items-center justify-center gap-x-4">
           <Link
-            href="terms-of-use"
+            href="/home/terms-of-use"
             className="hover:underline hover:text-primary-foreground transition duration-300 ease-in-out"
           >
             Terms of Use
           </Link>
           <Link
-            href="privacy-policy"
+            href="/home/privacy-policy"
             className="hover:underline hover:text-primary-foreground transition duration-300 ease-in-out"
           >
             Privacy Policy

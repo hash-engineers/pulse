@@ -6,7 +6,7 @@ export default async function Page() {
   return (
     <div>
       <Hero />
-      <Info />
+      {/* <Info /> */}
       <Testimonials />
     </div>
   );
