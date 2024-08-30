@@ -52,11 +52,11 @@ function ProductCard({ product, translate }: ProductCardProps) {
       className="group/product h-96 w-[30rem] relative flex-shrink-0"
     >
       <Link
-        href={product.link}
+        href={'/dashboard/' + product.link}
         className="block group-hover/product:shadow-2xl "
       >
         <Image
-          src={product.thumbnail}
+          src={'/images/hero/' + product.thumbnail + '.png'}
           height="600"
           width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0"

@@ -1,64 +1,53 @@
 const products = [
   {
-    title: 'Moonbeam',
-    link: 'https://gomoonbeam.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/moonbeam.png',
+    title: 'Monitors',
+    link: 'monitors',
+    thumbnail: 'monitors',
   },
   {
-    title: 'Cursor',
-    link: 'https://cursor.so',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/cursor.png',
+    title: 'Monitor',
+    link: '',
+    thumbnail: 'monitor',
   },
   {
-    title: 'Rogue',
-    link: 'https://userogue.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/rogue.png',
+    title: 'Create Monitor',
+    link: 'create-monitor',
+    thumbnail: 'create-monitor',
   },
   {
-    title: 'Editorially',
-    link: 'https://editorially.org',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/editorially.png',
+    title: 'Payment',
+    link: '',
+    thumbnail: 'payment',
   },
   {
-    title: 'Editrix AI',
-    link: 'https://editrix.ai',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/editrix.png',
-  },
-
-  {
-    title: 'Pixel Perfect',
-    link: 'https://app.pixelperfect.quest',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/pixelperfect.png',
+    title: 'Testimonials',
+    link: '',
+    thumbnail: 'testimonials',
   },
   {
-    title: 'Algochurn',
-    link: 'https://algochurn.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/algochurn.png',
+    title: 'Create Monitor',
+    link: '/monitors/create-monitor',
+    thumbnail: 'create-monitor',
   },
   {
-    title: 'Aceternity UI',
-    link: 'https://ui.aceternity.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/aceternityui.png',
+    title: 'Monitor',
+    link: '',
+    thumbnail: 'monitor',
   },
   {
-    title: 'Tailwind Master Kit',
-    link: 'https://tailwindmasterkit.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/tailwindmasterkit.png',
+    title: 'Monitors',
+    link: 'monitors',
+    thumbnail: 'monitors',
   },
   {
-    title: 'SmartBridge',
-    link: 'https://smartbridgetech.com',
-    thumbnail:
-      'https://aceternity.com/images/products/thumbnails/new/smartbridge.png',
+    title: 'Payment',
+    link: '',
+    thumbnail: 'payment',
+  },
+  {
+    title: 'Testimonials',
+    link: '',
+    thumbnail: 'testimonials',
   },
 ];
 
