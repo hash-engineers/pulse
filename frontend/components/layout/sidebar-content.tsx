@@ -17,7 +17,7 @@ export function SidebarContent() {
         {SIDEBAR_ITEMS.map(({ icon: Icon, label, href }: SidebarItem) => (
           <Link
             key={href}
-            href={href}
+            href={'/dashboard' + href}
             className={cn(
               'text-sm text-muted-foreground flex items-center gap-x-2 py-2 rounded-md pl-2 transition duration-300 hover:bg-muted-foreground/10',
               { 'bg-muted-foreground/10': pathname.includes(href) }

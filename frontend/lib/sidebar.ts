@@ -10,10 +10,10 @@ import {
 } from 'lucide-react';
 
 const SIDEBAR_ITEMS: SidebarItem[] = [
-  { icon: Globe, label: 'Monitors', href: '/dashboard/monitors' },
+  { icon: Globe, label: 'Monitors', href: '/monitors' },
   { icon: SquareActivity, label: 'Heartbeats', href: '/heartbeats' },
   { icon: Usb, label: "Who's on-call", href: '/who-is-on-call' },
-  { icon: ShieldAlert, label: 'Incidents', href: '/dashboard/incidents' },
+  { icon: ShieldAlert, label: 'Incidents', href: '/incidents' },
   { icon: CandlestickChart, label: 'Status Pages', href: '/status-pages' },
   {
     icon: ArrowDownNarrowWide,
