@@ -80,7 +80,7 @@ const updateMonitorScheduler = () => {
             sendMail({
               to: monitor.company.members[0].email,
               subject: 'An incident occurred to your monitor.',
-              html: `<h2>Incident occurred with status ${error.code}</h2>`,
+              body: `<h2>Incident occurred with status ${error.code}</h2>`,
             });
           }
         });
