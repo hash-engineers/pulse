@@ -12,6 +12,9 @@ router
     '/',
     validateZodRequest(CompanyValidation.createCompanySchema),
     CompanyController.createCompany,
-  );
+  )
+
+  // UPDATE
+  .patch('/:id', CompanyController.updateACompanyById);
 
 export const CompanyRoutes = router;

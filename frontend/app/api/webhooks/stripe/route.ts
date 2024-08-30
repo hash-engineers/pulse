@@ -41,7 +41,31 @@ export async function POST(req: Request) {
           if (!user) throw new Error('User not found!');
 
           if (!user.company.customerId) {
-            await axios.patch(`${api}/companies/`);
+            await axios.patch(`${api}/companies/${user.company.id}`, {
+              customerId,
+            });
+          }
+
+          const lineItems = session.line_items?.data || [];
+
+          for (const item of lineItems) {
+            const pirceId = item.price?.id;
+
+            const isSubscription = item.price?.type === 'recurring';
+
+            if (isSubscription) {
+              let endDate = new Date();
+
+              if (pirceId === process.env.STRIPE_YEARLY_PRICE_ID!) {
+                endDate.setFullYear(endDate.getFullYear() + 1); // 1 year form now
+              } else if (pirceId === process.env.STRIPE_MONTHLY_PRICE_ID!) {
+                endDate.setMonth(endDate.getMonth() + 1); // 1 month from now
+              } else {
+                throw new Error('Invalid price id!s');
+              }
+            } else {
+              // One time payment
+            }
           }
         }
     }

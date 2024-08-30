@@ -15,4 +15,15 @@ const createCompany = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const CompanyController = { createCompany };
+const updateACompanyById = catchAsync(async (req: Request, res: Response) => {
+  const data = await CompanyService.updateACompanyById(req.params.id, req.body);
+
+  sendResponse<Company>(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Company updated',
+    data,
+  });
+});
+
+export const CompanyController = { createCompany, updateACompanyById };

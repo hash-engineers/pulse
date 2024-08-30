@@ -2,6 +2,7 @@ import prisma from '../../../lib/prisma';
 import ApiError from '../../../errors/api-error';
 import { UserService } from '../user/user.service';
 import { CreateCompanyRequest } from './company.type';
+import { Company } from '@prisma/client';
 
 const createCompany = async (data: CreateCompanyRequest) => {
   const isCompanyExist = await prisma.company.findUnique({
@@ -38,4 +39,15 @@ const createCompany = async (data: CreateCompanyRequest) => {
   return company;
 };
 
-export const CompanyService = { createCompany };
+const updateACompanyById = async (
+  id: string,
+  data: Partial<Company>,
+): Promise<Company> => {
+  const company = await prisma.company.update({ where: { id }, data });
+
+  if (!company) throw new ApiError(500, 'Failed to update company!');
+
+  return company;
+};
+
+export const CompanyService = { createCompany, updateACompanyById };
