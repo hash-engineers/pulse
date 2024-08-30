@@ -1,7 +1,6 @@
 import { Hero } from './_hero';
 import { Info } from './_info';
 import { Testimonials } from './_testimonials';
-import { Pricing } from '@/components/payment/pricing';
 
 export default async function Page() {
   return (
@@ -9,7 +8,6 @@ export default async function Page() {
       <Hero />
       <Info />
       <Testimonials />
-      <Pricing />
     </div>
   );
 }
