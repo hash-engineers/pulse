@@ -8,7 +8,6 @@ import { rootApi, commonHeaders } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
-import { useMonitor } from '@/hooks/monitor';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicFormPart1 } from './_basic-form-part-1';
 import { BasicFormPart2 } from './_basic-form-part-2';
@@ -21,7 +20,6 @@ type Props = { userId: string };
 export function MainForm({ userId }: Props) {
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
-  const { setMonitors } = useMonitor();
 
   const form = useForm<z.infer<typeof createMonitorSchema>>({
     resolver: zodResolver(createMonitorSchema),
@@ -47,8 +45,6 @@ export function MainForm({ userId }: Props) {
       });
 
       if (res) {
-        setMonitors(prev => [...(prev || []), res.data.data]);
-
         push('/dashboard/monitors');
         form.reset();
         toast.success('Monitor created');

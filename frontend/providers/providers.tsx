@@ -2,7 +2,6 @@
 
 import { ReactNode } from 'react';
 import { ThemeProvider } from './theme-provider';
-import { MonitorProvider } from './monitor-provider';
 import { TanstackProvider } from './tanstack-provider';
 
 type Props = { children: ReactNode };
@@ -15,9 +14,7 @@ export function Providers({ children }: Props) {
       defaultTheme="dark"
       disableTransitionOnChange
     >
-      <TanstackProvider>
-        <MonitorProvider>{children}</MonitorProvider>
-      </TanstackProvider>
+      <TanstackProvider>{children}</TanstackProvider>
     </ThemeProvider>
   );
 }
