@@ -1,5 +1,3 @@
-'use client';
-
 import { Monitor } from '@/types/monitor';
 import { ReactNode, useState } from 'react';
 import { MonitorContext } from '@/context/monitor-context';

@@ -3,8 +3,7 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { Toaster } from '@/components/ui/sonner';
 import { Kanit as Font } from 'next/font/google';
-import { ThemeProvider } from '@/providers/theme-provider';
-import { MonitorProvider } from '@/providers/monitor-provider';
+import { Providers } from '@/providers/providers';
 
 const font = Font({
   subsets: ['latin'],
@@ -28,17 +27,10 @@ export default function RootLayout({ children }: Props) {
           font.variable
         )}
       >
-        <ThemeProvider
-          enableSystem
-          attribute="class"
-          defaultTheme="dark"
-          disableTransitionOnChange
-        >
-          <MonitorProvider>
-            {children}
-            <Toaster />
-          </MonitorProvider>
-        </ThemeProvider>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
