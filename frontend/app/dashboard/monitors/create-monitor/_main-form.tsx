@@ -11,6 +11,7 @@ import { useMutation } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicFormPart1 } from './_basic-form-part-1';
 import { BasicFormPart2 } from './_basic-form-part-2';
+import { errorToast } from '@/utils/toastes/error-toast';
 import { createAMonitorZodSchema } from '@/schemas/monitor';
 import { whenToAlert, nextActions } from '@/lib/array-of-enums/monitor';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
@@ -42,6 +43,9 @@ export function MainForm({ userId }: Props) {
       push(dashboard.monitors.path);
       form.reset();
       toast.success('Monitor created');
+    },
+    onError: (error: any) => {
+      errorToast(error);
     },
   });
 

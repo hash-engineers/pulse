@@ -65,15 +65,17 @@ const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
   return monitor;
 };
 
-const getAMonitorById = async (id: string, startDateString?: string) => {
+const getAMonitorById = async (id: string, incidentStartAtString?: string) => {
   let monitor: Monitor | null;
 
-  if (startDateString) {
-    const startDate = new Date(startDateString);
+  if (incidentStartAtString) {
+    const incidentStartAt = new Date(incidentStartAtString);
 
     monitor = await prisma.monitor.findUnique({
       where: { id },
-      include: { incidents: { where: { createdAt: { gte: startDate } } } },
+      include: {
+        incidents: { where: { createdAt: { gte: incidentStartAt } } },
+      },
     });
   } else {
     monitor = await prisma.monitor.findUnique({

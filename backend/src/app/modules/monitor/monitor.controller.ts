@@ -21,7 +21,7 @@ const createAMonitor = catchAsync(async (req: Request, res: Response) => {
 const getAMonitorById = catchAsync(async (req: Request, res: Response) => {
   const data = await MonitorService.getAMonitorById(
     req.params.id,
-    req.query.startDate as string,
+    req.query.incidentStartAt as string,
   );
 
   sendResponse<Monitor>(res, {

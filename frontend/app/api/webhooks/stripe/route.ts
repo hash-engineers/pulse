@@ -1,10 +1,10 @@
+import axios from 'axios';
 import { Stripe } from 'stripe';
 import stripe from '@/lib/stripe';
-import axios from 'axios';
-import { api, headers } from '@/lib/api';
 import { User } from '@/types/user';
-import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
 import { Company } from '@/types/company';
+import { api, commonHeaders } from '@/lib/api-routes';
+import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -34,8 +34,8 @@ export async function POST(req: Request) {
         if (customerDetails?.email) {
           let user: User | null = null;
           const res = await axios.get(
-            `${api}/users/user?email=${customerDetails.email}`,
-            { headers }
+            api.users.user.route + '?email=' + customerDetails.email,
+            { headers: commonHeaders }
           );
 
           user = await res.data?.data;
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           if (!user) throw new Error('User not found!');
 
           if (!user.company.customerId) {
-            await axios.patch(`${api}/companies/${user.company.id}`, {
+            await axios.patch(api.companies + '/' + user.company.id, {
               customerId,
             });
           }
@@ -77,7 +77,7 @@ export async function POST(req: Request) {
                     : ESubscriptionPeriod.MONTHLY,
               };
 
-              await axios.post(`${api}/subscriptions`, subscriptionData);
+              await axios.post(api.subscriptions.route, subscriptionData);
             } else {
               // One time payment
             }
@@ -92,12 +92,12 @@ export async function POST(req: Request) {
 
         const company: Company | null = (
           await axios.get(
-            `${api}/companies?customerId=${subscription.customer}`
+            api.companies + '?customerId=' + subscription.customer
           )
         ).data?.data;
 
         if (company && company.id) {
-          await axios.patch(`${api}/companies/${company.id}`, {
+          await axios.patch(api.companies.route + '/' + company.id, {
             plan: ESubscriptionPlan.FREE,
           });
         } else {
