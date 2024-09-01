@@ -16,6 +16,7 @@ export default function Page() {
 
   const { data: monitors, mutate: server_getAllMonitors } = useMutation({
     mutationFn: getAllMonitors,
+    mutationKey: ['monitors'],
     onError: (error: any) => {
       errorToast(error);
     },
