@@ -39,7 +39,7 @@ const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
   const { meta, data } = await MonitorService.getAllMonitors(
     filters,
     paginationOptions,
-    req.body.userId,
+    req.query.userId as string,
   );
 
   sendResponse<Monitor[]>(res, {
