@@ -1,20 +1,20 @@
 'use server';
 
 import axios from 'axios';
-import { headers } from 'next/headers';
-import { companies, contentType, rootApi } from '@/lib/api';
+import { commonHeaders, companies, rootApi } from '@/lib/api';
 import { Company, CreateCompanyFormData } from '@/types/company';
 
 export async function createCompany(
   data: CreateCompanyFormData
-): Promise<Company | null> {
+): Promise<Company> {
   try {
     const res = await axios.post(rootApi + companies, data, {
-      headers: { ...headers, ...contentType },
+      headers: commonHeaders,
     });
 
     return res.data?.data;
   } catch (error: any) {
+    console.log(error);
     throw new Error(error?.response?.data?.message || 'Something went wrong!');
   }
 }

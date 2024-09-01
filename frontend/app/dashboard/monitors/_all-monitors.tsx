@@ -9,7 +9,7 @@ import {
 
 type Props = { monitors: Monitor[] };
 
-export async function AllMonitors({ monitors }: Props) {
+export function AllMonitors({ monitors }: Props) {
   return (
     <Accordion
       type="single"

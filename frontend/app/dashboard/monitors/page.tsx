@@ -1,29 +1,31 @@
-import axios from 'axios';
+'use client';
+
 import Link from 'next/link';
-import { rootApi } from '@/lib/api';
-import { Monitor } from '@/types/monitor';
+import { useEffect } from 'react';
 import { AllMonitors } from './_all-monitors';
 import { Button } from '@/components/ui/button';
+import { dashboard } from '@/lib/paths/dashboard';
+import { getAllMonitors } from '@/actions/monitor';
+import { useMutation } from '@tanstack/react-query';
+import { errorToast } from '@/utils/toastes/error-toast';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { SearchAndCreateMonitor } from './_search-and-create-monitor';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default async function Page() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+export default function Page() {
+  const { user } = useKindeBrowserClient();
 
-  let monitors: Monitor[] | null = null;
+  const { data: monitors, mutate: server_getAllMonitors } = useMutation({
+    mutationFn: getAllMonitors,
+    onError: (error: any) => {
+      errorToast(error);
+    },
+  });
 
-  if (user?.id) {
-    try {
-      const res = await axios.get(`${rootApi}/monitors`, {
-        data: { userId: user.id },
-      });
-
-      monitors = res?.data?.data;
-    } catch (error) {
-      console.error('Error fetching monitors:', error);
+  useEffect(() => {
+    if (user?.id) {
+      server_getAllMonitors({ userId: user.id });
     }
-  }
+  }, [user, server_getAllMonitors]);
 
   return (
     <section className="space-y-4">
@@ -41,7 +43,9 @@ export default async function Page() {
           <div className="flex flex-col items-center justify-center gap-y-2">
             <h4>Opps, You&apos;ve no monitor yet!</h4>
             <Button asChild variant="link" size="lg">
-              <Link href="/dashboard/monitors/create-monitor">Create one</Link>
+              <Link href={dashboard.monitors.createMonitor.path}>
+                Create one
+              </Link>
             </Button>
           </div>
         </div>

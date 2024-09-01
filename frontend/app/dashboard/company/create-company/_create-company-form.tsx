@@ -52,8 +52,6 @@ export function CreateCompanyForm({ id, name, email }: Props) {
     },
   });
 
-  console.log(data);
-
   function onSubmit(data: CreateCompanyFormData) {
     server_createCompany(data);
   }

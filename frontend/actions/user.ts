@@ -2,8 +2,7 @@
 
 import axios from 'axios';
 import { User } from '@/types/user';
-import { headers } from 'next/headers';
-import { contentType, rootApi, users } from '@/lib/api';
+import { commonHeaders, rootApi, users } from '@/lib/api';
 
 type GetAnUserById = { id: string };
 
@@ -12,7 +11,7 @@ export async function getAnUserById({
 }: GetAnUserById): Promise<User | null> {
   try {
     const res = await axios.get(rootApi + users + '/' + id, {
-      headers: { ...headers, ...contentType },
+      headers: commonHeaders,
     });
 
     return res.data?.data;

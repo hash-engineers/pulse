@@ -4,7 +4,7 @@ import { z } from 'zod';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useState } from 'react';
-import { api, headers } from '@/lib/api';
+import { rootApi, commonHeaders } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
@@ -42,8 +42,8 @@ export function MainForm({ userId }: Props) {
     try {
       setLoading(true);
 
-      const res = await axios.post(`${api}/monitors`, data, {
-        headers,
+      const res = await axios.post(`${rootApi}/monitors`, data, {
+        headers: commonHeaders,
       });
 
       if (res) {
