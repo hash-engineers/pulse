@@ -23,6 +23,8 @@ type Props = {
 };
 
 export function CreateCompanyForm({ id, name, email }: Props) {
+  const { push } = useRouter();
+
   const form = useForm<CreateCompanyFormData>({
     resolver: zodResolver(createCompanySchema),
     defaultValues: {
@@ -33,8 +35,6 @@ export function CreateCompanyForm({ id, name, email }: Props) {
       size: companySize[0],
     },
   });
-
-  const { push } = useRouter();
 
   const {
     data,
@@ -51,6 +51,8 @@ export function CreateCompanyForm({ id, name, email }: Props) {
       errorToast(error);
     },
   });
+
+  console.log(data);
 
   function onSubmit(data: CreateCompanyFormData) {
     server_createCompany(data);

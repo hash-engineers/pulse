@@ -1,7 +1,5 @@
-import axios from 'axios';
-import { User } from '@/types/user';
 import { redirect } from 'next/navigation';
-import { contentType, rootApi } from '@/lib/api';
+import { getAnUserById } from '@/actions/user';
 import { CreateCompanyForm } from './_create-company-form';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -11,17 +9,7 @@ export default async function Page() {
 
   if (!user) redirect('/api/auth/login');
 
-  let dbUser: User | null = null;
-
-  try {
-    dbUser = (
-      await axios.get(`${rootApi}/users/${user.id}`, {
-        headers: { ...contentType },
-      })
-    ).data?.data;
-  } catch (error) {
-    return;
-  }
+  const dbUser = await getAnUserById({ id: user.id });
 
   if (dbUser) redirect('/dashboard/monitors');
 

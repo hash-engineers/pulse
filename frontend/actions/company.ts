@@ -7,13 +7,13 @@ import { Company, CreateCompanyFormData } from '@/types/company';
 
 export async function createCompany(
   data: CreateCompanyFormData
-): Promise<Company> {
+): Promise<Company | null> {
   try {
     const res = await axios.post(rootApi + companies, data, {
       headers: { ...headers, ...contentType },
     });
 
-    return res.data;
+    return res.data?.data;
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || 'Something went wrong!');
   }

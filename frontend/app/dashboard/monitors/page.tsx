@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Link from 'next/link';
-import { api } from '@/lib/api';
+import { rootApi } from '@/lib/api';
 import { Monitor } from '@/types/monitor';
 import { AllMonitors } from './_all-monitors';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ export default async function Page() {
 
   if (user?.id) {
     try {
-      const res = await axios.get(`${api}/monitors`, {
+      const res = await axios.get(`${rootApi}/monitors`, {
         data: { userId: user.id },
       });
 
