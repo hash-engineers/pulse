@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { ENextAction, EWhenToAlert } from '@/enums/monitor';
 
-const createMonitorSchema = z.object({
+export const createAMonitorZodSchema = z.object({
   userId: z
     .string({ required_error: 'User id is required' })
     .min(1, { message: 'User id should be at least one charactor' }),
@@ -24,5 +24,3 @@ const createMonitorSchema = z.object({
     })
     .default(ENextAction.WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS),
 });
-
-export { createMonitorSchema };

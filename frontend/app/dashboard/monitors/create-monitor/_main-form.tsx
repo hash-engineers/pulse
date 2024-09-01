@@ -1,17 +1,17 @@
 'use client';
 
-import { z } from 'zod';
-import axios from 'axios';
 import { toast } from 'sonner';
-import { useState } from 'react';
-import { rootApi, commonHeaders } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { useRouter } from 'next/navigation';
+import { CreateAMonitor } from '@/types/monitor';
+import { dashboard } from '@/lib/paths/dashboard';
+import { createAMonitor } from '@/actions/monitor';
+import { useMutation } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { BasicFormPart1 } from './_basic-form-part-1';
 import { BasicFormPart2 } from './_basic-form-part-2';
-import { createMonitorSchema } from '@/schemas/monitor';
+import { createAMonitorZodSchema } from '@/schemas/monitor';
 import { whenToAlert, nextActions } from '@/lib/array-of-enums/monitor';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
@@ -19,10 +19,9 @@ type Props = { userId: string };
 
 export function MainForm({ userId }: Props) {
   const { push } = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof createMonitorSchema>>({
-    resolver: zodResolver(createMonitorSchema),
+  const form = useForm<CreateAMonitor>({
+    resolver: zodResolver(createAMonitorZodSchema),
     defaultValues: {
       userId,
       name: '',
@@ -36,27 +35,18 @@ export function MainForm({ userId }: Props) {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof createMonitorSchema>) {
-    try {
-      setLoading(true);
+  const { mutate: server_createAMonitor, isPending } = useMutation({
+    mutationFn: createAMonitor,
+    mutationKey: ['monitors'],
+    onSuccess: () => {
+      push(dashboard.monitors.path);
+      form.reset();
+      toast.success('Monitor created');
+    },
+  });
 
-      const res = await axios.post(`${rootApi}/monitors`, data, {
-        headers: commonHeaders,
-      });
-
-      if (res) {
-        push('/dashboard/monitors');
-        form.reset();
-        toast.success('Monitor created');
-      }
-    } catch (error) {
-      const err = error as any;
-
-      toast.error(err?.response?.data?.message || 'Something went wrong');
-      console.error('The Error From Create Monitor Form Submit ->', error);
-    } finally {
-      setLoading(false);
-    }
+  function onSubmit(data: CreateAMonitor) {
+    server_createAMonitor({ data });
   }
 
   return (
@@ -70,7 +60,7 @@ export function MainForm({ userId }: Props) {
 
           <BasicFormPart2 control={form.control} />
 
-          <BottomGradientButton disabled={loading} loading={loading}>
+          <BottomGradientButton disabled={isPending} loading={isPending}>
             Create
           </BottomGradientButton>
         </form>

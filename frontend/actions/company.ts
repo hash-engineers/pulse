@@ -14,7 +14,6 @@ export async function createCompany(
 
     return res.data?.data;
   } catch (error: any) {
-    console.log(error);
     throw new Error(error?.response?.data?.message || 'Something went wrong!');
   }
 }

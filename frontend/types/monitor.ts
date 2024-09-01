@@ -1,9 +1,11 @@
+import { z } from 'zod';
 import { Company } from './company';
 import { Incident } from './incident';
 import { CreatedAtAndUpdatedAt } from './common';
+import { createAMonitorZodSchema } from '@/schemas/monitor';
 import { ENextAction, EWhenToAlert, EMonitorStatus } from '@/enums/monitor';
 
-type Monitor = {
+export type Monitor = {
   id: string;
 
   url: string;
@@ -26,7 +28,7 @@ type Monitor = {
   checkedAt?: string;
 } & CreatedAtAndUpdatedAt;
 
-type MonitorDetailsTableRow<T extends string> = {
+export type MonitorDetailsTableRow<T extends string> = {
   id: string;
   downtime: string;
   timePeriod:
@@ -41,4 +43,4 @@ type MonitorDetailsTableRow<T extends string> = {
   averageIncident: string;
 };
 
-export type { Monitor, MonitorDetailsTableRow };
+export type CreateAMonitor = z.infer<typeof createAMonitorZodSchema>;
