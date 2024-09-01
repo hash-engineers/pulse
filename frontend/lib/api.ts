@@ -1,4 +1,5 @@
-const api = process.env.NEXT_PUBLIC_MAIN_API as string;
-const headers = { 'Content-Type': 'application/json' };
+export const rootApi = process.env.NEXT_PUBLIC_MAIN_API!;
 
-export { api, headers };
+export const contentType = { 'Content-Type': 'application/json' };
+
+export const companies = '/companies';

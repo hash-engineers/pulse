@@ -1,35 +1,34 @@
 'use client';
 
-import axios from 'axios';
 import { toast } from 'sonner';
-import { useState } from 'react';
-import { api, headers } from '@/lib/api';
 import { useForm } from 'react-hook-form';
 import { EFormField } from '@/enums/form';
-import { useRouter } from 'next/navigation';
 import { Form } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
+import { dashboard } from '@/lib/paths/dashboard';
+import { createCompany } from '@/actions/company';
+import { useMutation } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createCompanySchema } from '@/schemas/company';
 import { CreateCompanyFormData } from '@/types/company';
+import { errorToast } from '@/utils/toastes/error-toast';
 import { companySize } from '@/lib/array-of-enums/company';
 import { CustomFormField } from '@/components/form/custom-form-field';
 import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 
 type Props = {
   id: string;
-  name?: string | null;
-  email?: string | null;
+  name: string;
+  email: string;
 };
 
 export function CreateCompanyForm({ id, name, email }: Props) {
-  const [loading, setLoading] = useState<boolean>(false);
-
   const form = useForm<CreateCompanyFormData>({
     resolver: zodResolver(createCompanySchema),
     defaultValues: {
       id,
-      name: name ?? '',
-      email: email ?? '',
+      name,
+      email,
       companyName: '',
       size: companySize[0],
     },
@@ -37,25 +36,24 @@ export function CreateCompanyForm({ id, name, email }: Props) {
 
   const { push } = useRouter();
 
-  async function onSubmit(data: CreateCompanyFormData) {
-    try {
-      setLoading(true);
+  const {
+    data,
+    mutate: server_createCompany,
+    isPending,
+  } = useMutation({
+    mutationFn: createCompany,
+    onSuccess: () => {
+      toast.success('Your company created');
+      form.reset();
+      push(dashboard.monitors.createCompany);
+    },
+    onError: (error: any) => {
+      errorToast(error);
+    },
+  });
 
-      const res = await axios.post(`${api}/companies`, data, {
-        headers,
-      });
-
-      if (res) {
-        push('/dashboard/monitors/create-monitor');
-        form.reset();
-        toast.success('Your company created');
-      }
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Something went wrong');
-      console.error('The Error From Create Company Form Submit', error);
-    } finally {
-      setLoading(false);
-    }
+  function onSubmit(data: CreateCompanyFormData) {
+    server_createCompany(data);
   }
 
   return (
@@ -77,7 +75,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
           name="email"
           type="email"
           label="Email"
-          required={email ? true : false}
+          required={!!email}
           readOnly={!!email}
           placeholder="Ex. example@gmail.com"
         />
@@ -100,7 +98,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
           items={companySize}
         />
 
-        <BottomGradientButton disabled={loading} loading={loading}>
+        <BottomGradientButton disabled={isPending} loading={isPending}>
           Create
         </BottomGradientButton>
       </form>

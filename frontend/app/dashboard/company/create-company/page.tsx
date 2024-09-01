@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '@/types/user';
-import { api, headers } from '@/lib/api';
 import { redirect } from 'next/navigation';
+import { contentType, rootApi } from '@/lib/api';
 import { CreateCompanyForm } from './_create-company-form';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -14,10 +14,13 @@ export default async function Page() {
   let dbUser: User | null = null;
 
   try {
-    dbUser = (await axios.get(`${api}/users/${user.id}`, { headers })).data
-      ?.data;
+    dbUser = (
+      await axios.get(`${rootApi}/users/${user.id}`, {
+        headers: { ...contentType },
+      })
+    ).data?.data;
   } catch (error) {
-    console.error('Error From Check Is User  ->', error);
+    return;
   }
 
   if (dbUser) redirect('/dashboard/monitors');
@@ -30,9 +33,9 @@ export default async function Page() {
           It is required to handle all monitors and team members.
         </p>
         <CreateCompanyForm
-          id={user!.id}
-          name={user?.given_name + ' ' + user?.family_name}
-          email={user?.email}
+          id={user.id}
+          name={user?.given_name + ' ' + user?.family_name ?? ''}
+          email={user.email!}
         />
       </div>
     </section>
