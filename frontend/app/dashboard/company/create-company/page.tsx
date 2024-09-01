@@ -1,5 +1,7 @@
+import { auth } from '@/lib/paths/auth';
 import { redirect } from 'next/navigation';
 import { getAnUserById } from '@/actions/user';
+import { dashboard } from '@/lib/paths/dashboard';
 import { CreateCompanyForm } from './_create-company-form';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -7,11 +9,11 @@ export default async function Page() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user) redirect('/api/auth/login');
+  if (!user) redirect(auth.login.path);
 
   const dbUser = await getAnUserById({ id: user.id });
 
-  if (dbUser) redirect('/dashboard/monitors');
+  if (dbUser) redirect(dashboard.monitors.path);
 
   return (
     <section className="flex items-center justify-center h-screen">

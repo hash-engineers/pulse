@@ -6,19 +6,32 @@ const createMonitorPath = '/create-monitor';
 
 export const dashboard = (() => {
   return {
+    // Companies path
     get companies() {
       return {
-        createCompany: basePath + companiesPath + createCompanyPath,
-
+        get createCompany() {
+          return {
+            get path() {
+              return basePath + companiesPath + createCompanyPath;
+            },
+          };
+        },
         get path() {
           return basePath + companiesPath;
         },
       };
     },
 
+    // Monitors path
     get monitors() {
       return {
-        createCompany: basePath + monitorsPath + createMonitorPath,
+        get createMonitor() {
+          return {
+            get path() {
+              return basePath + monitorsPath + createMonitorPath;
+            },
+          };
+        },
 
         get path() {
           return basePath + monitorsPath;
@@ -26,6 +39,7 @@ export const dashboard = (() => {
       };
     },
 
+    // Dashboard root
     get path() {
       return basePath;
     },

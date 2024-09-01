@@ -45,7 +45,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
     onSuccess: () => {
       toast.success('Your company created');
       form.reset();
-      push(dashboard.monitors.createCompany);
+      push(dashboard.monitors.createMonitor.path);
     },
     onError: (error: any) => {
       errorToast(error);
