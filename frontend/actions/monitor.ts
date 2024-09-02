@@ -36,16 +36,37 @@ export async function createAMonitor({
   }
 }
 
-type GetAMonitorById = { id: string; incidentStartAt?: string };
+type GetAMonitorById = { id: string };
 
 export async function getAMonitorById({
   id,
-  incidentStartAt,
 }: GetAMonitorById): Promise<Monitor | null> {
+  try {
+    const res = await axios.get(api.monitors.route + '/' + id, {
+      headers: commonHeaders,
+    });
+
+    return await res.data?.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+type GetAMonitorByIdWithFilteredIncidents = {
+  id: string;
+  incidentStartAt: string;
+};
+
+export async function getAMonitorByIdWithFilteredIncidents({
+  id,
+  incidentStartAt,
+}: GetAMonitorByIdWithFilteredIncidents): Promise<Monitor | null> {
   try {
     const res = await axios.get(
       api.monitors.route + '/' + id + '?incidentStartAt=' + incidentStartAt,
-      { headers: commonHeaders }
+      {
+        headers: commonHeaders,
+      }
     );
 
     return await res.data?.data;
