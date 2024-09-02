@@ -14,9 +14,10 @@ export function AllMonitors({ monitors }: Props) {
     <Accordion
       type="single"
       collapsible
+      defaultValue="open"
       className="text-muted-foreground lg:w-4/5"
     >
-      <AccordionItem value="item-1">
+      <AccordionItem value="open">
         <AccordionTrigger className="text-sm hover:no-underline select-none">
           Monitors
         </AccordionTrigger>
