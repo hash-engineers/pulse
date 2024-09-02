@@ -1,9 +1,15 @@
 const baseApi = process.env.NEXT_PUBLIC_MAIN_API as string;
+
 const usersApi = '/users';
 const userApi = '/user';
+
 const companiesApi = '/companies';
+
 const incidentsApi = '/incidents';
+
 const monitorsApi = '/monitors';
+const filteredIncidentsApi = '/filtered-incidents';
+
 const subscriptionsApi = '/subscriptions';
 
 export const api = (() => {
@@ -37,6 +43,14 @@ export const api = (() => {
     // Monitor routes
     get monitors() {
       return {
+        get filteredIncidents() {
+          return {
+            get route() {
+              return baseApi + monitorsApi + filteredIncidentsApi;
+            },
+          };
+        },
+
         get route() {
           return baseApi + monitorsApi;
         },
