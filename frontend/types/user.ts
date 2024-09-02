@@ -3,7 +3,7 @@ import { ERole } from '@/enums/user';
 import { Subscription } from './subscription';
 import { CreatedAtAndUpdatedAt } from './common';
 
-type User = {
+export type User = {
   id: string;
 
   name: string;
@@ -15,5 +15,3 @@ type User = {
   companyName: string;
   company: Company;
 } & CreatedAtAndUpdatedAt;
-
-export type { User };

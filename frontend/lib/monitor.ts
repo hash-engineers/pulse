@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { MonitorDetailsTableRow } from '@/types/monitor';
 
-const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<
+export const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<
   MonitorDetailsTableRow<string>
 >[] = [
   {
@@ -29,5 +29,3 @@ const MONITOR_DETAILS_TABLE_COLUMNS: ColumnDef<
     header: 'Average Incident',
   },
 ];
-
-export { MONITOR_DETAILS_TABLE_COLUMNS };

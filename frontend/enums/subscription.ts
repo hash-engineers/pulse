@@ -1,11 +1,9 @@
-enum ESubscriptionPlan {
+export enum ESubscriptionPlan {
   FREE = 'FREE',
   PREMIUM = 'PREMIUM',
 }
 
-enum ESubscriptionPeriod {
+export enum ESubscriptionPeriod {
   MONTHLY = 'MONTHLY',
   YEARLY = 'YEARLY',
 }
-
-export { ESubscriptionPlan, ESubscriptionPeriod };

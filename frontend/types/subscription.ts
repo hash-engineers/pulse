@@ -3,7 +3,7 @@ import { Company } from './company';
 import { CreatedAtAndUpdatedAt } from './common';
 import { ESubscriptionPeriod, ESubscriptionPlan } from '@/enums/subscription';
 
-type Subscription = {
+export type Subscription = {
   id: string;
 
   plan: ESubscriptionPlan;
@@ -18,5 +18,3 @@ type Subscription = {
   startDate: string;
   endDate: string;
 } & CreatedAtAndUpdatedAt;
-
-export type { Subscription };

@@ -1,6 +1,6 @@
 import { Pricing } from '@/types/payment';
 
-const PRICING_LIST: Pricing[] = [
+export const PRICING_LIST: Pricing[] = [
   {
     title: 'Free',
     popular: 0,
@@ -56,5 +56,3 @@ const PRICING_LIST: Pricing[] = [
     billing: '/year',
   },
 ];
-
-export { PRICING_LIST };

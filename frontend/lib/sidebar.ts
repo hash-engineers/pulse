@@ -1,15 +1,15 @@
 import { SidebarItem } from '@/types/layout';
 import {
-  Globe,
-  SquareActivity,
   Usb,
+  Globe,
+  Shapes,
   ShieldAlert,
+  SquareActivity,
   CandlestickChart,
   ArrowDownNarrowWide,
-  Shapes,
 } from 'lucide-react';
 
-const SIDEBAR_ITEMS: SidebarItem[] = [
+export const SIDEBAR_ITEMS: SidebarItem[] = [
   { icon: Globe, label: 'Monitors', href: '/monitors' },
   { icon: SquareActivity, label: 'Heartbeats', href: '/heartbeats' },
   { icon: Usb, label: "Who's on-call", href: '/who-is-on-call' },
@@ -26,5 +26,3 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
     href: '/integrations',
   },
 ];
-
-export { SIDEBAR_ITEMS };

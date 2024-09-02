@@ -6,9 +6,9 @@ import { ECompanySize } from '@/enums/company';
 import { CreatedAtAndUpdatedAt } from './common';
 import { createCompanySchema } from '@/schemas/company';
 
-type CreateCompanyFormData = z.infer<typeof createCompanySchema>;
+export type CreateCompanyFormData = z.infer<typeof createCompanySchema>;
 
-type Company = {
+export type Company = {
   id: string;
 
   name: string;
@@ -20,5 +20,3 @@ type Company = {
   members: User[];
   monitors: Monitor[];
 } & CreatedAtAndUpdatedAt;
-
-export type { CreateCompanyFormData, Company };

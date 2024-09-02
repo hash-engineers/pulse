@@ -1,6 +1,6 @@
 import { EPopularPlan } from '@/enums/payment';
 
-type Pricing = {
+export type Pricing = {
   title: string;
   popular: EPopularPlan;
   price: number;
@@ -11,5 +11,3 @@ type Pricing = {
   billing: string;
   paymentLink: string;
 };
-
-export type { Pricing };

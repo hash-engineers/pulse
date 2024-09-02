@@ -1,4 +1,4 @@
-const whenToAlert = [
+export const whenToAlert = [
   'URL_BECOMES_UNAVAILABLE',
   'URL_DOES_NOT_CONTAIN_KEYWORD',
   'URL_CONTAINS_A_KEYWORD',
@@ -6,12 +6,10 @@ const whenToAlert = [
   'HOST_DOES_NOT_RESPOND_TO_PING',
 ];
 
-const nextActions = [
+export const nextActions = [
   'DO_NOTHING',
   'IMMEDIATELY_ALERT_ALL_OTHER_TEAM_MEMBER',
   'WITHIN_3_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS',
   'WITHIN_5_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS',
   'WITHIN_10_MINUTES_ALERT_ALL_OTHER_TEAM_MEMBERS',
 ];
-
-export { whenToAlert, nextActions };

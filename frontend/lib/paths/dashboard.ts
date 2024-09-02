@@ -1,6 +1,8 @@
 const basePath = '/dashboard';
+
 const companiesPath = '/companies';
 const createCompanyPath = '/create-company';
+
 const monitorsPath = '/monitors';
 const createMonitorPath = '/create-monitor';
 

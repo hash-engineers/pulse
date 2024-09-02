@@ -1,4 +1,4 @@
-enum EFormField {
+export enum EFormField {
   INPUT = 'input',
   TEXTAREA = 'textarea',
   PHONE_INPUT = 'phoneInput',
@@ -7,5 +7,3 @@ enum EFormField {
   SELECT = 'select',
   SKELETON = 'skeleton',
 }
-
-export { EFormField };

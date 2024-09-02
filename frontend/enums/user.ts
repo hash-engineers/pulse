@@ -1,4 +1,4 @@
-enum ERole {
+export enum ERole {
   CEO = 'CEO',
   CTO = 'CTO',
   CIO = 'CIO',
@@ -41,5 +41,3 @@ enum ERole {
   LEGAL_COUNSEL = 'LEGAL_COUNSEL',
   COMPLIANCE_OFFICER = 'COMPLIANCE_OFFICER',
 }
-
-export { ERole };

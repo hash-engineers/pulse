@@ -1,4 +1,4 @@
-const companySize = [
+export const companySize = [
   'JUST__ME',
   'ONE__TO__FIVE',
   'SIX__TO__TEN',
@@ -10,5 +10,3 @@ const companySize = [
   'ONE_THOUSAND_ONE__TO__TWO_THOUSAND',
   'TWO_THOUSAN_PLUS',
 ];
-
-export { companySize };

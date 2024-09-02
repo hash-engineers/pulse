@@ -2,7 +2,7 @@ import { Monitor } from './monitor';
 import { CreatedAtAndUpdatedAt } from './common';
 import { EIncidentStatus } from '@/enums/incident';
 
-type Incident = {
+export type Incident = {
   id: string;
 
   code: string;
@@ -15,5 +15,3 @@ type Incident = {
 
   resolvedAt?: string;
 } & CreatedAtAndUpdatedAt;
-
-export type { Incident };

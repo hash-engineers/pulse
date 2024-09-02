@@ -1,4 +1,4 @@
-const globeConfig = {
+export const globeConfig = {
   pointSize: 4,
   globeColor: '#062056',
   showAtmosphere: true,
@@ -23,7 +23,7 @@ const globeConfig = {
 
 const colors = ['#06b6d4', '#3b82f6', '#6366f1'];
 
-const sampleArcs = [
+export const sampleArcs = [
   {
     order: 1,
     startLat: -19.885592,
@@ -385,5 +385,3 @@ const sampleArcs = [
     color: colors[Math.floor(Math.random() * (colors.length - 1))],
   },
 ];
-
-export { globeConfig, sampleArcs };

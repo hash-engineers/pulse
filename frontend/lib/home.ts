@@ -1,4 +1,4 @@
-const products = [
+export const products = [
   {
     title: 'Monitors',
     link: 'monitors',
@@ -51,7 +51,7 @@ const products = [
   },
 ];
 
-const testimonials = [
+export const testimonials = [
   {
     quote:
       'I was impressed by the simplicity and efficiency of this website monitoring tool. Within minutes, I had my websites added and could see real-time status updates. It has become an indispensable part of my daily routine. Highly recommended!',
@@ -83,5 +83,3 @@ const testimonials = [
     title: 'Project Manager',
   },
 ];
-
-export { products, testimonials };
