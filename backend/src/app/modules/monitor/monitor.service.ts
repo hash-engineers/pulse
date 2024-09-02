@@ -71,10 +71,16 @@ const getAMonitorById = async (id: string, incidentStartAtString?: string) => {
   if (incidentStartAtString) {
     const incidentStartAt = new Date(incidentStartAtString);
 
+    if (isNaN(incidentStartAt.getTime())) {
+      console.log('Invalid Date object created from incidentStartAtString');
+    }
+
     monitor = await prisma.monitor.findUnique({
       where: { id },
       include: {
-        incidents: { where: { createdAt: { gte: incidentStartAt } } },
+        incidents: {
+          where: { createdAt: { gte: incidentStartAt } },
+        },
       },
     });
   } else {

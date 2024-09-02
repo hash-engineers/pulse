@@ -3,10 +3,11 @@ import { Actions } from './_actions';
 import { KeyInfos } from './_key-infos';
 import { DataTable } from './_data-table';
 import { formatDate } from '@/helpers/date-time';
+import { Spinner } from '@/components/ui/spinner';
 import { getAMonitorById } from '@/actions/monitor';
 import { getDate } from '@/utils/date-time/get-date';
+import { MonitorDetailsTableRow } from '@/types/monitor';
 import { calculateMonitorAvailability } from '@/helpers/monitor';
-import { Monitor, MonitorDetailsTableRow } from '@/types/monitor';
 
 type Props = { params: { id: string } };
 
@@ -14,23 +15,31 @@ export default async function Page({ params: { id } }: Props) {
   const { startOfToday, startOf7DaysAgo, startOf30DaysAgo, startOf365DaysAgo } =
     getDate();
 
-  const monitor = await getAMonitorById({ id });
-  const monitorForToday = await getAMonitorById({
-    id,
-    incidentStartAt: startOfToday,
-  });
-  const monitorForLast7Days = await getAMonitorById({
-    id,
-    incidentStartAt: startOf7DaysAgo,
-  });
-  const monitorForLast30Days = await getAMonitorById({
-    id,
-    incidentStartAt: startOf30DaysAgo,
-  });
-  const monitorForLast365Days = await getAMonitorById({
-    id,
-    incidentStartAt: startOf365DaysAgo,
-  });
+  const [
+    monitor,
+    monitorForToday,
+    monitorForLast7Days,
+    monitorForLast30Days,
+    monitorForLast365Days,
+  ] = await Promise.all([
+    getAMonitorById({ id, incidentStartAt: startOfToday }),
+    getAMonitorById({
+      id,
+      incidentStartAt: startOfToday,
+    }),
+    getAMonitorById({
+      id,
+      incidentStartAt: startOf7DaysAgo,
+    }),
+    getAMonitorById({
+      id,
+      incidentStartAt: startOf30DaysAgo,
+    }),
+    getAMonitorById({
+      id,
+      incidentStartAt: startOf365DaysAgo,
+    }),
+  ]);
 
   if (
     !monitor ||
@@ -39,7 +48,7 @@ export default async function Page({ params: { id } }: Props) {
     !monitorForLast30Days ||
     !monitorForLast365Days
   )
-    return null;
+    return <Spinner />;
 
   const date = formatDate(monitor.createdAt);
 
