@@ -65,30 +65,31 @@ const createAMonitor = async ({ userId, ...data }: CreateAMonitorRequest) => {
   return monitor;
 };
 
-const getAMonitorById = async (id: string, incidentStartAtString?: string) => {
-  let monitor: Monitor | null;
+const getAMonitorById = async (id: string) => {
+  const monitor = await prisma.monitor.findUnique({
+    where: { id },
+    include: { incidents: true },
+  });
 
-  if (incidentStartAtString) {
-    const incidentStartAt = new Date(incidentStartAtString);
+  if (!monitor) throw new ApiError(404, 'Monitor not found!');
 
-    if (isNaN(incidentStartAt.getTime())) {
-      console.log('Invalid Date object created from incidentStartAtString');
-    }
+  return monitor;
+};
 
-    monitor = await prisma.monitor.findUnique({
-      where: { id },
-      include: {
-        incidents: {
-          where: { createdAt: { gte: incidentStartAt } },
-        },
+const getAMonitorByIdWithFilteredIncidents = async (
+  id: string,
+  incidentStartAtString: string,
+): Promise<Monitor> => {
+  const incidentStartAt = new Date(incidentStartAtString);
+
+  const monitor = await prisma.monitor.findUnique({
+    where: { id },
+    include: {
+      incidents: {
+        where: { createdAt: { gte: incidentStartAt } },
       },
-    });
-  } else {
-    monitor = await prisma.monitor.findUnique({
-      where: { id },
-      include: { incidents: true },
-    });
-  }
+    },
+  });
 
   if (!monitor) throw new ApiError(404, 'Monitor not found!');
 
@@ -166,4 +167,5 @@ export const MonitorService = {
   getAllMonitors,
   getAMonitorById,
   updateAMonitorById,
+  getAMonitorByIdWithFilteredIncidents,
 };

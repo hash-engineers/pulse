@@ -17,6 +17,10 @@ router
   // READ
   .get('/', MonitorController.getAllMonitors)
   .get('/:id', MonitorController.getAMonitorById)
+  .get(
+    '/filtered-incidents',
+    MonitorController.getAMonitorByIdWithFilteredIncidents,
+  )
 
   // UPDATE
   .patch(

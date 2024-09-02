@@ -19,10 +19,7 @@ const createAMonitor = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAMonitorById = catchAsync(async (req: Request, res: Response) => {
-  const data = await MonitorService.getAMonitorById(
-    req.params.id,
-    req.query.incidentStartAt as string,
-  );
+  const data = await MonitorService.getAMonitorById(req.params.id);
 
   sendResponse<Monitor>(res, {
     statusCode: 200,
@@ -31,6 +28,22 @@ const getAMonitorById = catchAsync(async (req: Request, res: Response) => {
     data,
   });
 });
+
+const getAMonitorByIdWithFilteredIncidents = catchAsync(
+  async (req: Request, res: Response) => {
+    const data = await MonitorService.getAMonitorByIdWithFilteredIncidents(
+      req.params.id,
+      req.query.incidentStartAt as string,
+    );
+
+    sendResponse<Monitor>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Monitor retrieved',
+      data,
+    });
+  },
+);
 
 const getAllMonitors = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, monitorFilterableFields);
@@ -67,4 +80,5 @@ export const MonitorController = {
   getAllMonitors,
   getAMonitorById,
   updateAMonitorById,
+  getAMonitorByIdWithFilteredIncidents,
 };
