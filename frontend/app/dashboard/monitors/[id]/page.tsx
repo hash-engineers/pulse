@@ -4,10 +4,13 @@ import { KeyInfos } from './_key-infos';
 import { DataTable } from './_data-table';
 import { formatDate } from '@/helpers/date-time';
 import { Spinner } from '@/components/ui/spinner';
-import { getAMonitorById } from '@/actions/monitor';
 import { getDate } from '@/utils/date-time/get-date';
 import { MonitorDetailsTableRow } from '@/types/monitor';
 import { calculateMonitorAvailability } from '@/helpers/monitor';
+import {
+  getAMonitorById,
+  getAMonitorByIdWithFilteredIncidents,
+} from '@/actions/monitor';
 
 type Props = { params: { id: string } };
 
@@ -22,20 +25,20 @@ export default async function Page({ params: { id } }: Props) {
     monitorForLast30Days,
     monitorForLast365Days,
   ] = await Promise.all([
-    getAMonitorById({ id, incidentStartAt: startOfToday }),
-    getAMonitorById({
+    getAMonitorById({ id }),
+    getAMonitorByIdWithFilteredIncidents({
       id,
       incidentStartAt: startOfToday,
     }),
-    getAMonitorById({
+    getAMonitorByIdWithFilteredIncidents({
       id,
       incidentStartAt: startOf7DaysAgo,
     }),
-    getAMonitorById({
+    getAMonitorByIdWithFilteredIncidents({
       id,
       incidentStartAt: startOf30DaysAgo,
     }),
-    getAMonitorById({
+    getAMonitorByIdWithFilteredIncidents({
       id,
       incidentStartAt: startOf365DaysAgo,
     }),
