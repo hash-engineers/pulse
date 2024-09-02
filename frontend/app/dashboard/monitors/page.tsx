@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { AllMonitors } from './_all-monitors';
 import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
 import { dashboard } from '@/lib/paths/dashboard';
 import { getAllMonitors } from '@/actions/monitor';
 import { useMutation } from '@tanstack/react-query';
@@ -44,9 +43,7 @@ export default function Page() {
           </h3>
           <SearchAndCreateMonitor />
 
-          <Suspense fallback={<Spinner />}>
-            <AllMonitors monitors={monitors} />
-          </Suspense>
+          <AllMonitors monitors={monitors} />
         </>
       ) : (
         <div className="flex items-center justify-center h-screen w-full">
