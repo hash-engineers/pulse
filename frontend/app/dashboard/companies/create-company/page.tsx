@@ -24,8 +24,8 @@ export default async function Page() {
         </p>
         <CreateCompanyForm
           id={user.id}
-          name={user?.given_name + ' ' + user?.family_name ?? ''}
-          email={user.email!}
+          name={user?.given_name + ' ' + user?.family_name}
+          email={user.email}
         />
       </div>
     </section>

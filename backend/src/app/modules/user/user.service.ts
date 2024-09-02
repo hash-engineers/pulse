@@ -29,7 +29,7 @@ const createAnUser = async (
   return user;
 };
 
-const getAnUserById = async (id: string): Promise<User> => {
+const getAnUserById = async (id: string): Promise<User | null> => {
   const user = await prisma.user.findUnique({ where: { id } });
 
   if (!user) throw new ApiError(404, 'User not found!');

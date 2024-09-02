@@ -19,7 +19,7 @@ import { BottomGradientButton } from '@/components/ui/bottom-gradient-button';
 type Props = {
   id: string;
   name: string;
-  email: string;
+  email: string | null;
 };
 
 export function CreateCompanyForm({ id, name, email }: Props) {
@@ -29,18 +29,14 @@ export function CreateCompanyForm({ id, name, email }: Props) {
     resolver: zodResolver(createCompanySchema),
     defaultValues: {
       id,
-      name,
-      email,
+      name: name ?? '',
+      email: email ?? '',
       companyName: '',
       size: companySize[0],
     },
   });
 
-  const {
-    data,
-    mutate: server_createCompany,
-    isPending,
-  } = useMutation({
+  const { mutate: server_createCompany, isPending } = useMutation({
     mutationFn: createCompany,
     onSuccess: () => {
       toast.success('Your company created');

@@ -44,7 +44,7 @@ export async function getAMonitorById({
 }: GetAMonitorById): Promise<Monitor | null> {
   try {
     const res = await axios.get(
-      api.monitors + '/' + id + '?incidentStartAt=' + incidentStartAt,
+      api.monitors.route + '/' + id + '?incidentStartAt=' + incidentStartAt,
       { headers: commonHeaders }
     );
 

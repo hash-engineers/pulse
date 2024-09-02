@@ -1,4 +1,4 @@
-const baseApi = process.env.NEXT_PUBLIC_MAIN_API!;
+const baseApi = process.env.NEXT_PUBLIC_MAIN_API as string;
 const usersApi = '/users';
 const userApi = '/user';
 const companiesApi = '/companies';

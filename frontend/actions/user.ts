@@ -10,7 +10,7 @@ export async function getAnUserById({
   id,
 }: GetAnUserById): Promise<User | null> {
   try {
-    const res = await axios.get(api.users + '/' + id, {
+    const res = await axios.get(api.users.route + '/' + id, {
       headers: commonHeaders,
     });
 
