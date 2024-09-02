@@ -63,7 +63,11 @@ export async function getAMonitorByIdWithFilteredIncidents({
 }: GetAMonitorByIdWithFilteredIncidents): Promise<Monitor | null> {
   try {
     const res = await axios.get(
-      api.monitors.route + '/' + id + '?incidentStartAt=' + incidentStartAt,
+      api.monitors.filteredIncidents.route +
+        '/' +
+        id +
+        '?incidentStartAt=' +
+        incidentStartAt,
       {
         headers: commonHeaders,
       }

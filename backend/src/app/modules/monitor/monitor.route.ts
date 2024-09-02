@@ -18,7 +18,7 @@ router
   .get('/', MonitorController.getAllMonitors)
   .get('/:id', MonitorController.getAMonitorById)
   .get(
-    '/filtered-incidents',
+    '/filtered-incidents/:id',
     MonitorController.getAMonitorByIdWithFilteredIncidents,
   )
 
