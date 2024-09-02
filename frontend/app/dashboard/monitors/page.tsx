@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { AllMonitors } from './_all-monitors';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { dashboard } from '@/lib/paths/dashboard';
 import { getAllMonitors } from '@/actions/monitor';
 import { useMutation } from '@tanstack/react-query';
@@ -18,13 +19,19 @@ export default function Page() {
     mutationFn: getAllMonitors,
     mutationKey: ['monitors'],
     onError: (error: any) => {
-      errorToast(error);
+      errorToast({ error });
     },
   });
 
   useEffect(() => {
     if (user?.id) {
       server_getAllMonitors({ userId: user.id });
+
+      const intervalId = setInterval(() => {
+        server_getAllMonitors({ userId: user.id });
+      }, 1000 * 60 * 3);
+
+      return () => clearInterval(intervalId);
     }
   }, [user, server_getAllMonitors]);
 
@@ -37,7 +44,9 @@ export default function Page() {
           </h3>
           <SearchAndCreateMonitor />
 
-          <AllMonitors monitors={monitors} />
+          <Suspense fallback={<Spinner />}>
+            <AllMonitors monitors={monitors} />
+          </Suspense>
         </>
       ) : (
         <div className="flex items-center justify-center h-screen w-full">

@@ -45,7 +45,7 @@ export function MainForm({ userId }: Props) {
       toast.success('Monitor created');
     },
     onError: (error: any) => {
-      errorToast(error);
+      errorToast({ error });
     },
   });
 

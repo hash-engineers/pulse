@@ -44,7 +44,7 @@ export function CreateCompanyForm({ id, name, email }: Props) {
       push(dashboard.monitors.createMonitor.path);
     },
     onError: (error: any) => {
-      errorToast(error);
+      errorToast({ error });
     },
   });
 

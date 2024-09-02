@@ -13,7 +13,7 @@ export default async function DashboardLayout({ children }: Props) {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  if (!user) redirect(auth.login.path);
+  if (!user?.id) redirect(auth.login.path);
 
   const dbUser = await getAnUserById({ id: user.id });
 
