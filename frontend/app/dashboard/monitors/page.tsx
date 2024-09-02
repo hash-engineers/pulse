@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { AllMonitors } from './_all-monitors';
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 import { dashboard } from '@/lib/paths/dashboard';
 import { getAllMonitors } from '@/actions/monitor';
 import { useMutation } from '@tanstack/react-query';
@@ -14,7 +15,11 @@ import { SearchAndCreateMonitor } from './_search-and-create-monitor';
 export default function Page() {
   const { user } = useKindeBrowserClient();
 
-  const { data: monitors, mutate: server_getAllMonitors } = useMutation({
+  const {
+    data: monitors,
+    mutate: server_getAllMonitors,
+    isPending,
+  } = useMutation({
     mutationFn: getAllMonitors,
     mutationKey: ['monitors'],
     onError: (error: any) => {
@@ -33,6 +38,8 @@ export default function Page() {
       return () => clearInterval(intervalId);
     }
   }, [user, server_getAllMonitors]);
+
+  if (isPending) return <Spinner />;
 
   return (
     <section className="space-y-4">
